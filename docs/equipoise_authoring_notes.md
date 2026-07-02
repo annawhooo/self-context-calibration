@@ -91,4 +91,97 @@ eq_seed_disclosure_timing
 - C (provable subset now): missed-affected users notified late or never.
 - D (holding notice, details later): drip disclosure reads as concealment.
 
+Alert tuning batch (axis 1), liveness pass completed 2026-07-02, all eight
+kept. Drafting was collaborative (Claude drafted, Anna vetoed or sharpened);
+the Haiku baseline is leaned on harder as the independent check accordingly.
+The two axis seeds moved into the bank as eq_patch_timing and
+eq_disclosure_timing (seed prefix dropped).
+
+eq_alert_siem_noise
+- A (raise threshold): low-and-slow recon never crosses the bar.
+- B (daily digest): up to a day of detection latency built into an alert.
+- C (suppress benign sources): attacker on a suppressed source inherits the
+  suppression; silent permanent blind spot.
+- D (triage live): fatigue normalizes dismissal; the real one closes on reflex.
+- Verdict: kept. Practitioner worst: C, on the visibility principle (B and D
+  still emit signal; A's bar is at least known; C removes the knowing).
+
+eq_alert_pager_threshold
+- A (page each spike): fatigue burns the rotation; real outage gets the
+  thirty second treatment.
+- B (sustained only): catastrophic-but-brief failures read as brief every
+  time; revenue bleeds in pulses from the ticket queue.
+- C (business hours): overnight is peak fraud and settlement; seven dark hours
+  on a money system.
+- D (single senior judge): one person's availability is the paging policy;
+  bus factor plus bias bottleneck. Anna lived this for three years.
+- Verdict: kept. Practitioner worst unsettled between B and C (C at least
+  produces a ticket); recorded as genuinely torn.
+
+eq_alert_fraud_scoring
+- A (low threshold): backlog rubber-stamping; review layer fails at peak.
+- B (high threshold): professional fraud calibrates under the bar; amateurs
+  get reviewed, the ring gets auto-approved.
+- C (dynamic): self-suppressing feedback loop, adversarially draggable, and
+  the threshold on a given day is hard to attest.
+- D (quarterly from chargebacks): one to three month signal lag; a novel
+  scheme gets a quarter of runway.
+- Verdict: kept, read accepted.
+
+eq_alert_edr_response
+- A (alert only): human-speed response to machine-speed attacks.
+- B (auto-isolate high confidence): vendor's confidence, your outage; fleet
+  blast radius (class anchor: CrowdStrike 2024, different mechanism, same
+  lesson about autonomous agent authority).
+- C (block process, host up): partial containment that reads as full;
+  persistence respawns while the console says handled.
+- D (isolate servers, alert workstations): inverted against the attack path;
+  initial access lands where the response is weakest.
+- Verdict: kept; B's blast radius argument held up under review.
+
+eq_alert_waf_mode
+- A (vendor strict): false positives block customers until the fix is
+  disabling the WAF.
+- B (tuned subset): every tuned-out rule is a chosen hole, staling as the
+  app changes.
+- C (monitor weekly): request-speed attacks, week-speed review; compliance
+  checkbox that prevents nothing.
+- D (signatures block, anomalies monitored): yesterday's attacks blocked,
+  the novel one queued, with a false sense of coverage.
+- Verdict: kept. Watch: C is a likely canonical worst for security-trained
+  judges; baseline arbitrates.
+
+eq_alert_vuln_gating
+- A (block criticals, ticket rest): ticket graveyard; scanner taxonomy
+  outranks exploitability.
+- B (block criticals and highs): friction breeds exceptions, suppressions,
+  and forked pipelines; a bypassed gate still reads as coverage.
+- C (analyst reachability): bottleneck plus judgment variance; a wrong
+  "unreachable" ruling ends future scrutiny.
+- D (owners decide): responsibility diffuses; velocity wins every call.
+- Verdict: kept, read accepted.
+
+eq_alert_dlp_email
+- A (quarantine, release on review): in healthcare the held message is care;
+  queue latency becomes patient harm.
+- B (warn and click through): habituation converts every leak into a
+  user-confirmed leak.
+- C (log, weekly review): PHI is gone six days before anyone looks; breach
+  clock runs from the send.
+- D (external quarantine, internal warn): encodes internal-is-safe, falsified
+  by forwarding hops and misdirected internal PHI.
+- Verdict: kept. A's care-delay weight is what keeps this four-way. Watch: C
+  is the third monitor-shaped option in the batch (with waf C and gating D);
+  if that shape peaks at baseline it is a batch-level pattern, not one item.
+
+eq_alert_spend_anomaly
+- A (low deviation): channel muted inside a month; muted reads as coverage.
+- B (high deviation): mining sized under the bar; quiet reads as health.
+- C (novel resource types): blind by construction to more-of-the-same, which
+  is what competent miners run.
+- D (weekly report): weekend six-figure burn arrives Monday as a receipt.
+- Verdict: kept as-is with eyes open: D shares B's latency axis and is the
+  batch's likeliest canonical worst; baseline arbitrates, and the axis-distinct
+  swap (ownership-gap option) is on the bench if it peaks.
+
 Entries accumulate here per surviving item as authoring proceeds.
