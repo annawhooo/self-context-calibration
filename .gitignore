@@ -1,0 +1,21 @@
+# secrets: never commit a key
+.env
+*.key
+*.pem
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# os
+.DS_Store
+Thumbs.db
+
+# scratch results (commit a frozen results snapshot deliberately, not every run)
+results/scratch/
+
+# raw harness run outputs embed model thinking/replies; ignore per-run files.
+# commit a frozen snapshot deliberately (git add -f), not every run.
+results/*.jsonl
