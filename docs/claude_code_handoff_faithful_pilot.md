@@ -68,10 +68,9 @@ Read that header before doing anything else.
 - Python with the `requests` package. Install with `pip install requests` if it
   is not present. An import-time `RequestsDependencyWarning` about urllib3 is
   harmless and does not affect the run.
-- The harness reads the key from `ANTHROPIC_API_KEY`. Retrieve it from the coffer
-  vault (alias `itr-experiment`) and set it in the shell. Do not hardcode it.
-  - cmd: `set ANTHROPIC_API_KEY=<value>` then `%ANTHROPIC_API_KEY%`.
-  - PowerShell: `$env:ANTHROPIC_API_KEY = "<value>"`.
+- The harness reads the key from `ANTHROPIC_API_KEY`. Anna sets it in the shell
+  before launching this session; the coffer vault has no plaintext retrieval
+  path by design, so do not attempt to retrieve the key, and do not hardcode it.
   - Verify it is set without printing the value, e.g. PowerShell
     `[bool]$env:ANTHROPIC_API_KEY` or `$env:ANTHROPIC_API_KEY.Length`, cmd
     `if defined ANTHROPIC_API_KEY echo set`. Never echo the key itself; if it
