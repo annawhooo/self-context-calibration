@@ -78,7 +78,8 @@ at or below the K1 line (0.30, 0.42, 0.44). Liveness watch flags predicted
 the magnet option in 8 of 8 flagged items. The negative result is reported as
 a finding: judgment-equipoise on security content is not constructible against
 this model family's folk priors at practical authoring cost. Screening data:
-results/scratch/equipoise_screening.jsonl; authoring record:
+results/scratch/equipoise_screening.jsonl (round two, 13 candidates); round
+one was screened inside the July pilot baseline run. Authoring record:
 docs/equipoise_authoring_notes.md.
 
 ## E. Baseline arm under v1.5
