@@ -19,3 +19,4 @@ results/scratch/
 # raw harness run outputs embed model thinking/replies; ignore per-run files.
 # commit a frozen snapshot deliberately (git add -f), not every run.
 results/*.jsonl
+results/*.log
