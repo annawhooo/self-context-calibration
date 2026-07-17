@@ -3,8 +3,9 @@
 Status: DRAFT amendment to PRE_REGISTRATION_FAITHFUL.md, drafted 2026-07-16,
 pre-lock. The lock remains a later dated, tagged commit. This amendment is to
 be merged into the pre-registration body before lock, with the change recorded
-in the document history; nothing here is locked yet. One section (G) is an
-open slot pending the parser diagnostic and must be resolved before lock.
+in the document history; nothing here is locked yet. Section G was an open
+slot pending the parser diagnostic; it was resolved parser-side on
+2026-07-17 and no longer blocks the merge.
 
 ## A. Design reframe: re-derivation as a measured nuisance model
 
@@ -105,7 +106,7 @@ deny_true 2 of 5 (signal, not result: N=5, selection-heavy stratum). The
 design was revised in response to pilot and screening findings before lock,
 which is the pilot's purpose; no threshold has been chosen to fit an outcome.
 
-## G. Readability on adaptive models: parser-side fix (diagnostic complete, revalidation pending Code)
+## G. Readability on adaptive models: parser-side fix (resolved 2026-07-17)
 
 The July legs voided Sonnet derivable (0.53) and both Opus cells (0.63,
 0.50) on readability, dominated by no_parseable_needle_in_thinking (18 of 30
@@ -149,12 +150,26 @@ Prototype revalidation against the July data at zero new API cost: all 40
 needle exclusions recover; the 19 Sonnet and Opus recoveries outside the
 existing chain were hand-verified against the summary text, 19 of 19; the
 113 previously parsed rows are unchanged; the only remaining exclusions are
-the six Opus no_thinking_block rows, which contain no text. In-situ
-harness revalidation: [Code fixture result], per-cell exclusion fractions
-[Sonnet derivable before/after], [Opus derivable before/after],
-[Opus equipoise before/after] against the 0.20 void line. Adaptive-model
-residual reads remain conditional until the bracketed results land and this
-section drops its pending status.
+the six Opus no_thinking_block rows, which contain no text. In-situ harness
+revalidation (2026-07-17, Code implementation with a fixture test, then
+independently re-run from the research chat against the working-tree
+harness): fixture 24 of 24 at the expected needle and tier; zero
+regressions across all 96 stored-parsed rows; needle_source over the 143
+generation rows decomposes as existing 113, verdict_sentence 18, content 3,
+section 3, none 6; every pinned constant verified byte-identical to the
+handoff spec. Schema decision: tier 0 reports the single value "existing"
+and unrecovered rows write needle_source null, so the source exists iff the
+needle does. Per-cell exclusion fractions after recovery, against the 0.20
+void line (strictly greater voids): Sonnet derivable falls from 0.533 to
+0.000 and its void clears; Sonnet equipoise 0.200 to 0.000; Opus equipoise
+0.100 to 0.000 (0.50 at run time, the stub fallback having recovered 4 of
+the 5); Opus derivable falls from 0.633 at run time to 0.200 post-stub and
+holds at 0.200 with zero margin, the entire residue being the six
+no_thinking_block rows no parser can reach, so the display-gap pool-sizing
+caveat stands unchanged. Adaptive-model residual reads are no longer
+conditional on readability. The Opus display gap remains a tracked risk
+sitting exactly on the line: one empty-thinking row above the July count
+voids the cell in a real run.
 
 ## H. Confirm-before-lock list (consolidated)
 
