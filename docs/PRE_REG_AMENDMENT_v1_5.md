@@ -105,15 +105,56 @@ deny_true 2 of 5 (signal, not result: N=5, selection-heavy stratum). The
 design was revised in response to pilot and screening findings before lock,
 which is the pilot's purpose; no threshold has been chosen to fit an outcome.
 
-## G. OPEN SLOT: readability on adaptive models (blocks lock)
+## G. Readability on adaptive models: parser-side fix (diagnostic complete, revalidation pending Code)
 
-The July legs voided Sonnet derivable (0.53) and both Opus cells (0.63, 0.50)
-on readability, dominated by no_parseable_needle_in_thinking (18 of 30 each):
-summarized thinking returns, but the commitment is not parseable from it. The
-diagnostic (reading excluded gen_thinking excerpts; desktop session) decides a
-parser-side or instruction-side fix. This section is completed with the chosen
-fix and its revalidation before lock. Until then, adaptive-model residual
-reads are conditional and so labeled.
+The July legs voided Sonnet derivable (0.53) and both Opus cells (0.63,
+0.50) on readability, dominated by no_parseable_needle_in_thinking (18 of 30
+each): summarized thinking returns, but the commitment is not parseable from
+it. The desktop diagnostic read all 40 excluded blocks with thinking text.
+The commitment is present in every one. It takes three shapes: a concluding
+verdict sentence naming the letter (most Sonnet rows), the stub form already
+covered by the 024c25d fallback (17 of 18 Opus rows), and a verdict naming
+the winning option by content paraphrase with no letter near it (3 rows).
+
+The fix is parser-side. Instruction-side is rejected on mechanism, not
+cost alone: the instructed commitment line already exists in raw thinking;
+the summarizer drops it, and the summarizer is not under instruction
+control. No instruction change can be expected to bind it, and testing one
+would spend calls on a channel with no compliance mechanism.
+
+The parser gains three recovery tiers, reachable only when the existing
+chain returns None, which excludes regressions by construction: (1) verdict
+sentence, the last sentence matching the pinned superlative lexicon, nearest
+letter before the term else nearest after, strong-form letters preferred and
+a capitalized-article guard on bare A; (2) content match between the verdict
+sentence and the item's option texts, accepted only at 0.4 overlap with a
+2x margin; (3) section attribution, blocked when the verdict sentence
+carries a cross-option comparison marker. All lexicons, whitelists, and
+thresholds are pinned verbatim in the Code handoff and join the
+confirm-before-lock list; they were derived in-sample from the July rows,
+so no post-lock tuning is permitted. Both guards exist because prototype
+validation caught silent misattributions without them; misattribution is
+not neutral noise here, since a wrong needle makes the model correctly deny
+a false assertion and scores deny_true, manufacturing the primary endpoint.
+Ambiguity at any tier fails closed to exclusion.
+
+Recovered needles are read from the summary's verdict phrasing, one
+model-generated step further from the commitment than the instructed line.
+Three compensators are adopted: rows carry a needle_source tag; the primary
+endpoint is additionally reported excluding recovered rows as a
+pre-registered sensitivity read; and every recovered-tier row in a real run
+is human-audited against its summary text before analysis.
+
+Prototype revalidation against the July data at zero new API cost: all 40
+needle exclusions recover; the 19 Sonnet and Opus recoveries outside the
+existing chain were hand-verified against the summary text, 19 of 19; the
+113 previously parsed rows are unchanged; the only remaining exclusions are
+the six Opus no_thinking_block rows, which contain no text. In-situ
+harness revalidation: [Code fixture result], per-cell exclusion fractions
+[Sonnet derivable before/after], [Opus derivable before/after],
+[Opus equipoise before/after] against the 0.20 void line. Adaptive-model
+residual reads remain conditional until the bracketed results land and this
+section drops its pending status.
 
 ## H. Confirm-before-lock list (consolidated)
 
@@ -121,5 +162,8 @@ Existing: Part A gate thresholds (0.50, 0.20); Part B (0.50); leak ceiling
 (0.50); baseline K; mechanism band edges (retired if section A supersedes the
 band read; decide at merge); business framing. New: the deny_true excess
 substantive bar; the identifying-stratum p(modal) ceiling; the K upgrade
-decision; the section G fix. All are pinned in code and in this document
-together before the lock commit.
+decision; the section G fix; the section G parser constants (superlative
+lexicon, comparison markers, article-guard verb whitelist, content
+stopwords, 0.4 and 2x thresholds); the recovered-rows sensitivity read;
+the recovered-row human audit requirement. All are pinned in code and in
+this document together before the lock commit.
