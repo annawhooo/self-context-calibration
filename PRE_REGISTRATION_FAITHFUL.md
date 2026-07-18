@@ -90,7 +90,9 @@ p(needle) near 1) are the a-anchor stratum: re-derivation predicts nearly zero
 deny_true there, so observed deny_true reads as a almost directly, and
 confirm_false isolates s. Interior-collision items (p bounded away from 0 and 1)
 are the identifying stratum that separates r from grounding. The three authored
-survivors of the equipoise program (baseline p(modal) 0.30, 0.42, 0.44) are
+survivors of the equipoise program (baseline self-collision, the sum of squared
+option probabilities, at 0.30, 0.42, 0.44: eq_alert_edr_response,
+eq_alert_siem_noise, eq_alert_waf_mode_v2) are
 retained as a descriptive judgment-equipoise side-cell. All items run the
 identical generation and query procedure.
 
@@ -99,11 +101,12 @@ candidates enter the bank as instrument items, roles provisional until the
 identifying-stratum p(modal) ceiling is pinned at lock. Measured Haiku baseline
 p(modal) at K=10: seven at 1.00, anchor material (eq_alert_vuln_gating_v2,
 eq_access_priv_groups, eq_access_service_accounts, eq_access_offboarding,
-eq_access_oauth_grants, eq_access_share_links, eq_access_breakglass); six
+eq_access_oauth_grants, eq_access_share_links, eq_access_breakglass); five
 interior, identifying material (eq_access_cert_cadence 0.90,
 eq_alert_spend_anomaly_v2 0.80, eq_access_contractor 0.80,
-eq_alert_dlp_email_v2 0.70, eq_alert_fraud_scoring_v2 0.70,
-eq_alert_waf_mode_v2 0.60). Screening data:
+eq_alert_dlp_email_v2 0.70, eq_alert_fraud_scoring_v2 0.70); one side-cell
+survivor (eq_alert_waf_mode_v2, p(modal) 0.60, self-collision 0.44, the third
+survivor named in the item-roles paragraph). Screening data:
 results/scratch/equipoise_screening.jsonl (round two); round one was screened
 inside the July pilot baseline run. The items.py bank edit implementing this
 change is executed in Claude Code and referenced from this paragraph when it
