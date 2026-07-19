@@ -619,7 +619,7 @@ def write_row(fh, row):
     fh.flush()
 
 
-def run_faithful(api_key, run_id):
+def run_faithful(api_key, run_id, models):
     """Faithful probe arm. Reads item["cell"] and writes it as item_cell on every
     generation and query row. The collection loop runs once per cell: N_TARGET
     valid items per cell, pool cap POOL_MULTIPLIER * N_TARGET per cell, and
@@ -637,7 +637,7 @@ def run_faithful(api_key, run_id):
     rfh = open(RESULTS_PATH, "a", encoding="utf-8")
     efh = open(EXCLUSIONS_PATH, "a", encoding="utf-8")
     try:
-        for model in MODELS:
+        for model in models:
             gen_cfg = THINKING_CONFIG[model]
             query_cfg = THINKING_CONFIG[model] if QUERY_THINKING else None
 
@@ -750,7 +750,7 @@ def run_faithful(api_key, run_id):
 
     print("\nPer-cell category tally (faithful, all absent), run {}".format(run_id))
     print("model                        cell        probe            categories")
-    for model in MODELS:
+    for model in models:
         for cell in ITEM_CELLS:
             for probe in PROBES:
                 cats = tally.get((model, cell, probe))
@@ -766,7 +766,7 @@ def run_faithful(api_key, run_id):
           "commitment) and confident_wrong on recall.")
 
 
-def run_baseline(api_key, run_id):
+def run_baseline(api_key, run_id, models):
     """Fresh-judgment baseline arm. Single-turn calls with no conversation replay
     and no claimed history: the item's decision text followed by a direct
     highest-risk question. K_BASELINE samples per item per model over the full
@@ -779,7 +779,7 @@ def run_baseline(api_key, run_id):
 
     bfh = open(BASELINE_PATH, "a", encoding="utf-8")
     try:
-        for model in MODELS:
+        for model in models:
             gen_cfg = THINKING_CONFIG[model]
             for item in ITEMS:
                 cell = item.get("cell")
@@ -812,6 +812,27 @@ def run_baseline(api_key, run_id):
           "collects the samples.")
 
 
+def resolve_models(models_arg):
+    """Resolve the --models CLI value into the model list for this run. None
+    (flag absent) falls back to the MODELS constant unchanged. Otherwise the
+    value is a comma-separated list of model ids, validated against
+    THINKING_CONFIG keys and returned in the order given. An unknown id (or an
+    empty list) raises ValueError, so a bad value stops the run before any API
+    call is made."""
+    if models_arg is None:
+        return list(MODELS)
+    requested = [m.strip() for m in models_arg.split(",") if m.strip()]
+    if not requested:
+        raise ValueError("--models was given but contains no model ids: "
+                         "{!r}".format(models_arg))
+    unknown = [m for m in requested if m not in THINKING_CONFIG]
+    if unknown:
+        raise ValueError("unknown model id(s): {}. Valid ids (THINKING_CONFIG "
+                         "keys): {}".format(", ".join(unknown),
+                                            ", ".join(sorted(THINKING_CONFIG))))
+    return requested
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Faithful-family harness. The default arm runs the faithful "
@@ -820,14 +841,23 @@ def main():
     ap.add_argument("--arm", choices=["faithful", "baseline"], default="faithful",
                     help="faithful (default): per-cell generation and probe query. "
                          "baseline: single-turn fresh-judgment collision sampling.")
+    ap.add_argument("--models", default=None,
+                    help="comma-separated model ids, validated against "
+                         "THINKING_CONFIG keys and run in the order given, on "
+                         "whichever arm is selected. Absent: the MODELS constant.")
     args = ap.parse_args()
+
+    try:
+        models = resolve_models(args.models)
+    except ValueError as exc:
+        ap.error(str(exc))
 
     api_key = get_api_key()
     run_id = now_iso()
     if args.arm == "baseline":
-        run_baseline(api_key, run_id)
+        run_baseline(api_key, run_id, models)
     else:
-        run_faithful(api_key, run_id)
+        run_faithful(api_key, run_id, models)
 
 
 if __name__ == "__main__":
