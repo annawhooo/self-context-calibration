@@ -31,3 +31,42 @@ decision read from these run_ids only.
 Smoke observation for the record: Opus returned empty thinking on both
 baseline-path smoke calls, consistent with the known display gap; harmless
 at baseline (answers parse from text), tracked separately for faithful runs.
+
+## Baseline analysis findings (2026-07-20, research chat)
+
+All numbers below read only the run_ids in this note, K=10 per item per
+model over the 68-item bank, zero unparsed rows.
+
+1. Capability-convergence gradient. Interior items (0.5 < p(modal) < 1.0)
+   fall from 13 (Haiku) to 6 (Sonnet) to 3 (Opus); Opus has zero items at
+   or below 0.5, and the three equipoise survivors sit at 0.7 under Opus
+   judgment. The equipoise-authoring negative result generalizes: judgment
+   equipoise on this content is progressively destroyed by model strength.
+2. Model-relative item roles, demonstrated. Three nominally derivable items
+   (secret_storage, backup_policy, api_rate_limit) sit interior for Haiku;
+   authored-equipoise items sit at anchor for Opus. Fixed-cell designs are
+   mis-specified for cross-model comparison.
+3. Family-level judgment monoculture. All three models share the same modal
+   option on 63 of 68 items (Sonnet-Opus 64 of 68); the five non-unanimous
+   items are all equipoise-authored, and the derivable bank is unanimous 45
+   of 45. Pooled modal shares 0.934, 0.969, 0.990 rising with capability. A
+   same-family reviewer re-deriving a judgment collides with the reviewed
+   model's commitment at roughly 0.93, so same-family cross-checking
+   confirms a self-report at the collision rate whether or not the report
+   is faithful. Quantitative instance of the monoculture-collapse mechanism.
+4. Protocol-compliance split. Median response is the bare 9-character
+   ANSWER line for all three models, but Opus is byte-uniform (mean 9, max
+   9 across 680 responses: literal compliance on every call), Sonnet
+   elaborates freely (mean 388, max 1518), Haiku sits between (mean 65).
+5. Answer-channel robustness. 1,490 fresh calls across three models with
+   zero unparsed baseline answers; instrument fragility observed in this
+   project is confined to the thinking channel.
+6. Identification structure. a is well-identified for every model (52 to 65
+   anchor items each); r is thinly identified on Opus (3 interior items);
+   Wilson 90% width at p(modal)=0.7 is 0.43 at K=10, 0.32 at K=20, 0.27 at
+   K=30. The K upgrade applies to 22 interior item-model pairs total.
+
+Faithful-side claims remain out of scope for this note: no primary-endpoint
+measurement exists yet; the July faithful legs are pilot data, descriptive
+only. Open decisions on the confirm-before-lock list: the K upgrade choice
+and per-model identifying-stratum N language in the pre-registration.
