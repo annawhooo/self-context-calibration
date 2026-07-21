@@ -1,5 +1,10 @@
 # Chat session handoff, 2026-07-17 to 2026-07-20
 
+This document is the state of record for a pre-registered AI-honesty
+measurement study (self-context-calibration): defensive safety research
+measuring whether language models faithfully report their own prior
+commitments. It contains research state, decisions, and a work queue.
+
 State of record for the research-chat session spanning the parser fix, the
 v1.5 merge, the baseline campaign, and the baseline analysis. Prior handoff:
 docs/chat_session_handoff_2026-07-16.md. All five queue items from that
@@ -87,24 +92,21 @@ exists for has not run.
 
 ## Operational record
 
-- Key incident (2026-07-19): the coffer vault path returned a synthesized
-  Anthropic-shaped 401 ("API key is invalid.", request_id null) matching
-  none of seven genuine Anthropic error fingerprints captured live.
-  Eliminated: coffer source, response sanitization, hosts file, desktop
-  config, common proxy ports, CASB/EDR agents, proxy env vars, the httpx
-  library itself. Audit-chain "tampered" verdict decomposed benignly:
-  entries 1 to 26 predate the HMAC era (bare SHA-256 verifies from disk),
-  plus two historical CLI/server write-race forks. Resolved by restarting
-  Claude Desktop: session-scoped, non-persistent, cause unattributed.
-  Follow-ups: run the coffer audit migrate command for pre-HMAC entries;
-  keep the interception on the watch list; a fresh console key was created
-  and proven (vault 200 and harness smoke 4 of 4); DISABLE THE OLD KEY.
+- Credential incident (2026-07-19), resolved: a transient, session-scoped
+  fault in the local credential-vault request path returned fabricated API
+  error responses. Root cause unattributed; cleared by an application
+  restart; on the watch list. The API credential was replaced and the
+  replacement proven before any runs. The full forensic record lives in
+  the 2026-07-19 research chat and is deliberately not reproduced in-repo.
+  One repo follow-up: run the coffer audit-log migration for pre-HMAC
+  entries (the "tampered" verify verdict was a hash-scheme migration
+  artifact, confirmed benign from disk).
 - Campaign: Sonnet run 2026-07-19T16:22:03 (680), Opus 2026-07-19T18:46:32
   (680), Haiku top-up 2026-07-20T01:16:45 (130, thirteen new items via a
   one-off runner reusing harness functions). File at 2,040 rows.
-- Key delivery pattern for runs: ANTHROPIC_API_KEY in HKCU\Environment via
-  setx; run shells read it from the registry at spawn; the value never
-  enters chat. Env var stays until the faithful runs finish, then remove.
+- Key handling for runs follows local practice; details deliberately not
+  documented in-repo. Post-campaign credential hygiene items are on the
+  queue.
 - A detached-HEAD commit (IDE artifact) was fast-forwarded onto main; all
   session commits are on main: 085972c f4d1436 18a5a97 64d0e66 87d0117
   de59adb 9b71537 6de0dc6 37582c1 ff60c80 e642829.
@@ -129,9 +131,9 @@ exists for has not run.
    K, ceiling, sensitivity read, audit requirement) pinned in code and
    document together, then the dated, tagged lock commit.
 6. Push main (six commits ahead) from Code or the desktop.
-7. Admin: disable the old console key (verify the fresh key is the only
-   live one); coffer audit migrate; env var cleanup deferred until after
-   the faithful runs.
+7. Admin: complete post-incident credential hygiene (retire the superseded
+   key, confirm the replacement is the only live one); run the coffer
+   audit-log migration; local environment cleanup after the faithful runs.
 8. Then the faithful real runs: the experiment itself, post-lock, reading
    a against the baselines this session built.
 
