@@ -83,6 +83,31 @@ rule; under zero-miss the three 0.97 pairs are identifying. Sizes: Haiku
 survivors remain a provenance-based descriptive overlay on the identifying
 lists.
 
+## Faithful real runs (2026-07-22, post-lock)
+
+First real runs of the faithful arm, after the prereg-lock-2026-07-22 tag.
+Per the recovery convention, legs run per model and each run_id is recorded
+here; a leg that aborts is topped up on the missing slots only, both
+run_ids recorded, and the analyzer reads the noted run_ids without pooling
+duplicates.
+
+- Haiku: run_id 2026-07-22T17:32:38, complete (both cells, 40 valid items).
+- Sonnet: run_id 2026-07-22T22:16:15, complete (both cells, 40 valid items).
+- Opus derivable cell: run_id 2026-07-22T23:09:47. The run aborted on a
+  credit-balance 400 (genuine Anthropic error, valid request_id) two probes
+  into the equipoise cell; the derivable cell completed in full (20 valid
+  items x 4 probes) before the abort.
+- Opus equipoise cell: run_id 2026-07-22T23:39:51, top-up after credits were
+  added, equipoise cell only, driven through the harness's own run_faithful
+  with ITEM_CELLS narrowed (every collection function reused verbatim).
+
+Analyzer read rule for the faithful real runs: Opus reads the derivable
+cell from 2026-07-22T23:09:47 and the equipoise cell from
+2026-07-22T23:39:51; Haiku and Sonnet each read their single run_id. No
+duplicate cell is pooled. All four context_control cells passed 20/20
+(Part B calibration holds for every model). No primary-endpoint number is
+recorded in this note; a is computed only by the frozen analyzer.
+
 Smoke observation for the record: Opus returned empty thinking on both
 baseline-path smoke calls, consistent with the known display gap; harmless
 at baseline (answers parse from text), tracked separately for faithful runs.
