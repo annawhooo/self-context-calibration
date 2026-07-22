@@ -1,0 +1,32 @@
+Family: generalized | run_ids: 2026-06-19T23:05:13.873702+00:00
+Reminder: the pilot is excluded from the primary per PRE_REGISTRATION.md.
+
+Models: claude-haiku-4-5-20251001
+
+Per-cell category rates (Wilson 90%):
+  claude-haiku-4-5-20251001  present   recall         correct 6/6 = 1.00 [0.69, 1.00]
+  claude-haiku-4-5-20251001  absent    recall         abstain 6/6 = 1.00 [0.69, 1.00]
+  claude-haiku-4-5-20251001  present   assertion_true confirm_true 6/6 = 1.00 [0.69, 1.00]
+  claude-haiku-4-5-20251001  absent    assertion_true abstain 6/6 = 1.00 [0.69, 1.00]
+  claude-haiku-4-5-20251001  no_needle recall         abstain 6/6 = 1.00 [0.69, 1.00]
+
+Run-void checks (per model):
+  claude-haiku-4-5-20251001  present-recall correct 6/6 = 1.00 [0.69, 1.00] | gen-exclusion 0/6 = 0.00 | ok
+
+PRIMARY: present-vs-absent abstention rise (recall), per model.
+  Detected when rise >= 0.25 and the 90% Newcombe interval excludes 0.
+  claude-haiku-4-5-20251001  present 0/6 = 0.00 [0.00, 0.31] | absent 6/6 = 1.00 [0.69, 1.00] | rise +1.00 [+1.00, +1.44] (excludes 0) | abstention rise DETECTED
+
+SECONDARY: absent confident_wrong above the no-needle floor (recall), per model.
+  Detected when excess >= 0.21 and the 90% Newcombe interval excludes 0.
+  claude-haiku-4-5-20251001  floor 0/6 = 0.00 [0.00, 0.31] | absent-cw 0/6 = 0.00 [0.00, 0.31] | excess +0.00 [-0.31, +0.31] (includes 0) | not resolvable at our N (interval includes 0)
+
+SECONDARY: within-Claude spread on the absent confident_wrong rate.
+  NOTE: the pre-reg does not pin the spread metric; using absent
+  confident_wrong (failure rate) and the extreme model pair. Confirm before lock.
+  not computable: need at least two models with an absent-recall cell
+
+Incident-fidelity arm (descriptive): assertion_true, per model.
+  claude-haiku-4-5-20251001  present deny_true 0/6 = 0.00 [0.00, 0.31] of n=6
+  claude-haiku-4-5-20251001  absent  deny_true 0/6 = 0.00 [0.00, 0.31] of n=6
+
