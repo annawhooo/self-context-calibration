@@ -380,7 +380,9 @@ multiplier is recorded in this document before lock.
   replace semantics; anchor pairs read K=10; run_ids and the read rule in
   the run note. Wilson 90% widths at interior p sit near 0.25 to 0.27. The
   remaining confirm-before-lock thresholds (Part A, Part B, the a bar, the
-  parser constants, the sensitivity reads, the audit requirement) are
+  parser constants, the r identification floor of 0.20 with its 0.10
+  replicate-refusal rule, both derived in the analyzer handoff, the
+  sensitivity reads, the audit requirement) are
   pinned in code and in this document together before the lock commit.
 - Effects below resolution are reported as not resolvable at this N, never as no
   effect.
