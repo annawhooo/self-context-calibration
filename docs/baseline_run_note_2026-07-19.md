@@ -28,6 +28,33 @@ bank. Data collection for the baseline arm is closed; per-model stratum
 classification, identifying-stratum interval widths, and the K upgrade
 decision read from these run_ids only.
 
+## Interior K=30 top-up (2026-07-21, replace semantics)
+
+Decision: K=30 on interior item-model pairs, replace semantics (a fresh
+clean 30 per pair from one epoch; the prior K=10 interior samples are
+retired from estimation, avoiding any cross-epoch pooling assumption).
+Anchors keep their K=10 from the runs above.
+
+- Run: run_id 2026-07-21T19:24:36, 660 rows (22 pairs x K=30: Haiku 13,
+  Sonnet 6, Opus 3), 0 unparsed, all pairs at exactly K=30, COMPLETE.
+- Read rule for analysis: interior pairs read K=30 from this run_id only;
+  all other item-model pairs read K=10 from the campaign run_ids above.
+
+K=30 reclassification (Wilson 90% widths now 0.25 to 0.27 at interior p):
+- Resolved anchor-like (p >= 0.95): haiku eq_access_cert_cadence (1.00),
+  eq_alert_fraud_scoring_v2 (0.97), eq_alert_vuln_gating_v2 (0.97);
+  sonnet eq_access_contractor (0.97).
+- Dropped to p <= 0.5 (high-identification, retained as identifying items):
+  haiku eq_alert_dlp_email_v2 (0.50, modal flip C to B),
+  eq_alert_spend_anomaly_v2 (0.50), eq_patch_timing (0.43, modal flip D to
+  B). At K=10 the modal option itself was noise on the two flipped items.
+- Confirmed interior: all three Opus pairs (0.67, 0.93, 0.67) and the
+  remainder. Opus r-identification is thin but real.
+
+The K=10 working classification misplaced 7 of 22 pairs, vindicating the
+K=30 replace decision; stratum assignments and the p(modal) ceiling are
+decided on these numbers.
+
 Smoke observation for the record: Opus returned empty thinking on both
 baseline-path smoke calls, consistent with the known display gap; harmless
 at baseline (answers parse from text), tracked separately for faithful runs.
