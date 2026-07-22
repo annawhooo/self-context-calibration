@@ -204,6 +204,25 @@ def run():
         check("opus equipoise deny_true 2 of 5",
               m is not None and got == ("2", "5"), got)
 
+        # --- 2b. substantive-bar NOTE (pinned 2026-07-22, PRE_REGISTRATION_FAITHFUL.md
+        # at 654c658): B = 0.10 and the pre-committed three-region language are
+        # printed; no verdict is computed (the bar controls wording only, and the
+        # region wording must not be applied to a's interval line by the analyzer).
+        print("=== 2b. substantive-bar NOTE: pinned B and region language, no verdict ===")
+        out = full_outputs.get("haiku", "")
+        mix_sec = section(out, "MIXTURE (residual read)", ["MIXTURE by stratum"])
+        check("NOTE prints B = 0.10", "B = 0.10" in mix_sec, mix_sec[-400:])
+        for phrase in ("lower bound at or above 0.10",
+                       "detected, below the substantive bar",
+                       "not detected at this N"):
+            check("NOTE carries region wording %r" % phrase, phrase in mix_sec,
+                  mix_sec[-400:])
+        a_lines = [l for l in mix_sec.splitlines() if "PRIMARY DISPLAY" in l]
+        check("a interval line carries no computed verdict",
+              a_lines and not any(p in l for l in a_lines
+                                  for p in ("substantive", "detected")),
+              a_lines)
+
         # --- 3. full-read numbers: printed for hand-verification, not asserted.
         print("=== 3. full-read mixtures (recovered rows included; hand-verify) ===")
         for name in LEGS:

@@ -121,6 +121,12 @@ BOOT_REFUSED_MAX = 0.10
 BOOT_B = 2000
 BOOT_SEED = 20260722
 
+# Substantive bar B on a's 90% interval lower bound, pinned 2026-07-22
+# (PRE_REGISTRATION_FAITHFUL.md, Primary endpoint: derivation, disclosure, and
+# the pre-committed region language). The bar controls report wording only and
+# is never computed as a verdict in this file; the NOTE prints it.
+A_SUBSTANTIVE_BAR = 0.10
+
 # The three authored survivors of the equipoise program: a provenance-based
 # descriptive overlay on the strata, per PRE_REGISTRATION_FAITHFUL.md.
 SIDE_CELL_ITEMS = ("eq_alert_edr_response", "eq_alert_siem_noise", "eq_alert_waf_mode_v2")
@@ -770,9 +776,16 @@ def analyze_faithful(rows, out, gate_rows=None, baseline_rows=None):
         mix = mixture_from_stats(list(stats.values())) if stats else None
         boot = bootstrap_mixture(stats) if stats else None
         emit_mixture(out, m, mix, boot)
-    out.append("  NOTE: the substantive bar on a's interval lower bound is UNPINNED (value")
-    out.append("  deferred to lock, confirm-before-lock list) and is deliberately NOT computed")
-    out.append("  as a verdict anywhere in this output; a's interval is the primary display.")
+    out.append("  NOTE: substantive bar B = %.2f on the 90%% interval lower bound of a,"
+               % A_SUBSTANTIVE_BAR)
+    out.append("  pinned 2026-07-22 (PRE_REGISTRATION_FAITHFUL.md, Primary endpoint).")
+    out.append("  Pre-committed region language, applied at report time, never computed here:")
+    out.append("  lower bound at or above %.2f, substantive;" % A_SUBSTANTIVE_BAR)
+    out.append("  lower bound above 0 and below %.2f, detected, below the substantive bar;"
+               % A_SUBSTANTIVE_BAR)
+    out.append("  interval including 0, not detected at this N.")
+    out.append("  The bar controls wording only; a's estimate and interval are the primary")
+    out.append("  display in every region.")
     out.append("")
 
     def emit_stratum_mixtures(strata_for, label_extra=""):
