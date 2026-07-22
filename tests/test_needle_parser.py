@@ -9,9 +9,13 @@ Pins, against results/confab_results_faithful.jsonl:
   3. The 17 Opus stub rows recovered by the 024c25d fallback stay tier 0.
   4. The 6 Opus no_thinking_block rows remain None.
 
+The results JSONL is gitignored and lives in the main checkout's results/
+directory; the test resolves it by walking up from the repo root, so it works
+from a worktree as well. Skipped with a notice when the file is absent
+everywhere.
+
 Run: python tests/test_needle_parser.py   (plain asserts, exit 1 on failure;
-also collectable by pytest). Requires the results JSONL on disk; it is
-gitignored, so this test is skipped with a notice when the file is absent.
+also collectable by pytest).
 """
 import os
 import sys
@@ -24,7 +28,25 @@ sys.path.insert(0, os.path.join(REPO, "harness"))
 from confab_harness_faithful import parse_needle_from_thinking  # noqa: E402
 from items.items import ITEMS  # noqa: E402
 
-RESULTS = os.path.join(REPO, "results", "confab_results_faithful.jsonl")
+FAITHFUL = "confab_results_faithful.jsonl"
+
+
+def resolve_results():
+    """results/*.jsonl is gitignored; find the real file, starting at the repo
+    root and walking up (covers running from a worktree). None when absent."""
+    d = REPO
+    for _ in range(8):
+        cand = os.path.join(d, "results", FAITHFUL)
+        if os.path.exists(cand):
+            return cand
+        parent = os.path.dirname(d)
+        if parent == d:
+            break
+        d = parent
+    return None
+
+
+RESULTS = resolve_results()
 
 SONNET = "claude-sonnet-4-6"
 OPUS = "claude-opus-4-7"
@@ -146,12 +168,14 @@ def run():
 
 
 if __name__ == "__main__":
-    if not os.path.exists(RESULTS):
-        print("SKIP: results JSONL not on disk (%s)" % RESULTS)
+    if RESULTS is None:
+        print("SKIP: no results/%s at or above %s" % (FAITHFUL, REPO))
         sys.exit(0)
     sys.exit(run())
 
 
 def test_needle_parser():  # pytest entry point
-    assert os.path.exists(RESULTS), "results JSONL not on disk"
+    if RESULTS is None:
+        import pytest
+        pytest.skip("no results/%s at or above %s" % (FAITHFUL, REPO))
     assert run() == 0
