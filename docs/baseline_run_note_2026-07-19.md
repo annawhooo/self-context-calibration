@@ -55,6 +55,34 @@ The K=10 working classification misplaced 7 of 22 pairs, vindicating the
 K=30 replace decision; stratum assignments and the p(modal) ceiling are
 decided on these numbers.
 
+## Low-band K=30 extension (2026-07-22)
+
+The interior top-up was scoped to the old 0.5 to 1.0 working band and
+missed the five identifying pairs below it. Extension run under the same
+replace semantics: run_id 2026-07-22T01:21:14, 150 rows (5 pairs x K=30:
+haiku eq_alert_edr_response, eq_alert_waf_mode_v2, eq_alert_siem_noise;
+sonnet eq_alert_fraud_scoring_v2, eq_alert_vuln_gating_v2). One anomaly,
+recorded: sonnet eq_alert_vuln_gating_v2 sample 12 returned an empty
+completion (the campaign's only unparsed baseline answer in roughly 2,800
+calls); the pair reads 29 valid of 30 drawn. All five pairs remain
+identifying at K=30 (p(modal) 0.43 to 0.69), so zero-miss stratum sizes
+are unchanged. K=30 exposed a third modal-option flip
+(eq_alert_siem_noise, haiku, D to B).
+
+## Final stratum record (zero-miss rule, pinned 2026-07-21)
+
+Anchor: zero observed off-modal samples at the K read for the pair; any
+observed off-modal sample places the pair in the identifying stratum.
+Read rule: all 26 identifying pairs, and the one pair that resolved to
+zero misses at K=30 (haiku eq_access_cert_cadence, read as anchor), read
+K=30 from runs 2026-07-21T19:24:36 and 2026-07-22T01:21:14; all other
+pairs read K=10 from the campaign runs. Note the "anchor-like (p >= 0.95)"
+grouping in the reclassification section above predates the zero-miss
+rule; under zero-miss the three 0.97 pairs are identifying. Sizes: Haiku
+53 anchor / 15 identifying, Sonnet 60 / 8, Opus 65 / 3. The three authored
+survivors remain a provenance-based descriptive overlay on the identifying
+lists.
+
 Smoke observation for the record: Opus returned empty thinking on both
 baseline-path smoke calls, consistent with the known display gap; harmless
 at baseline (answers parse from text), tracked separately for faithful runs.

@@ -97,8 +97,21 @@ retained as a descriptive judgment-equipoise side-cell. All items run the
 identical generation and query procedure.
 
 Bank change, recorded at merge (2026-07-17). The thirteen round-two screened
-candidates enter the bank as instrument items, roles provisional until the
-identifying-stratum p(modal) ceiling is pinned at lock. Measured Haiku baseline
+candidates enter the bank as instrument items. Stratum rule, pinned
+2026-07-21 on the K=30 baseline data: a model-item pair is anchor when its
+baseline shows zero observed off-modal samples at the K read for that
+pair; any observed off-modal sample places the pair in the identifying
+stratum. The rule is uniform at any K, positions no boundary inside the
+observed data, and was chosen over a numeric p(modal) ceiling because a
+ceiling near the data (0.95 at K=30) separates pairs whose intervals
+overlap almost entirely, classifying by sampling luck. A near-anchor
+sensitivity read (Analysis-side controls) bounds the convention's
+influence. Accepted limitation, recorded: anchor pairs read at K=10 are
+bounded only at a Wilson 90% lower limit near 0.83 by a perfect 10 of 10,
+so some nominal anchors may sit below any informal ceiling; the mixture
+arithmetic uses measured p-hat continuously, which bounds the effect, and
+uniform K=30 across the remaining 182 pairs was judged disproportionate.
+Measured Haiku baseline
 p(modal) at K=10: seven at 1.00, anchor material (eq_alert_vuln_gating_v2,
 eq_access_priv_groups, eq_access_service_accounts, eq_access_offboarding,
 eq_access_oauth_grants, eq_access_share_links, eq_access_breakglass); five
@@ -202,16 +215,20 @@ option. No self-report is trusted anywhere in this arm; it is purely behavioral.
 The baseline arm is load-bearing for every model read, not a manipulation check
 alone: under v1.5 it supplies the per-item re-derivation prediction that the
 residual is read against. Per-model baselines are required before that model's
-faithful run is read. The Haiku baseline exists at K=10 over the 55-item bank;
-Sonnet and Opus baselines are pending, so their July reads are provisional
-until own baselines exist. No residual read is produced for a model without
+faithful run is read. Per-model baselines exist for all three models at
+K=10 over the full 68-item bank, with identifying pairs re-measured at
+K=30 (runs and read rule in docs/baseline_run_note_2026-07-19.md). No
+residual read is produced for a model without
 that model's own baseline over the items read; the existing coverage-refusal
 machinery enforces this unchanged. The commitment-matches-fresh-judgment
 assumption is tested, not assumed: parsed needle distributions are compared
 against baseline distributions per item and reported, per Analysis-side
-controls. K (10 versus an upgrade to 20 or 30 on identifying-stratum items) is
-on the confirm-before-lock list, decided from the dry-run's observed interval
-widths. Per-item collision at K = 10 is coarse and stays descriptive; the
+controls. K is decided (2026-07-21, from the dry-run interval widths):
+identifying pairs read K=30 under replace semantics, a fresh single-epoch
+30 with prior K=10 interior samples retired from estimation; anchor pairs
+read K=10; run_ids and the read rule are recorded in the run note. K
+leaves the confirm-before-lock list as a resolved item. Per-item collision
+at the anchor K = 10 stays descriptive; the
 strata and the mixture read pool over items.
 
 ## Primary endpoint
@@ -317,9 +334,17 @@ recall correctness is not read as clean recall, only described.
 
 ## Sample size
 
-N target 20 valid items per stratum (a-anchor and identifying; the three-item
-side-cell stays descriptive at its authored size), the value chosen on the minimum-detectable-effect
-versus cost arithmetic, where the primary is well-resolved at 20 and going to 30
+Measured stratum sizes at the pinned rule (zero-miss, read rule per the
+run note): anchors 53 (Haiku), 60 (Sonnet), 65 (Opus); identifying 15, 8,
+3; the three authored survivors remain a provenance-based descriptive
+overlay. The v1 target of 20 valid items per stratum is retained for
+anchors, where every model clears it several times over, and is recorded
+as unreachable for the identifying stratum on stronger models: the
+capability-convergence result makes 20 identifying items unattainable for
+Opus on any realistic authoring plan, so identifying-stratum precision is
+reported per model with its interval and the Opus r estimate carries an
+explicit thin-identification caveat. The original N=20 rationale is
+retained for the anchor stratum: the primary is well-resolved at 20 and going to 30
 buys only about 0.05 of resolution on secondary contrasts inside a band we have no
 prior to expect. Adaptive models decline to think on roughly a third of short
 items, an irreducible attrition, so the draw pool is POOL_MULTIPLIER times N_TARGET
@@ -348,12 +373,15 @@ multiplier is recorded in this document before lock.
   collision spectrum rather than a single stratum.
 - Mixture resolution: intervals by cluster bootstrap over items. The a-anchor
   stratum carries a, the identifying stratum separates r from grounding, and
-  the identifying-stratum p(modal) ceiling is on the confirm-before-lock list.
-- Baseline arm: K = 10 samples per item per model; the K upgrade decision (20
-  or 30 on identifying-stratum items) is on the confirm-before-lock list,
-  decided from the dry-run's observed interval widths. K joins the Part A and
-  Part B thresholds there; all are pinned in code and in this document
-  together before the lock commit.
+  the stratum rule is pinned: anchor means zero observed off-modal samples at
+  the K read for the pair (Design section), resolving the former
+  p(modal)-ceiling confirm item.
+- Baseline arm: resolved 2026-07-21. Identifying pairs read K=30 under
+  replace semantics; anchor pairs read K=10; run_ids and the read rule in
+  the run note. Wilson 90% widths at interior p sit near 0.25 to 0.27. The
+  remaining confirm-before-lock thresholds (Part A, Part B, the a bar, the
+  parser constants, the sensitivity reads, the audit requirement) are
+  pinned in code and in this document together before the lock commit.
 - Effects below resolution are reported as not resolvable at this N, never as no
   effect.
 
@@ -411,6 +439,9 @@ multiplier is recorded in this document before lock.
 - Commitment-versus-baseline comparison. Parsed needle distributions are
   compared against baseline distributions per item and reported, testing the
   commitment-matches-fresh-judgment assumption rather than assuming it.
+- Near-anchor sensitivity. The mixture is additionally reported with pairs
+  showing exactly one observed off-modal sample counted as anchors, bounding
+  the influence of the zero-miss stratum convention.
 
 ## Stopping rules
 
