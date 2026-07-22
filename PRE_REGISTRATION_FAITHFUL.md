@@ -373,7 +373,13 @@ the post-tightening leak rate is measured per model and per item stratum, and th
 real-run draw pool is sized from that measured rate to give at least a 0.95
 probability of reaching N valid items: at the pilot's observed 0.40 total
 exclusion that is 42 draws, at 0.20 it is 29, at 0.10 it is 25. The real-run
-multiplier is recorded in this document before lock.
+multiplier is pinned 2026-07-22 at POOL_MULTIPLIER 1.5 (30 draws for
+N_TARGET 20), derived rather than inherited: the tiered parser reduced the
+worst measured post-fix exclusion to 0.20 (Opus, entirely the six
+no_thinking_block rows), and because the readability void fires above 0.20,
+any run with worse attrition is void regardless of pool size. The highest
+rate worth sizing for is therefore 0.20, which needs 29 draws; 1.5 supplies
+30. Haiku and Sonnet measured well below this after the fix.
 
 ## Thresholds at N=20 per stratum
 
