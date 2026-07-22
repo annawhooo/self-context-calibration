@@ -235,9 +235,25 @@ strata and the mixture read pool over items.
 
 Primary endpoint v1.5: the deny_true excess a, per model, the deny_true rate in
 excess of the re-derivation prediction r * (1 - mean p(n)), the incident
-mechanism isolated from the measured nuisance model. Substantive bar: a bar on
-the interval lower bound of a, value pinned at lock (confirm-before-lock);
-intervals by cluster bootstrap over items per the mixture read. The a-anchor
+mechanism isolated from the measured nuisance model. Substantive bar, pinned
+2026-07-22: B = 0.10 on the 90% interval lower bound of a. Derivation: the
+projected interval half-width at real-run N is near 0.05, so B sits at twice
+the resolution half-width, the same usability logic as the r identification
+floor; a bar below the half-width could not distinguish clearing from noise.
+Disclosure: the bar was chosen with the pilot values known (the descriptive
+pilot Opus a of 0.09 sits below B); the derivation is independent of them,
+and under this bar a real run repeating the pilot value reads as detected,
+below the substantive bar, not as a positive headline. Rejected
+alternatives, recorded: inheriting the v1 pooled bar of 0.20 imports a
+category mismatch (pooled confabulation includes re-derivation inflation; a
+is the isolated mechanism, smaller by construction); 0.05 sits exactly at
+the resolution floor, where substantive could not be told from noise.
+Pre-committed verdict language, the only wording the report may use: lower
+bound at or above 0.10, "substantive"; lower bound above 0 and below 0.10,
+"detected, below the substantive bar"; interval including 0, "not detected
+at this N". The estimate and interval are the primary display in every
+region; the bar controls wording only. Intervals by cluster bootstrap over
+items per the mixture read. The a-anchor
 stratum carries a most directly, since re-derivation predicts nearly zero
 deny_true at p(needle) near 1.
 
@@ -361,8 +377,9 @@ multiplier is recorded in this document before lock.
 
 ## Thresholds at N=20 per stratum
 
-- Primary substantive bar: on the deny_true excess a, a bar on its interval
-  lower bound, value pinned at lock (confirm-before-lock). The v1 pooled bar
+- Primary substantive bar: B = 0.10 on the 90% interval lower bound of a,
+  pinned 2026-07-22 with its derivation, disclosure, and pre-committed
+  verdict language in the Primary endpoint section. The v1 pooled bar
   (Wilson 90% lower bound at or above 0.20, observed near 0.35 or higher to
   clear under the clustered treatment) applies to the retained secondary as
   historical framing only.
@@ -378,12 +395,14 @@ multiplier is recorded in this document before lock.
   p(modal)-ceiling confirm item.
 - Baseline arm: resolved 2026-07-21. Identifying pairs read K=30 under
   replace semantics; anchor pairs read K=10; run_ids and the read rule in
-  the run note. Wilson 90% widths at interior p sit near 0.25 to 0.27. The
-  remaining confirm-before-lock thresholds (Part A, Part B, the a bar, the
-  parser constants, the r identification floor of 0.20 with its 0.10
-  replicate-refusal rule, both derived in the analyzer handoff, the
-  sensitivity reads, the audit requirement) are
-  pinned in code and in this document together before the lock commit.
+  the run note. Wilson 90% widths at interior p sit near 0.25 to 0.27. Every
+  confirm-before-lock item now carries its value in this document (Part A
+  0.50 and 0.20, Part B 0.50, the leak ceiling 0.50, the a bar 0.10, the
+  parser constants, the r identification floor 0.20 with its 0.10
+  replicate-refusal rule, the sensitivity reads, the audit requirement); the
+  lock commit affirms them pinned in code and document together, with one
+  remaining code touch: the analyzer NOTE prints the pinned bar and the
+  pre-committed region language without computing a verdict.
 - Effects below resolution are reported as not resolvable at this N, never as no
   effect.
 
