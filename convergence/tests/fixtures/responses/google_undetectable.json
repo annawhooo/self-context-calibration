@@ -1,0 +1,16 @@
+{
+  "_comment": "Google-shaped response with no usageMetadata and no thought-flagged parts: reasoning presence is undetectable and must be reported as null, never as success.",
+  "provider": "google",
+  "payload": {
+    "candidates": [
+      {"content": {"role": "model", "parts": [{"text": "ANSWER: A"}]},
+       "finishReason": "STOP"}
+    ],
+    "modelVersion": "google-model-under-test-001"
+  },
+  "expect": {
+    "text": "ANSWER: A",
+    "reasoning_present": null,
+    "model_id_exact": "google-model-under-test-001"
+  }
+}

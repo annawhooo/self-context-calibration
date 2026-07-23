@@ -1,0 +1,21 @@
+{
+  "_comment": "Anthropic Messages response with a thinking block (Arm B shape). Detection field: thinking blocks in content.",
+  "provider": "anthropic",
+  "payload": {
+    "id": "msg_fixture01",
+    "type": "message",
+    "role": "assistant",
+    "model": "anthropic-model-under-test",
+    "content": [
+      {"type": "thinking", "thinking": "Weighing the four options privately.", "signature": "sig_fixture"},
+      {"type": "text", "text": "ANSWER: C"}
+    ],
+    "stop_reason": "end_turn",
+    "usage": {"input_tokens": 100, "output_tokens": 50}
+  },
+  "expect": {
+    "text": "ANSWER: C",
+    "reasoning_present": true,
+    "model_id_exact": "anthropic-model-under-test"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "_comment": "Anthropic Messages response where thinking came back redacted. Redacted thinking is still reasoning present.",
+  "provider": "anthropic",
+  "payload": {
+    "id": "msg_fixture03",
+    "type": "message",
+    "role": "assistant",
+    "model": "anthropic-model-under-test",
+    "content": [
+      {"type": "redacted_thinking", "data": "opaque_fixture_blob"},
+      {"type": "text", "text": "ANSWER: A"}
+    ],
+    "stop_reason": "end_turn",
+    "usage": {"input_tokens": 100, "output_tokens": 40}
+  },
+  "expect": {
+    "text": "ANSWER: A",
+    "reasoning_present": true,
+    "model_id_exact": "anthropic-model-under-test"
+  }
+}

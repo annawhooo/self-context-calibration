@@ -1,0 +1,22 @@
+{
+  "_comment": "DeepSeek chat completion in thinking mode. Detection field: choices[0].message.reasoning_content.",
+  "provider": "deepseek",
+  "payload": {
+    "id": "ds-fixture01",
+    "object": "chat.completion",
+    "model": "deepseek-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant",
+                   "content": "ANSWER: A",
+                   "reasoning_content": "Comparing the four options for risk."},
+       "finish_reason": "stop"}
+    ],
+    "usage": {"prompt_tokens": 100, "completion_tokens": 60, "total_tokens": 160}
+  },
+  "expect": {
+    "text": "ANSWER: A",
+    "reasoning_present": true,
+    "model_id_exact": "deepseek-model-under-test"
+  }
+}

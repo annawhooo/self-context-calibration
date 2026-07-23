@@ -1,0 +1,22 @@
+{
+  "_comment": "Z.ai chat completion with enable_thinking false honored. Some servers keep the reasoning_content key with an empty string; empty means no reasoning content appeared.",
+  "provider": "zai",
+  "payload": {
+    "id": "zai-fixture02",
+    "object": "chat.completion",
+    "model": "zai-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant",
+                   "content": "ANSWER: B",
+                   "reasoning_content": ""},
+       "finish_reason": "stop"}
+    ],
+    "usage": {"prompt_tokens": 100, "completion_tokens": 8, "total_tokens": 108}
+  },
+  "expect": {
+    "text": "ANSWER: B",
+    "reasoning_present": false,
+    "model_id_exact": "zai-model-under-test"
+  }
+}

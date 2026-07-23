@@ -1,0 +1,21 @@
+{
+  "_comment": "Google generateContent response with usageMetadata present and no thoughtsTokenCount. The API omits zero-valued fields, so a present usageMetadata without the count is a positive zero.",
+  "provider": "google",
+  "payload": {
+    "candidates": [
+      {"content": {"role": "model", "parts": [{"text": "ANSWER: C"}]},
+       "finishReason": "STOP"}
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 100,
+      "candidatesTokenCount": 8,
+      "totalTokenCount": 108
+    },
+    "modelVersion": "google-model-under-test-001"
+  },
+  "expect": {
+    "text": "ANSWER: C",
+    "reasoning_present": false,
+    "model_id_exact": "google-model-under-test-001"
+  }
+}

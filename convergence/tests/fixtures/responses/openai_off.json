@@ -1,0 +1,25 @@
+{
+  "_comment": "OpenAI chat completion with reasoning_effort none honored: reasoning_tokens 0 is the positive off signal.",
+  "provider": "openai",
+  "payload": {
+    "id": "chatcmpl-fixture02",
+    "object": "chat.completion",
+    "model": "openai-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant", "content": "ANSWER: A"},
+       "finish_reason": "stop"}
+    ],
+    "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 8,
+      "total_tokens": 108,
+      "completion_tokens_details": {"reasoning_tokens": 0}
+    }
+  },
+  "expect": {
+    "text": "ANSWER: A",
+    "reasoning_present": false,
+    "model_id_exact": "openai-model-under-test"
+  }
+}

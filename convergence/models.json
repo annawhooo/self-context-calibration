@@ -1,0 +1,96 @@
+{
+  "_comment": [
+    "Roster template for the convergence study. Exact model id strings, the",
+    "host serving each open-weight model, and the run date are pinned at lock",
+    "(PRE_REGISTRATION_CONVERGENCE.md, Roster). Entries whose model id starts",
+    "with PIN_AT_LOCK are placeholders; the runner refuses to run them.",
+    "Anthropic ids are prefilled from the known current lineup and are still",
+    "confirmed at lock like everything else.",
+    "Fields: model (id sent on the wire), provider (key into",
+    "providers.PROVIDERS), arms (A reasoning off, B reasoning on; google is",
+    "B-only), host (open-weight models: who serves it, plus any quantization",
+    "string the host reports; null for closed first-party APIs),",
+    "temperature_mode ('send' = temperature 1.0 in the body, 'omit' = no",
+    "temperature key; pinned per model, recorded per row as temperature_sent;",
+    "never 0, the measurement depends on natural sampling variance),",
+    "thinking_on (anthropic Arm B only: the thinking config to send).",
+    "Anthropic temperature_mode is omit on the faithful harness's Q3",
+    "precedent: 4.7+ deprecated the parameter and the API default is 1.0,",
+    "which satisfies the sampling requirement; revisit per model at lock."
+  ],
+  "models": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "provider": "anthropic",
+      "arms": ["A", "B"],
+      "host": null,
+      "temperature_mode": "omit",
+      "thinking_on": {"type": "enabled", "budget_tokens": 3000}
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "arms": ["A", "B"],
+      "host": null,
+      "temperature_mode": "omit",
+      "thinking_on": {"type": "adaptive", "display": "summarized"}
+    },
+    {
+      "model": "claude-opus-4-8",
+      "provider": "anthropic",
+      "arms": ["A", "B"],
+      "host": null,
+      "temperature_mode": "omit",
+      "thinking_on": {"type": "adaptive", "display": "summarized"}
+    },
+    {
+      "model": "PIN_AT_LOCK-openai-small-tier",
+      "provider": "openai",
+      "arms": ["A", "B"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "PIN_AT_LOCK-openai-flagship-tier",
+      "provider": "openai",
+      "arms": ["A", "B"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "PIN_AT_LOCK-deepseek-v4-flash",
+      "provider": "deepseek",
+      "arms": ["A", "B"],
+      "host": "PIN_AT_LOCK: deepseek first-party API; record served precision if reported",
+      "temperature_mode": "send"
+    },
+    {
+      "model": "PIN_AT_LOCK-deepseek-v4-pro",
+      "provider": "deepseek",
+      "arms": ["A", "B"],
+      "host": "PIN_AT_LOCK: deepseek first-party API; record served precision if reported",
+      "temperature_mode": "send"
+    },
+    {
+      "model": "PIN_AT_LOCK-zai-glm-5.2",
+      "provider": "zai",
+      "arms": ["A", "B"],
+      "host": "PIN_AT_LOCK: z.ai first-party API; record served precision if reported",
+      "temperature_mode": "send"
+    },
+    {
+      "model": "PIN_AT_LOCK-google-flash-tier",
+      "provider": "google",
+      "arms": ["B"],
+      "host": null,
+      "temperature_mode": "send"
+    },
+    {
+      "model": "PIN_AT_LOCK-google-pro-tier",
+      "provider": "google",
+      "arms": ["B"],
+      "host": null,
+      "temperature_mode": "send"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "_comment": "OpenAI chat completion with nonzero reasoning token count. Detection field: usage.completion_tokens_details.reasoning_tokens.",
+  "provider": "openai",
+  "payload": {
+    "id": "chatcmpl-fixture01",
+    "object": "chat.completion",
+    "model": "openai-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant", "content": "ANSWER: D"},
+       "finish_reason": "stop"}
+    ],
+    "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 80,
+      "total_tokens": 180,
+      "completion_tokens_details": {"reasoning_tokens": 64}
+    }
+  },
+  "expect": {
+    "text": "ANSWER: D",
+    "reasoning_present": true,
+    "model_id_exact": "openai-model-under-test"
+  }
+}

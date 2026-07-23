@@ -1,0 +1,24 @@
+{
+  "_comment": "OpenAI-shaped response exposing neither a reasoning token count nor reasoning_content. Reasoning presence is undetectable and must be reported as null, never as success: an undetectable state cannot satisfy a void condition that requires positive verification.",
+  "provider": "openai",
+  "payload": {
+    "id": "chatcmpl-fixture03",
+    "object": "chat.completion",
+    "model": "openai-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant", "content": "ANSWER: B"},
+       "finish_reason": "stop"}
+    ],
+    "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 8,
+      "total_tokens": 108
+    }
+  },
+  "expect": {
+    "text": "ANSWER: B",
+    "reasoning_present": null,
+    "model_id_exact": "openai-model-under-test"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "_comment": "DeepSeek chat completion with the V4 thinking toggle disabled: no reasoning_content field at all, the documented off state.",
+  "provider": "deepseek",
+  "payload": {
+    "id": "ds-fixture02",
+    "object": "chat.completion",
+    "model": "deepseek-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant", "content": "ANSWER: C"},
+       "finish_reason": "stop"}
+    ],
+    "usage": {"prompt_tokens": 100, "completion_tokens": 8, "total_tokens": 108}
+  },
+  "expect": {
+    "text": "ANSWER: C",
+    "reasoning_present": false,
+    "model_id_exact": "deepseek-model-under-test"
+  }
+}
