@@ -536,5 +536,18 @@ purpose; no threshold has been chosen to fit an outcome.
 
 ## Deviations
 
-None yet. Any change after the lock commit is recorded here with its date and
-rationale, rather than edited into the body.
+2026-07-22, analyzer multi-run read (no computation changed). The faithful
+real runs span four run_ids by the recovery convention recorded in
+docs/baseline_run_note_2026-07-19.md (Haiku one run, Sonnet one run, Opus
+derivable from an aborted credit-balance run plus equipoise from a top-up).
+The analyzer's single-run pooling guard could not express a deliberate
+multi-run read, so main() gained two CLI mechanisms: --run-ids, an explicit
+run_id allow-list that satisfies the anti-accidental-pooling guard, and
+--faithful-realrun-read, a pinned (model, cell) to run_id table applying the
+recorded read rule so Opus equipoise reads only from the top-up (dropping the
+two orphan probes that fired before the abort). Implemented in Code with a
+test (commit 403fc14), verified out-of-band: the diff touches only main() and
+argparse plus the added constant table and test; an AST and line audit
+confirms no pinned threshold, equation, stratum rule, or read-rule value
+moved. No primary-endpoint number depends on this change; it selects which
+already-collected rows are read, per the pre-committed recovery convention.
