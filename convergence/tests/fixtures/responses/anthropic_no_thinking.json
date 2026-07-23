@@ -1,0 +1,20 @@
+{
+  "_comment": "Anthropic Messages response with no thinking block (Arm A shape: thinking parameter omitted).",
+  "provider": "anthropic",
+  "payload": {
+    "id": "msg_fixture02",
+    "type": "message",
+    "role": "assistant",
+    "model": "anthropic-model-under-test",
+    "content": [
+      {"type": "text", "text": "ANSWER: B"}
+    ],
+    "stop_reason": "end_turn",
+    "usage": {"input_tokens": 100, "output_tokens": 12}
+  },
+  "expect": {
+    "text": "ANSWER: B",
+    "reasoning_present": false,
+    "model_id_exact": "anthropic-model-under-test"
+  }
+}

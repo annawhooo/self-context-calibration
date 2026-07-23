@@ -1,0 +1,6 @@
+# Raw convergence run outputs embed full model replies; ignore per-run files.
+# Commit a frozen snapshot deliberately (git add -f), not every run. Mirrors
+# the top-level results/*.jsonl rule, which is anchored to the repo root and
+# does not cover this directory on its own.
+results/*.jsonl
+results/*.log

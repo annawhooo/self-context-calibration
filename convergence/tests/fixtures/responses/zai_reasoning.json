@@ -1,0 +1,22 @@
+{
+  "_comment": "Z.ai chat completion with thinking enabled. Detection field: choices[0].message.reasoning_content.",
+  "provider": "zai",
+  "payload": {
+    "id": "zai-fixture01",
+    "object": "chat.completion",
+    "model": "zai-model-under-test",
+    "choices": [
+      {"index": 0,
+       "message": {"role": "assistant",
+                   "content": "ANSWER: D",
+                   "reasoning_content": "Working through which option is riskiest."},
+       "finish_reason": "stop"}
+    ],
+    "usage": {"prompt_tokens": 100, "completion_tokens": 70, "total_tokens": 170}
+  },
+  "expect": {
+    "text": "ANSWER: D",
+    "reasoning_present": true,
+    "model_id_exact": "zai-model-under-test"
+  }
+}

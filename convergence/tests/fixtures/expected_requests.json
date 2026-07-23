@@ -1,0 +1,149 @@
+{
+  "_comment": "Recorded expected requests for convergence/providers.py build_request, keyed provider_arm. TESTKEY-not-a-real-credential is a test literal, not a secret. Reasoning-off mechanisms pinned per the handoff: anthropic omits thinking; openai sends reasoning_effort none; deepseek sends the documented V4 thinking toggle; zai sends enable_thinking false (never thinking {type disabled}, reported silently ignored); google is Arm B only. Temperature: 1.0 sent where the API accepts it (deepseek, zai, google), omitted where it rejects it (anthropic 4.7+ deprecated it; openai gpt-5 line rejects non-default), recorded in temperature_sent.",
+  "anthropic_A": {
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "TESTKEY-not-a-real-credential",
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "anthropic-model-under-test",
+      "max_tokens": 8000,
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ]
+    },
+    "temperature_sent": null
+  },
+  "anthropic_B": {
+    "url": "https://api.anthropic.com/v1/messages",
+    "headers": {
+      "x-api-key": "TESTKEY-not-a-real-credential",
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "anthropic-model-under-test",
+      "max_tokens": 8000,
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "thinking": {"type": "enabled", "budget_tokens": 3000}
+    },
+    "temperature_sent": null
+  },
+  "openai_A": {
+    "url": "https://api.openai.com/v1/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "openai-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_completion_tokens": 8000,
+      "reasoning_effort": "none"
+    },
+    "temperature_sent": null
+  },
+  "openai_B": {
+    "url": "https://api.openai.com/v1/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "openai-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_completion_tokens": 8000
+    },
+    "temperature_sent": null
+  },
+  "deepseek_A": {
+    "url": "https://api.deepseek.com/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "deepseek-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_tokens": 8000,
+      "thinking": {"type": "disabled"},
+      "temperature": 1.0
+    },
+    "temperature_sent": 1.0
+  },
+  "deepseek_B": {
+    "url": "https://api.deepseek.com/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "deepseek-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_tokens": 8000,
+      "thinking": {"type": "enabled"},
+      "temperature": 1.0
+    },
+    "temperature_sent": 1.0
+  },
+  "zai_A": {
+    "url": "https://api.z.ai/api/paas/v4/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "zai-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_tokens": 8000,
+      "enable_thinking": false,
+      "temperature": 1.0
+    },
+    "temperature_sent": 1.0
+  },
+  "zai_B": {
+    "url": "https://api.z.ai/api/paas/v4/chat/completions",
+    "headers": {
+      "Authorization": "Bearer TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "model": "zai-model-under-test",
+      "messages": [
+        {"role": "user", "content": "FIXTURE PROMPT: which option is highest risk?"}
+      ],
+      "max_tokens": 8000,
+      "enable_thinking": true,
+      "temperature": 1.0
+    },
+    "temperature_sent": 1.0
+  },
+  "google_B": {
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/google-model-under-test:generateContent",
+    "headers": {
+      "x-goog-api-key": "TESTKEY-not-a-real-credential",
+      "content-type": "application/json"
+    },
+    "body": {
+      "contents": [
+        {"role": "user", "parts": [{"text": "FIXTURE PROMPT: which option is highest risk?"}]}
+      ],
+      "generationConfig": {"maxOutputTokens": 8000, "temperature": 1.0}
+    },
+    "temperature_sent": 1.0
+  }
+}

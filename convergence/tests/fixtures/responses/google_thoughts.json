@@ -1,0 +1,26 @@
+{
+  "_comment": "Google generateContent response with thoughts (Arm B, the only google arm). Detection: usageMetadata.thoughtsTokenCount, with parts flagged thought true as fallback. Thought-summary parts are excluded from the answer text.",
+  "provider": "google",
+  "payload": {
+    "candidates": [
+      {"content": {"role": "model",
+                   "parts": [
+                     {"text": "Considering each option's failure modes.", "thought": true},
+                     {"text": "ANSWER: B"}
+                   ]},
+       "finishReason": "STOP"}
+    ],
+    "usageMetadata": {
+      "promptTokenCount": 100,
+      "candidatesTokenCount": 20,
+      "thoughtsTokenCount": 250,
+      "totalTokenCount": 370
+    },
+    "modelVersion": "google-model-under-test-001"
+  },
+  "expect": {
+    "text": "ANSWER: B",
+    "reasoning_present": true,
+    "model_id_exact": "google-model-under-test-001"
+  }
+}
