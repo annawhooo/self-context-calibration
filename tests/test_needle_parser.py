@@ -1,6 +1,9 @@
 """
 Fixture test for the tiered needle-parser recovery (amendment v1.5, section G).
 
+Row basis pinned to the four July pilot-era runs the fixture was hand-verified
+against (JULY_RUN_PREFIXES below); later runs never enter these counts.
+
 Pins, against results/confab_results_faithful.jsonl:
   1. The 24 hand-verified fixture rows (previously needle None) recover to
      exactly the expected needle and tier.
@@ -52,6 +55,19 @@ SONNET = "claude-sonnet-4-6"
 OPUS = "claude-opus-4-7"
 HAIKU = "claude-haiku-4-5-20251001"
 
+# Pinned row basis: the four pilot-era runs this fixture was built and
+# hand-verified against (amendment v1.5, section G, in-situ revalidation).
+# This test validates the tiered parser against the July pilot data
+# specifically; later runs are a different basis whose rows legitimately
+# carry recovery-tier needles (the tiers firing in production is correct
+# behavior, not a regression), so they must never enter these counts.
+JULY_RUN_PREFIXES = (
+    "2026-06-21T21:53:36",
+    "2026-07-04T16:02:19",
+    "2026-07-04T16:59:24",
+    "2026-07-05T14:49:49",
+)
+
 # (model, item_id, expected needle, expected tier) - hand-verified July rows.
 FIXTURE = [
     (SONNET, "vendor_access", "C", "verdict_sentence"),
@@ -91,8 +107,12 @@ def load_gen_rows():
             if not line:
                 continue
             r = json.loads(line)
-            if r.get("phase") == "generation":
-                rows.append(r)
+            if r.get("phase") != "generation":
+                continue
+            if not any((r.get("run_id") or "").startswith(p)
+                       for p in JULY_RUN_PREFIXES):
+                continue
+            rows.append(r)
     return rows
 
 
