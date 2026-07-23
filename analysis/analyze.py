@@ -989,11 +989,36 @@ def analyze_faithful(rows, out, gate_rows=None, baseline_rows=None):
     out.append("")
 
 
+# Faithful real-run read rule (post-lock Deviation; recorded in
+# docs/baseline_run_note_2026-07-19.md, Faithful real runs). Opus reads the
+# derivable cell from the aborted run and the equipoise cell from the top-up;
+# Haiku and Sonnet read their single runs. Applied per model and cell by
+# --faithful-realrun-read, never as a blanket run_id filter, so the two orphan
+# equipoise query rows under the aborted Opus run are excluded from the read.
+FAITHFUL_REALRUN_READ = {
+    ("claude-haiku-4-5-20251001", "derivable"): "2026-07-22T17:32:38",
+    ("claude-haiku-4-5-20251001", "equipoise"): "2026-07-22T17:32:38",
+    ("claude-sonnet-4-6", "derivable"): "2026-07-22T22:16:15",
+    ("claude-sonnet-4-6", "equipoise"): "2026-07-22T22:16:15",
+    ("claude-opus-4-7", "derivable"): "2026-07-22T23:09:47",
+    ("claude-opus-4-7", "equipoise"): "2026-07-22T23:39:51",
+}
+
+
 def main():
     ap = argparse.ArgumentParser(description="Pre-registered analysis for the generalized family.")
     ap.add_argument("results", nargs="?", default=None,
                     help="results JSONL (default depends on --family)")
-    ap.add_argument("--run-id", default=None, help="analyze only this run_id")
+    run_sel = ap.add_mutually_exclusive_group()
+    run_sel.add_argument("--run-id", default=None, help="analyze only this run_id")
+    run_sel.add_argument("--run-ids", default=None,
+                         help="comma-separated allow-list of run_id prefixes: the explicit, "
+                              "human-affirmed multi-run read (post-lock Deviation); rows outside "
+                              "the list are dropped and the pooling guard does not fire")
+    ap.add_argument("--faithful-realrun-read", action="store_true",
+                    help="apply the recorded faithful real-run read rule per model and cell "
+                         "(docs/baseline_run_note_2026-07-19.md), excluding the aborted-run "
+                         "orphan rows")
     ap.add_argument("--family", choices=["generalized", "faithful"], default="generalized")
     ap.add_argument("--gate-from", default=None,
                     help="generalized results JSONL for the faithful Part A calibration gate")
@@ -1014,11 +1039,62 @@ def main():
         sys.exit(1)
 
     rows = load_rows(args.results, run_id=args.run_id)
+
+    filter_notes = []
+    if args.run_ids is not None:
+        prefixes = [p.strip() for p in args.run_ids.split(",") if p.strip()]
+        if not prefixes:
+            ap.error("--run-ids requires at least one run_id prefix")
+        n_loaded = len(rows)
+        rows = [r for r in rows
+                if any((r.get("run_id") or "").startswith(p) for p in prefixes)]
+        # By construction every kept run_id matches a prefix; assert it anyway.
+        uncovered = sorted({r.get("run_id") for r in rows
+                            if not any((r.get("run_id") or "").startswith(p)
+                                       for p in prefixes)})
+        if uncovered:
+            sys.stderr.write("internal error: --run-ids filter left uncovered "
+                             "run_ids: %s\n" % ", ".join(uncovered))
+            sys.exit(4)
+        filter_notes.append("Run read filter: --run-ids allow-list affirmed on the command line")
+        filter_notes.append("  (%d prefixes); kept %d of %d loaded rows."
+                            % (len(prefixes), len(rows), n_loaded))
+    if args.faithful_realrun_read:
+        kept_rows = []
+        cell_kept = Counter()
+        cell_dropped = Counter()
+        n_outside = 0
+        for r in rows:
+            key = (r.get("model"), r.get("item_cell") or "derivable")
+            prefix = FAITHFUL_REALRUN_READ.get(key)
+            if prefix is None:
+                n_outside += 1
+                continue
+            if (r.get("run_id") or "").startswith(prefix):
+                kept_rows.append(r)
+                if r.get("phase") == "query":
+                    cell_kept[key] += 1
+            elif r.get("phase") == "query":
+                cell_dropped[key] += 1
+        rows = kept_rows
+        filter_notes.append("Faithful real-run read rule, applied per model and cell")
+        filter_notes.append("  (docs/baseline_run_note_2026-07-19.md), never a blanket run filter:")
+        for key in sorted(FAITHFUL_REALRUN_READ):
+            model, cell = key
+            filter_notes.append("  %-26s %-10s run %s | query rows kept %d | dropped %d"
+                                % (model, cell, FAITHFUL_REALRUN_READ[key],
+                                   cell_kept.get(key, 0), cell_dropped.get(key, 0)))
+        if n_outside:
+            filter_notes.append("  rows outside the read map dropped: %d" % n_outside)
+
     run_ids = sorted({r.get("run_id") for r in rows})
 
     # The pilot is excluded from the primary per PRE_REGISTRATION.md, so pooling
-    # runs is not allowed. Fail rather than silently mixing run_ids.
-    if not args.run_id and len(run_ids) > 1:
+    # runs is not allowed. Fail rather than silently mixing run_ids, unless the
+    # human has explicitly affirmed the run set with --run-ids or the recorded
+    # real-run read rule.
+    if (not args.run_id and args.run_ids is None and not args.faithful_realrun_read
+            and len(run_ids) > 1):
         sys.stderr.write(
             "Multiple run_ids present (%s) and no --run-id given. The pilot is "
             "excluded from the primary per PRE_REGISTRATION.md, so runs must not be "
@@ -1030,6 +1106,9 @@ def main():
     out.append("Family: %s | run_ids: %s" % (args.family, ", ".join(run_ids) if run_ids else "(none)"))
     out.append("Reminder: the pilot is excluded from the primary per PRE_REGISTRATION.md.")
     out.append("")
+    if filter_notes:
+        out.extend(filter_notes)
+        out.append("")
 
     if args.family == "faithful":
         gate_rows = None
