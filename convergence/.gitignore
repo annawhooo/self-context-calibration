@@ -4,3 +4,6 @@
 # does not cover this directory on its own.
 results/*.jsonl
 results/*.log
+
+# Sampling-variance probe outputs (full model replies per probe run).
+probe_reports/

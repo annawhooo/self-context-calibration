@@ -13,6 +13,7 @@ Usage:
   python convergence/collect.py --arm A                 collect Arm A (reasoning off)
   python convergence/collect.py --arm B                 collect Arm B (reasoning on)
   python convergence/collect.py --verify-reasoning      Arm A disable smoke test
+  python convergence/collect.py --probe-sampling        sampling-variance probe
 Options: --config (roster json), --models (comma-separated roster ids),
 --out (rows jsonl), --k (samples per item per model, default 10 per the
 pre-registration), --verify-n, --verify-out.
@@ -47,6 +48,19 @@ each Arm A model this mode issues a small number of calls with reasoning
 disabled and reports, per the provider's pinned detection surface, whether
 reasoning content appeared anyway. An undetectable state is reported as
 unverifiable, never as success.
+
+Sampling-variance probe (--probe-sampling): the pre-registration's
+non-greedy sampling check at smoke. For every roster model and every arm it
+lists, the pinned probe prompt is issued three times through the exact
+collection request shaping (same adapter, reasoning config,
+temperature_mode, retry sender). VARIED when any two outputs differ at byte
+level; DEGENERATE when all three are byte-identical; ERROR when any call
+fails after retries, reported without a verdict rather than folded into
+either state. DEGENERATE or ERROR anywhere exits nonzero. Full outputs land
+in a timestamped jsonl under convergence/probe_reports/ (gitignored); probe
+calls write no collection rows and touch no collection output paths. When
+investigating a DEGENERATE verdict, consider provider-side response caching
+of identical requests before concluding greedy decoding.
 """
 
 import os
@@ -79,6 +93,15 @@ K_SAMPLES = 10          # pre-registration: K = 10 samples per item per model pe
 VERIFY_N = 3            # verification mode: calls per Arm A model
 
 PLACEHOLDER_PREFIX = "PIN_AT_LOCK"
+
+# Sampling-variance probe (pre-registration, Voids). One fixed open-ended
+# prompt, pinned byte-for-byte like the vendor_access stimulus
+# (convergence/tests/test_probe_sampling.py holds the tripwire literal), three
+# calls per model per arm.
+PROBE_PROMPT = ("In two or three sentences, describe an imaginary small "
+                "town, including its name and one notable landmark.")
+PROBE_N = 3
+DEFAULT_PROBE_DIR = os.path.join(HERE, "probe_reports")
 
 
 class CredentialError(RuntimeError):
@@ -348,6 +371,102 @@ def verify_reasoning(models, out_path=DEFAULT_VERIFY_OUT, n=VERIFY_N,
     return verdicts
 
 
+def probe_verdict(results):
+    """Verdict for one model and arm from three call results, each ("ok",
+    text) or ("error", message). ERROR when any call failed after retries,
+    reported without a verdict rather than folded into either state.
+    DEGENERATE when all outputs are byte-identical; VARIED when any two
+    differ at byte level (two-same-one-different is VARIED)."""
+    if any(status == "error" for status, _ in results):
+        return "ERROR"
+    texts = [text for _, text in results]
+    return "DEGENERATE" if len(set(texts)) == 1 else "VARIED"
+
+
+def probe_failed(verdicts):
+    """True when any model and arm is DEGENERATE or ERROR: the probe exits
+    nonzero in that case."""
+    return any(v in ("DEGENERATE", "ERROR") for v in verdicts.values())
+
+
+def run_probe_sampling(models, out_dir=DEFAULT_PROBE_DIR, n=PROBE_N,
+                       run_id=None):
+    """Sampling-variance probe: n identical calls of PROBE_PROMPT per model
+    per listed arm, through the exact collection request shaping. Validation,
+    then credentials for every selected provider, then the first request, in
+    that order (identical fail-closed behavior to collection). Full outputs
+    append durably to one timestamped jsonl under out_dir; no collection row
+    or path is touched. Returns {(model, arm): verdict}."""
+    for m in models:
+        validate_model_cfg(m)
+    keys = read_keys(models)
+    run_id = run_id or now_iso()
+
+    os.makedirs(out_dir, exist_ok=True)
+    fname = "probe_sampling_{}.jsonl".format(
+        run_id.replace(":", "-").replace("+", "-"))
+    report_path = os.path.join(out_dir, fname)
+
+    verdicts = {}
+    fh = open(report_path, "a", encoding="utf-8")
+    try:
+        print("\nSampling-variance probe, {} calls per model per arm, run {}"
+              .format(n, run_id))
+        for m in models:
+            provider = m["provider"]
+            for arm in m["arms"]:
+                results = []
+                for call_index in range(n):
+                    try:
+                        url, headers, body, temperature_sent = build_request(
+                            m, arm, PROBE_PROMPT, keys[provider])
+                        data = post_with_retries(
+                            url, headers, body, PROVIDERS[provider]["retryable"])
+                        parsed_resp = parse_response(provider, data)
+                        results.append(("ok", parsed_resp["text"]))
+                        row = {
+                            "run_id": run_id, "phase": "probe_sampling",
+                            "model": m["model"], "provider": provider,
+                            "arm": arm, "call_index": call_index, "ok": True,
+                            "text": parsed_resp["text"],
+                            "text_len": len(parsed_resp["text"]),
+                            "model_id_exact": (parsed_resp["model_id_exact"]
+                                               or m["model"]),
+                            "reasoning_detected": parsed_resp["reasoning_present"],
+                            "temperature_sent": temperature_sent,
+                            "ts": now_iso(),
+                        }
+                    except RuntimeError as exc:
+                        results.append(("error", str(exc)))
+                        row = {
+                            "run_id": run_id, "phase": "probe_sampling",
+                            "model": m["model"], "provider": provider,
+                            "arm": arm, "call_index": call_index, "ok": False,
+                            "error": str(exc), "ts": now_iso(),
+                        }
+                    write_row(fh, row)
+                verdict = probe_verdict(results)
+                verdicts[(m["model"], arm)] = verdict
+                lengths = "/".join(str(len(text)) if status == "ok" else "ERR"
+                                   for status, text in results)
+                print("{:<26} arm {}  {:<10} lengths {}".format(
+                    m["model"], arm, verdict, lengths))
+    finally:
+        fh.close()
+
+    if any(v == "DEGENERATE" for v in verdicts.values()):
+        print("DEGENERATE verdict(s) above: byte-identical outputs across "
+              "identical calls. Before concluding greedy decoding, consider "
+              "provider-side response caching of identical requests; the full "
+              "outputs are in the report file.")
+    if any(v == "ERROR" for v in verdicts.values()):
+        print("ERROR verdict(s) above: a call failed after retries; reported "
+              "without a sampling verdict, not folded into VARIED or "
+              "DEGENERATE.")
+    print("Probe outputs: {}".format(report_path))
+    return verdicts
+
+
 def main():
     ap = argparse.ArgumentParser(
         description="Convergence study collection: the 68-item bank as fresh "
@@ -374,15 +493,31 @@ def main():
                          .format(VERIFY_N))
     ap.add_argument("--verify-out", default=DEFAULT_VERIFY_OUT,
                     help="verification rows jsonl")
+    ap.add_argument("--probe-sampling", action="store_true",
+                    help="run the sampling-variance probe instead of "
+                         "collection: {} calls of the pinned probe prompt per "
+                         "model per listed arm; DEGENERATE or ERROR anywhere "
+                         "exits nonzero".format(PROBE_N))
+    ap.add_argument("--probe-dir", default=DEFAULT_PROBE_DIR,
+                    help="directory for timestamped probe output files")
     args = ap.parse_args()
 
-    if not args.verify_reasoning and args.arm is None:
-        ap.error("--arm is required unless --verify-reasoning is given")
+    if args.probe_sampling and args.verify_reasoning:
+        ap.error("--probe-sampling and --verify-reasoning are separate "
+                 "modes; run one at a time")
+    if not args.verify_reasoning and not args.probe_sampling \
+            and args.arm is None:
+        ap.error("--arm is required unless --verify-reasoning or "
+                 "--probe-sampling is given")
 
     try:
         roster = load_roster(args.config)
         models = select_models(roster, args.models)
-        if args.verify_reasoning:
+        if args.probe_sampling:
+            verdicts = run_probe_sampling(models, out_dir=args.probe_dir)
+            if probe_failed(verdicts):
+                sys.exit(1)
+        elif args.verify_reasoning:
             verify_reasoning(models, out_path=args.verify_out, n=args.verify_n)
         else:
             run_collection(models, args.arm, args.out, k=args.k)
