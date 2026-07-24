@@ -16,7 +16,20 @@
     "thinking_on (anthropic Arm B only: the thinking config to send).",
     "Anthropic temperature_mode is omit on the faithful harness's Q3",
     "precedent: 4.7+ deprecated the parameter and the API default is 1.0,",
-    "which satisfies the sampling requirement; revisit per model at lock."
+    "which satisfies the sampling requirement; resolved at lock as omit.",
+    "Temperature rule (locked Jul 24 2026): send only where the parameter",
+    "is documented-effective on the non-thinking arm (deepseek, zai). On",
+    "thinking arms the same sent value is documented-ignored (deepseek)",
+    "or unconfirmed (zai); rows record temperature_sent with that",
+    "annotation. omit wherever the parameter is rejected (openai gpt-5.x,",
+    "anthropic post-4.7), removed (gemini 3.5+/3.6), or unverifiable",
+    "within design constraints (gemini-3.1-pro thinking arm).",
+    "Non-greedy default sampling on every surface is verified at smoke",
+    "via a sampling-variance probe: identical duplicate calls per model",
+    "per arm must produce differing outputs.",
+    "gemini-3.1-pro-preview is a preview id. The per-row model id echo",
+    "is the aliasing tripwire: if the echoed id changes mid-collection,",
+    "halt; completed rows form their own cell. google collects first."
   ],
   "models": [
     {
@@ -44,53 +57,53 @@
       "thinking_on": {"type": "adaptive", "display": "summarized"}
     },
     {
-      "model": "PIN_AT_LOCK-openai-small-tier",
+      "model": "gpt-5.6-terra",
       "provider": "openai",
       "arms": ["A", "B"],
       "host": null,
       "temperature_mode": "omit"
     },
     {
-      "model": "PIN_AT_LOCK-openai-flagship-tier",
+      "model": "gpt-5.6-sol",
       "provider": "openai",
       "arms": ["A", "B"],
       "host": null,
       "temperature_mode": "omit"
     },
     {
-      "model": "PIN_AT_LOCK-deepseek-v4-flash",
+      "model": "deepseek-v4-flash",
       "provider": "deepseek",
       "arms": ["A", "B"],
-      "host": "PIN_AT_LOCK: deepseek first-party API; record served precision if reported",
+      "host": "deepseek first-party API (api.deepseek.com); record served precision if reported",
       "temperature_mode": "send"
     },
     {
-      "model": "PIN_AT_LOCK-deepseek-v4-pro",
+      "model": "deepseek-v4-pro",
       "provider": "deepseek",
       "arms": ["A", "B"],
-      "host": "PIN_AT_LOCK: deepseek first-party API; record served precision if reported",
+      "host": "deepseek first-party API (api.deepseek.com); record served precision if reported",
       "temperature_mode": "send"
     },
     {
-      "model": "PIN_AT_LOCK-zai-glm-5.2",
+      "model": "glm-5.2",
       "provider": "zai",
       "arms": ["A", "B"],
-      "host": "PIN_AT_LOCK: z.ai first-party API; record served precision if reported",
+      "host": "z.ai first-party API (api.z.ai); record served precision if reported",
       "temperature_mode": "send"
     },
     {
-      "model": "PIN_AT_LOCK-google-flash-tier",
+      "model": "gemini-3.6-flash",
       "provider": "google",
       "arms": ["B"],
       "host": null,
-      "temperature_mode": "send"
+      "temperature_mode": "omit"
     },
     {
-      "model": "PIN_AT_LOCK-google-pro-tier",
+      "model": "gemini-3.1-pro-preview",
       "provider": "google",
       "arms": ["B"],
       "host": null,
-      "temperature_mode": "send"
+      "temperature_mode": "omit"
     }
   ]
 }
