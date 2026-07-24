@@ -2,9 +2,11 @@
 
 ## Lock status
 
-DRAFT. This document becomes the pre-registration lock only when committed
-with a dated tag before the first collection run. Any change after the lock
-is recorded in the Deviations section rather than edited in silently.
+LOCKED. Pre-registration lock tag prereg-lock-convergence-2026-07-24.
+Smoke gate passed 2026-07-24: reasoning-disable verification 8 of 8
+verified off, sampling-variance probe 18 of 18 VARIED, zero ERROR.
+Any change after the lock tag is recorded in the Deviations section
+rather than edited in silently.
 
 This is a separate study from self-context-calibration. The
 prereg-lock-2026-07-22 tag does not cover it. It lives in this repository
