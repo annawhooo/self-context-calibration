@@ -38,13 +38,32 @@ turn over on a scale of weeks.
 | lab | Arm A, reasoning off | Arm B, reasoning on |
 | --- | --- | --- |
 | Anthropic | Haiku 4.5, Sonnet 4.6, Opus 4.8 | same |
-| OpenAI | two tiers, pinned at lock | same |
+| OpenAI | GPT-5.6 Terra, GPT-5.6 Sol | same |
 | DeepSeek | V4 Flash, V4 Pro | same |
 | Z.ai | GLM-5.2 | same |
-| Google | excluded, see Arms | two tiers |
+| Google | excluded, see Arms | Gemini 3.6 Flash, Gemini 3.1 Pro (preview) |
 
 Arm A runs 8 models: 28 pairs, 5 within-lab, 23 cross-lab.
 Arm B runs 10 models: 45 pairs, 6 within-lab, 39 cross-lab.
+
+Pinned ids, 2026-07-24: claude-haiku-4-5-20251001, claude-sonnet-4-6,
+claude-opus-4-8; gpt-5.6-terra, gpt-5.6-sol; deepseek-v4-flash,
+deepseek-v4-pro, first-party api.deepseek.com; glm-5.2, first-party
+api.z.ai; gemini-3.6-flash, gemini-3.1-pro-preview.
+
+OpenAI's small tier is Terra rather than Luna. The mid tier is the
+deployed-representative choice, and the resulting asymmetry is
+disclosed: DeepSeek pairs its cheapest model against its flagship
+while OpenAI pairs its mid tier against its flagship, so within-lab
+gradient slopes are not structurally equivalent across labs and are
+not compared as like for like.
+
+gemini-3.1-pro-preview is a preview id with a vendor precedent of
+silent re-aliasing. Mitigations, pre-committed: Google is collected
+first after the lock tag, compressing the exposure window; the model
+id echoed in each response is recorded per row; if the echoed id
+changes mid-collection, collection halts for that model and completed
+rows form their own cell rather than being pooled.
 
 Z.ai enters at one tier. The current GLM generation ships no Air or Flash
 sibling, and the nearest smaller GLM models are either closed-source or a
@@ -62,12 +81,22 @@ ships them, because their reasoning effort cannot be set to a common level.
 ## Arms
 
 Arm A, the matched primary. Reasoning and extended thinking disabled on
-every model. Temperature pinned at 1.0 where the API accepts it, omitted
-where the API rejects it, recorded per model. A model that cannot disable
-reasoning is excluded from Arm A and the exclusion is reported.
+every model. Temperature rule, locked 2026-07-24: sent at 1.0 only where
+the parameter is documented-effective on the non-thinking arm, DeepSeek
+and Z.ai; omitted where the API rejects it (OpenAI GPT-5.x), has
+removed it (Gemini 3.5 and later), or where a sent value cannot be
+verified effective within this design, because verification requires
+distinguishable near-0 values that the sampling requirement forbids
+(Gemini 3.1 Pro). Recorded per row as temperature_sent. A model that
+cannot disable reasoning is excluded from Arm A and the exclusion is
+reported.
 
 Arm B, ecological. Reasoning enabled at each provider's default or
-available setting, temperature identical to Arm A. This is not a matched
+available setting, temperature_mode identical to Arm A per model. On
+thinking arms a sent value is documented-ignored by DeepSeek and
+unconfirmed on Z.ai; rows record the sent value with that annotation,
+and sampling on those models in Arm B is governed by provider
+defaults. This is not a matched
 configuration, since reasoning means adaptive on one lab, a token budget on
 another, and always-on elsewhere. It is reported as the deployed-
 configuration comparison, never as a controlled contrast.
@@ -181,6 +210,15 @@ judgment. Agreement is never described as accuracy.
   and the rate is reported per model.
 - A model that cannot produce the required single-line answer format at all
   is excluded and the exclusion reported.
+- Sampling-variance probe, both arms. Greedy decoding drives
+  self-collision toward 1.0 by construction, so non-greedy sampling
+  is verified empirically rather than assumed from documentation. At
+  smoke, each model on each arm receives one fixed open-ended probe
+  prompt three times. The probe is open-ended rather than a bank item
+  because the bank's constrained single-line format can produce
+  identical outputs by chance under honest sampling. Byte-identical
+  outputs across all three calls fail the model for that arm pending
+  investigation, and the failure is reported.
 
 ## Analysis-side controls
 
