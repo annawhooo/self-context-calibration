@@ -113,7 +113,7 @@ PROVIDERS = {
         "retryable": (429, 500, 502, 503),
     },
     "google": {
-        "env": "GEMINI_API_KEY",
+        "env": "GOOGLE_API_KEY",
         "url_template": ("https://generativelanguage.googleapis.com/v1beta/"
                          "models/{model}:generateContent"),
         "shape": "google",
