@@ -248,5 +248,14 @@ window.
 
 ## Deviations
 
-None yet. Any change after the lock commit is recorded here with its date
-and rationale rather than edited into the body.
+Any change after the lock commit is recorded here with its date and
+rationale rather than edited into the body.
+
+Clarification, 2026-07-24, recorded before any non-google collection:
+'google is collected first' is interpreted as google started first
+with its completion pace bound by provider quota; collection for
+other providers may begin during google's quota-imposed waiting
+windows, since this does not extend the preview-id exposure window or
+create any analytic flexibility. No results are examined before
+collection completes; integrity checks (parse rate, echo consistency,
+row counts) are exempt as data-quality controls, not analysis.
