@@ -259,3 +259,14 @@ windows, since this does not extend the preview-id exposure window or
 create any analytic flexibility. No results are examined before
 collection completes; integrity checks (parse rate, echo consistency,
 row counts) are exempt as data-quality controls, not analysis.
+
+Addition, 2026-07-25, recorded before any anthropic collection: a
+supplementary test-retest stability comparison is declared. Fresh
+convergence Arm A distributions for claude-haiku-4-5-20251001 and
+claude-sonnet-4-6 will be compared per item against those models'
+faithful-study baseline rows (collected 2026-07-04 through
+2026-07-21 on the byte-identical bank, prompt, and parse rule). Opus
+is excluded: the faithful baseline ran claude-opus-4-7, a different
+model. The comparison is corroborative only, reported separately
+from the primary analysis, and decides nothing in it; the older rows
+lack this study's provenance fields and are not imported as data.
