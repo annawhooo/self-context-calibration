@@ -24,3 +24,18 @@ differs, baseline row counts exceed the design (1,160 haiku, 920
 sonnet, multiple runs Jul 4-21) and would require post-hoc selection,
 and baseline rows predate the study's provenance fields (temperature
 record, model id echo, reasoning verification).
+
+2026-07-25. Exposure note: the collection runner prints per-model
+aggregate answer-option distributions to stdout on run completion, a
+behavior predating the 2026-07-24 no-peeking clarification. The Arm A
+anthropic run's marginals were therefore displayed at completion and
+seen. Materiality: bank-level marginals reveal neither per-item
+modals, tie rates, pair agreements, nor the within-versus-cross
+primary quantity, and the provisional analysis clarifications pending
+review concern rules whose data-dependence is invisible in marginals.
+The primary decision is unaffected. Mitigation for all remaining
+collection runs: stdout is redirected to
+convergence/results/collection_stdout.log (gitignored), keeping
+stderr, including halt and refusal reports, on the console. A runner
+change is deferred until collection completes to avoid mid-collection
+code churn.
