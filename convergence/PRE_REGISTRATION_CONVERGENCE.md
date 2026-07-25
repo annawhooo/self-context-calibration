@@ -270,3 +270,22 @@ is excluded: the faithful baseline ran claude-opus-4-7, a different
 model. The comparison is corroborative only, reported separately
 from the primary analysis, and decides nothing in it; the older rows
 lack this study's provenance fields and are not imported as data.
+
+Clarification, 2026-07-25, recorded before any analysis computation,
+provisional pending independent statistical review: the primary
+endpoint's modal option is defined as the unique mode of an item's
+parsed answer distribution. An item-model cell with tied modes has no
+modal option and counts as a non-match for every pair on that item.
+Tie counts are reported per model, and a sensitivity recomputes the
+primary under set-intersection matching (a pair matches on an item if
+either side's mode is a member of the other side's tied modal set) to
+bound the rule's influence.
+
+Clarification, 2026-07-25, recorded before any analysis computation,
+provisional pending independent statistical review: the pre-registered
+sensitivity reducing Anthropic's three tiers to a single tier is
+implemented as three recomputations of the primary, one with each
+Anthropic model as the lab's sole representative, with the range
+reported. Reducing to one model removes all Anthropic within-lab
+pairs from that recompute by construction. No single representative
+is designated, so no selection requires defense.
