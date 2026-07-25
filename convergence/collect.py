@@ -42,6 +42,20 @@ Recovery: every completed row is appended and flushed immediately
 scans the output file and tops up only missing (provider, model, arm,
 item_id, sample_index) slots, regardless of run_id.
 
+Echo-change halt (collection only, always on; the pre-registration's
+preview-id tripwire): each model holds a reference echo id. Before a
+model's first call the existing output file is read: exactly one distinct
+prior model_id_exact is the reference (so the rule spans resumed runs);
+more than one refuses collection for that model, naming the ids, because
+the data is already split and needs human partitioning; no prior rows means
+the first echoed response of the run sets the reference. On divergence the
+divergent row is written durably as evidence, collection stops for that
+model, remaining models continue, and the run exits nonzero at the end.
+Analysis partitions rows by model_id_exact, so the divergent row forms its
+own cell. A response with no parseable echo never halts and never sets or
+updates the reference; it is counted and reported per model.
+--verify-reasoning and --probe-sampling are not subject to the check.
+
 Reasoning-disable verification (--verify-reasoning): the pre-registration
 makes reasoning-off a void condition requiring positive verification. For
 each Arm A model this mode issues a small number of calls with reasoning
@@ -220,25 +234,62 @@ def completed_slots(out_path):
 
 
 def collect_row(m, arm, item, sample_index, api_key, run_id):
-    """One single-turn call, returned as a finished row dict."""
+    """One single-turn call. Returns (row, echo): the finished row dict and
+    the raw model id echo before the requested-id fallback, which the echo
+    tripwire needs because a missing echo must read as absence, never as
+    change."""
     provider = m["provider"]
     url, headers, body, temperature_sent = build_request(
         m, arm, baseline_prompt(item), api_key)
     data = post_with_retries(url, headers, body, PROVIDERS[provider]["retryable"])
     parsed_resp = parse_response(provider, data)
-    return {
+    echo = parsed_resp["model_id_exact"]
+    row = {
         "run_id": run_id, "phase": "baseline", "model": m["model"],
         "item_id": item["id"], "item_cell": item.get("cell"),
         "sample_index": sample_index,
         "parsed": parse_baseline_answer(parsed_resp["text"]),
         "raw_text": parsed_resp["text"], "ts": now_iso(),
         "provider": provider,
-        "model_id_exact": parsed_resp["model_id_exact"] or m["model"],
+        "model_id_exact": echo or m["model"],
         "host": m.get("host"), "arm": arm,
         "reasoning_requested": "off" if arm == "A" else "on",
         "reasoning_detected": parsed_resp["reasoning_present"],
         "temperature_sent": temperature_sent,
     }
+    return row, echo
+
+
+def scan_echoes(out_path):
+    """Per-model counts of model_id_exact over the existing output file,
+    keyed model -> {id: n}. The reference scan for the echo tripwire; spans
+    resumed runs because it reads whatever is already on disk. Tolerates a
+    torn final line like completed_slots."""
+    counts = {}
+    if not os.path.exists(out_path):
+        return counts
+    with open(out_path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                r = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            model = r.get("model")
+            echoed = r.get("model_id_exact")
+            if model is None or echoed is None:
+                continue
+            per_model = counts.setdefault(model, {})
+            per_model[echoed] = per_model.get(echoed, 0) + 1
+    return counts
+
+
+def collection_failed(status):
+    """True when the echo tripwire refused or halted anything: the run
+    exits nonzero at the end per the pre-registered rule."""
+    return bool(status["refused"] or status["halted"])
 
 
 def run_collection(models, arm, out_path, k=K_SAMPLES, items=None, run_id=None):
@@ -264,6 +315,30 @@ def run_collection(models, arm, out_path, k=K_SAMPLES, items=None, run_id=None):
     run_id = run_id or now_iso()
     done = completed_slots(out_path)
 
+    # Echo tripwire references (pre-registration, preview-id mitigations).
+    # One distinct prior echo is the reference; more than one refuses the
+    # model; none means the first echoed response of this run sets it.
+    echo_counts = scan_echoes(out_path)
+    references = {}
+    status = {"refused": [], "halted": [], "missing_echo": {}}
+    kept = []
+    for m in runnable:
+        prior = echo_counts.get(m["model"]) or {}
+        if len(prior) > 1:
+            ids = sorted(prior)
+            status["refused"].append({"model": m["model"], "ids": ids})
+            sys.stderr.write(
+                "ECHO REFUSAL [{}]: prior rows in {} carry {} distinct "
+                "model_id_exact values: {}. The data is already split and "
+                "needs human partitioning before more rows land; refusing to "
+                "start collection for this model.\n".format(
+                    m["model"], out_path, len(ids), ", ".join(ids)))
+            continue
+        if prior:
+            references[m["model"]] = next(iter(prior))
+        kept.append(m)
+    runnable = kept
+
     tally = {}   # (model, label) -> count, label in A..D, "null"
     detect = {}  # model -> {True/False/None: count}
     skipped = 0
@@ -273,19 +348,56 @@ def run_collection(models, arm, out_path, k=K_SAMPLES, items=None, run_id=None):
     try:
         for m in runnable:
             provider = m["provider"]
+            mid = m["model"]
+            halted = False
             for item in items:
+                if halted:
+                    break
                 for sample_index in range(k):
-                    slot = (provider, m["model"], arm, item["id"], sample_index)
+                    slot = (provider, mid, arm, item["id"], sample_index)
                     if slot in done:
                         skipped += 1
                         continue
-                    row = collect_row(m, arm, item, sample_index,
-                                      keys[provider], run_id)
+                    row, echo = collect_row(m, arm, item, sample_index,
+                                            keys[provider], run_id)
+                    # The divergent row is written first, durable append, so
+                    # it remains on disk as evidence; the halt check runs on
+                    # the raw echo afterwards.
                     write_row(fh, row)
                     label = row["parsed"] if row["parsed"] else "null"
-                    tally[(m["model"], label)] = tally.get((m["model"], label), 0) + 1
-                    d = detect.setdefault(m["model"], {})
+                    tally[(mid, label)] = tally.get((mid, label), 0) + 1
+                    d = detect.setdefault(mid, {})
                     d[row["reasoning_detected"]] = d.get(row["reasoning_detected"], 0) + 1
+                    per_model = echo_counts.setdefault(mid, {})
+                    per_model[row["model_id_exact"]] = \
+                        per_model.get(row["model_id_exact"], 0) + 1
+                    if echo is None:
+                        # Absence is not change: counted, reported at the
+                        # end, and the reference is never set from it.
+                        status["missing_echo"][mid] = \
+                            status["missing_echo"].get(mid, 0) + 1
+                    elif references.get(mid) is None:
+                        references[mid] = echo
+                    elif echo != references[mid]:
+                        ref = references[mid]
+                        status["halted"].append({
+                            "model": mid, "reference": ref,
+                            "divergent": echo,
+                            "reference_rows": per_model.get(ref, 0),
+                            "divergent_rows": per_model.get(echo, 0),
+                        })
+                        sys.stderr.write(
+                            "ECHO HALT [{}]: response echoed {} against "
+                            "reference {}; {} row(s) on the reference side, "
+                            "{} on the divergent side. The divergent row is "
+                            "written and forms its own cell per the "
+                            "pre-registered rule; collection stopped for "
+                            "this model, continuing with any remaining "
+                            "models.\n".format(
+                                mid, echo, ref, per_model.get(ref, 0),
+                                per_model.get(echo, 0)))
+                        halted = True
+                        break
     finally:
         fh.close()
 
@@ -313,7 +425,13 @@ def run_collection(models, arm, out_path, k=K_SAMPLES, items=None, run_id=None):
                 "surface (reasoning_detected null). Positive verification is "
                 "unavailable for those rows; report per the "
                 "pre-registration.\n".format(model, d[None]))
+    for mid, n_missing in sorted(status["missing_echo"].items()):
+        sys.stderr.write(
+            "MISSING ECHO NOTE [{}]: {} response(s) carried no parseable "
+            "model id echo; recorded with the requested id, never setting "
+            "or updating the reference.\n".format(mid, n_missing))
     print("Rows: {}".format(out_path))
+    return status
 
 
 def verify_reasoning(models, out_path=DEFAULT_VERIFY_OUT, n=VERIFY_N,
@@ -343,8 +461,8 @@ def verify_reasoning(models, out_path=DEFAULT_VERIFY_OUT, n=VERIFY_N,
         for m in arm_a:
             detections = []
             for sample_index in range(n):
-                row = collect_row(m, "A", item, sample_index,
-                                  keys[m["provider"]], run_id)
+                row, _echo = collect_row(m, "A", item, sample_index,
+                                         keys[m["provider"]], run_id)
                 row["phase"] = "verify_reasoning"
                 write_row(fh, row)
                 detections.append(row["reasoning_detected"])
@@ -520,7 +638,9 @@ def main():
         elif args.verify_reasoning:
             verify_reasoning(models, out_path=args.verify_out, n=args.verify_n)
         else:
-            run_collection(models, args.arm, args.out, k=args.k)
+            status = run_collection(models, args.arm, args.out, k=args.k)
+            if collection_failed(status):
+                sys.exit(1)
     except (ProviderConfigError, CredentialError) as exc:
         sys.stderr.write(str(exc) + "\n")
         sys.exit(1)
