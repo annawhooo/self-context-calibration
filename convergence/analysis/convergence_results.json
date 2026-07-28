@@ -1,0 +1,725 @@
+{
+  "integrity": {
+    "cells": [
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-haiku-4-5-20251001": 680
+        },
+        "expected": true,
+        "model": "claude-haiku-4-5-20251001",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-haiku-4-5-20251001": 680
+        },
+        "expected": true,
+        "model": "claude-haiku-4-5-20251001",
+        "rows": 680,
+        "tie_items": 1,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-opus-4-8": 680
+        },
+        "expected": true,
+        "model": "claude-opus-4-8",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-opus-4-8": 680
+        },
+        "expected": true,
+        "model": "claude-opus-4-8",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-sonnet-4-6": 680
+        },
+        "expected": true,
+        "model": "claude-sonnet-4-6",
+        "rows": 680,
+        "tie_items": 1,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "claude-sonnet-4-6": 680
+        },
+        "expected": true,
+        "model": "claude-sonnet-4-6",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "deepseek-v4-flash": 680
+        },
+        "expected": true,
+        "model": "deepseek-v4-flash",
+        "rows": 680,
+        "tie_items": 5,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "deepseek-v4-flash": 680
+        },
+        "expected": true,
+        "model": "deepseek-v4-flash",
+        "rows": 680,
+        "tie_items": 1,
+        "unparsed": 5,
+        "unparsed_rate": 0.007352941176470588
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "deepseek-v4-pro": 680
+        },
+        "expected": true,
+        "model": "deepseek-v4-pro",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "deepseek-v4-pro": 680
+        },
+        "expected": true,
+        "model": "deepseek-v4-pro",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gemini-3.1-pro-preview": 680
+        },
+        "expected": true,
+        "model": "gemini-3.1-pro-preview",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 2,
+        "unparsed_rate": 0.0029411764705882353
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gemini-3.6-flash": 680
+        },
+        "expected": true,
+        "model": "gemini-3.6-flash",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "glm-5.2": 680
+        },
+        "expected": true,
+        "model": "glm-5.2",
+        "rows": 680,
+        "tie_items": 1,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "glm-5.2": 680
+        },
+        "expected": true,
+        "model": "glm-5.2",
+        "rows": 680,
+        "tie_items": 2,
+        "unparsed": 53,
+        "unparsed_rate": 0.07794117647058824
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gpt-5.6-sol": 680
+        },
+        "expected": true,
+        "model": "gpt-5.6-sol",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gpt-5.6-sol": 680
+        },
+        "expected": true,
+        "model": "gpt-5.6-sol",
+        "rows": 680,
+        "tie_items": 2,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "A",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gpt-5.6-terra": 680
+        },
+        "expected": true,
+        "model": "gpt-5.6-terra",
+        "rows": 680,
+        "tie_items": 1,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      },
+      {
+        "arm": "B",
+        "duplicate_slots": [],
+        "echo_ids": {
+          "gpt-5.6-terra": 680
+        },
+        "expected": true,
+        "model": "gpt-5.6-terra",
+        "rows": 680,
+        "tie_items": 0,
+        "unparsed": 0,
+        "unparsed_rate": 0.0
+      }
+    ],
+    "malformed_lines": 0
+  },
+  "parameters": {
+    "B": 2000,
+    "gate_rows": 680,
+    "seed": 20260722,
+    "sens1_unparsed": 0.1,
+    "void_unparsed": 0.2
+  },
+  "primary": {
+    "absolute_sentence": "Absolute cross-lab agreement 0.8593, against 0.25 (chance on four options) and 1.00 (identical judgment). Agreement is not accuracy.",
+    "cross_mean": 0.8593350383631714,
+    "decision_sentence": "Within-lab agreement exceeds cross-lab agreement: within-lab (lab-balanced) 0.8905, cross-lab 0.8593, difference +0.0312, 90% interval [+0.0072, +0.0583].",
+    "diff": 0.03118783745382203,
+    "interval": {
+      "hi": 0.058265842568911805,
+      "lo": 0.007175333901676895
+    },
+    "lab_means": {
+      "anthropic": 0.9215686274509803,
+      "deepseek": 0.8382352941176471,
+      "openai": 0.9117647058823529
+    },
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-sonnet-4-6",
+      "claude-opus-4-8",
+      "gpt-5.6-terra",
+      "gpt-5.6-sol",
+      "deepseek-v4-flash",
+      "deepseek-v4-pro",
+      "glm-5.2"
+    ],
+    "voided_excluded": [],
+    "within_lab_balanced": 0.8905228758169934,
+    "within_pair_weighted": 0.9029411764705882
+  },
+  "secondary": {
+    "arm_comparison_label": "Arm A versus Arm B is descriptive and confounded by construction: reasoning means adaptive on one lab, a token budget on another, and always-on elsewhere, and Arm B adds Google. It is the deployed-configuration comparison, never a controlled contrast.",
+    "arms": {
+      "A": {
+        "cross_mean": 0.8593350383631714,
+        "diff": 0.03118783745382203,
+        "interval": {
+          "hi": 0.058265842568911805,
+          "lo": 0.007175333901676895
+        },
+        "lab_means": {
+          "anthropic": 0.9215686274509803,
+          "deepseek": 0.8382352941176471,
+          "openai": 0.9117647058823529
+        },
+        "pair_agreement": {
+          "claude-haiku-4-5-20251001|claude-opus-4-8": 0.8970588235294118,
+          "claude-haiku-4-5-20251001|claude-sonnet-4-6": 0.9705882352941176,
+          "claude-haiku-4-5-20251001|deepseek-v4-flash": 0.8529411764705882,
+          "claude-haiku-4-5-20251001|deepseek-v4-pro": 0.8529411764705882,
+          "claude-haiku-4-5-20251001|glm-5.2": 0.8970588235294118,
+          "claude-haiku-4-5-20251001|gpt-5.6-sol": 0.9117647058823529,
+          "claude-haiku-4-5-20251001|gpt-5.6-terra": 0.8382352941176471,
+          "claude-opus-4-8|deepseek-v4-flash": 0.8088235294117647,
+          "claude-opus-4-8|deepseek-v4-pro": 0.8529411764705882,
+          "claude-opus-4-8|glm-5.2": 0.8970588235294118,
+          "claude-opus-4-8|gpt-5.6-sol": 0.9264705882352942,
+          "claude-opus-4-8|gpt-5.6-terra": 0.8823529411764706,
+          "claude-sonnet-4-6|claude-opus-4-8": 0.8970588235294118,
+          "claude-sonnet-4-6|deepseek-v4-flash": 0.8529411764705882,
+          "claude-sonnet-4-6|deepseek-v4-pro": 0.8382352941176471,
+          "claude-sonnet-4-6|glm-5.2": 0.8970588235294118,
+          "claude-sonnet-4-6|gpt-5.6-sol": 0.9117647058823529,
+          "claude-sonnet-4-6|gpt-5.6-terra": 0.8382352941176471,
+          "deepseek-v4-flash|deepseek-v4-pro": 0.8382352941176471,
+          "deepseek-v4-flash|glm-5.2": 0.8235294117647058,
+          "deepseek-v4-pro|glm-5.2": 0.8235294117647058,
+          "gpt-5.6-sol|deepseek-v4-flash": 0.8088235294117647,
+          "gpt-5.6-sol|deepseek-v4-pro": 0.8676470588235294,
+          "gpt-5.6-sol|glm-5.2": 0.8823529411764706,
+          "gpt-5.6-terra|deepseek-v4-flash": 0.7794117647058824,
+          "gpt-5.6-terra|deepseek-v4-pro": 0.8382352941176471,
+          "gpt-5.6-terra|glm-5.2": 0.8823529411764706,
+          "gpt-5.6-terra|gpt-5.6-sol": 0.9117647058823529
+        },
+        "within_lab_balanced": 0.8905228758169934,
+        "within_pair_weighted": 0.9029411764705882
+      },
+      "B": {
+        "cross_mean": 0.9019607843137256,
+        "diff": 0.001225490196078316,
+        "interval": {
+          "hi": 0.017816742081447578,
+          "lo": -0.01621417797888359
+        },
+        "lab_means": {
+          "anthropic": 0.9362745098039215,
+          "deepseek": 0.8970588235294118,
+          "google": 0.8970588235294118,
+          "openai": 0.8823529411764706
+        },
+        "pair_agreement": {
+          "claude-haiku-4-5-20251001|claude-opus-4-8": 0.9264705882352942,
+          "claude-haiku-4-5-20251001|claude-sonnet-4-6": 0.9411764705882353,
+          "claude-haiku-4-5-20251001|deepseek-v4-flash": 0.8676470588235294,
+          "claude-haiku-4-5-20251001|deepseek-v4-pro": 0.9117647058823529,
+          "claude-haiku-4-5-20251001|gemini-3.1-pro-preview": 0.9117647058823529,
+          "claude-haiku-4-5-20251001|gemini-3.6-flash": 0.8823529411764706,
+          "claude-haiku-4-5-20251001|glm-5.2": 0.9117647058823529,
+          "claude-haiku-4-5-20251001|gpt-5.6-sol": 0.9117647058823529,
+          "claude-haiku-4-5-20251001|gpt-5.6-terra": 0.8823529411764706,
+          "claude-opus-4-8|deepseek-v4-flash": 0.8823529411764706,
+          "claude-opus-4-8|deepseek-v4-pro": 0.8970588235294118,
+          "claude-opus-4-8|gemini-3.1-pro-preview": 0.9117647058823529,
+          "claude-opus-4-8|gemini-3.6-flash": 0.9117647058823529,
+          "claude-opus-4-8|glm-5.2": 0.9264705882352942,
+          "claude-opus-4-8|gpt-5.6-sol": 0.9264705882352942,
+          "claude-opus-4-8|gpt-5.6-terra": 0.8823529411764706,
+          "claude-sonnet-4-6|claude-opus-4-8": 0.9411764705882353,
+          "claude-sonnet-4-6|deepseek-v4-flash": 0.8970588235294118,
+          "claude-sonnet-4-6|deepseek-v4-pro": 0.9264705882352942,
+          "claude-sonnet-4-6|gemini-3.1-pro-preview": 0.9411764705882353,
+          "claude-sonnet-4-6|gemini-3.6-flash": 0.9117647058823529,
+          "claude-sonnet-4-6|glm-5.2": 0.9117647058823529,
+          "claude-sonnet-4-6|gpt-5.6-sol": 0.9117647058823529,
+          "claude-sonnet-4-6|gpt-5.6-terra": 0.8823529411764706,
+          "deepseek-v4-flash|deepseek-v4-pro": 0.8970588235294118,
+          "deepseek-v4-flash|gemini-3.1-pro-preview": 0.8676470588235294,
+          "deepseek-v4-flash|gemini-3.6-flash": 0.8823529411764706,
+          "deepseek-v4-flash|glm-5.2": 0.8970588235294118,
+          "deepseek-v4-pro|gemini-3.1-pro-preview": 0.9117647058823529,
+          "deepseek-v4-pro|gemini-3.6-flash": 0.9264705882352942,
+          "deepseek-v4-pro|glm-5.2": 0.9264705882352942,
+          "gemini-3.6-flash|gemini-3.1-pro-preview": 0.8970588235294118,
+          "glm-5.2|gemini-3.1-pro-preview": 0.9264705882352942,
+          "glm-5.2|gemini-3.6-flash": 0.8970588235294118,
+          "gpt-5.6-sol|deepseek-v4-flash": 0.8970588235294118,
+          "gpt-5.6-sol|deepseek-v4-pro": 0.9117647058823529,
+          "gpt-5.6-sol|gemini-3.1-pro-preview": 0.9117647058823529,
+          "gpt-5.6-sol|gemini-3.6-flash": 0.9411764705882353,
+          "gpt-5.6-sol|glm-5.2": 0.9264705882352942,
+          "gpt-5.6-terra|deepseek-v4-flash": 0.8235294117647058,
+          "gpt-5.6-terra|deepseek-v4-pro": 0.8823529411764706,
+          "gpt-5.6-terra|gemini-3.1-pro-preview": 0.8823529411764706,
+          "gpt-5.6-terra|gemini-3.6-flash": 0.8823529411764706,
+          "gpt-5.6-terra|glm-5.2": 0.8823529411764706,
+          "gpt-5.6-terra|gpt-5.6-sol": 0.8823529411764706
+        },
+        "within_lab_balanced": 0.9031862745098039,
+        "within_pair_weighted": 0.9142156862745098
+      }
+    },
+    "p_modal": {
+      "A": {
+        "claude-haiku-4-5-20251001": {
+          "max": 1.0,
+          "mean": 0.9941176470588234,
+          "median": 1.0,
+          "min": 0.6,
+          "n_items": 68
+        },
+        "claude-opus-4-8": {
+          "max": 1.0,
+          "mean": 0.9955882352941174,
+          "median": 1.0,
+          "min": 0.9,
+          "n_items": 68
+        },
+        "claude-sonnet-4-6": {
+          "max": 1.0,
+          "mean": 0.9911764705882353,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "deepseek-v4-flash": {
+          "max": 1.0,
+          "mean": 0.9191176470588234,
+          "median": 1.0,
+          "min": 0.4,
+          "n_items": 68
+        },
+        "deepseek-v4-pro": {
+          "max": 1.0,
+          "mean": 0.9411764705882353,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "glm-5.2": {
+          "max": 1.0,
+          "mean": 0.9602941176470585,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "gpt-5.6-sol": {
+          "max": 1.0,
+          "mean": 0.9735294117647058,
+          "median": 1.0,
+          "min": 0.6,
+          "n_items": 68
+        },
+        "gpt-5.6-terra": {
+          "max": 1.0,
+          "mean": 0.9544117647058824,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        }
+      },
+      "B": {
+        "claude-haiku-4-5-20251001": {
+          "max": 1.0,
+          "mean": 0.9308823529411764,
+          "median": 1.0,
+          "min": 0.4,
+          "n_items": 68
+        },
+        "claude-opus-4-8": {
+          "max": 1.0,
+          "mean": 0.9852941176470589,
+          "median": 1.0,
+          "min": 0.7,
+          "n_items": 68
+        },
+        "claude-sonnet-4-6": {
+          "max": 1.0,
+          "mean": 0.975,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "deepseek-v4-flash": {
+          "max": 1.0,
+          "mean": 0.9485294117647058,
+          "median": 1.0,
+          "min": 0.4,
+          "n_items": 68
+        },
+        "deepseek-v4-pro": {
+          "max": 1.0,
+          "mean": 0.9573529411764705,
+          "median": 1.0,
+          "min": 0.4,
+          "n_items": 68
+        },
+        "gemini-3.1-pro-preview": {
+          "max": 1.0,
+          "mean": 0.982720588235294,
+          "median": 1.0,
+          "min": 0.625,
+          "n_items": 68
+        },
+        "gemini-3.6-flash": {
+          "max": 1.0,
+          "mean": 0.9897058823529411,
+          "median": 1.0,
+          "min": 0.8,
+          "n_items": 68
+        },
+        "glm-5.2": {
+          "max": 1.0,
+          "mean": 0.9711659663865546,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "gpt-5.6-sol": {
+          "max": 1.0,
+          "mean": 0.9676470588235294,
+          "median": 1.0,
+          "min": 0.5,
+          "n_items": 68
+        },
+        "gpt-5.6-terra": {
+          "max": 1.0,
+          "mean": 0.9764705882352942,
+          "median": 1.0,
+          "min": 0.6,
+          "n_items": 68
+        }
+      }
+    },
+    "tier_gradient": {
+      "anthropic": {
+        "A": [
+          {
+            "model": "claude-haiku-4-5-20251001",
+            "p_modal_mean": 0.9941176470588234
+          },
+          {
+            "model": "claude-sonnet-4-6",
+            "p_modal_mean": 0.9911764705882353
+          },
+          {
+            "model": "claude-opus-4-8",
+            "p_modal_mean": 0.9955882352941174
+          }
+        ],
+        "B": [
+          {
+            "model": "claude-haiku-4-5-20251001",
+            "p_modal_mean": 0.9308823529411764
+          },
+          {
+            "model": "claude-sonnet-4-6",
+            "p_modal_mean": 0.975
+          },
+          {
+            "model": "claude-opus-4-8",
+            "p_modal_mean": 0.9852941176470589
+          }
+        ]
+      },
+      "deepseek": {
+        "A": [
+          {
+            "model": "deepseek-v4-flash",
+            "p_modal_mean": 0.9191176470588234
+          },
+          {
+            "model": "deepseek-v4-pro",
+            "p_modal_mean": 0.9411764705882353
+          }
+        ],
+        "B": [
+          {
+            "model": "deepseek-v4-flash",
+            "p_modal_mean": 0.9485294117647058
+          },
+          {
+            "model": "deepseek-v4-pro",
+            "p_modal_mean": 0.9573529411764705
+          }
+        ]
+      },
+      "openai": {
+        "A": [
+          {
+            "model": "gpt-5.6-terra",
+            "p_modal_mean": 0.9544117647058824
+          },
+          {
+            "model": "gpt-5.6-sol",
+            "p_modal_mean": 0.9735294117647058
+          }
+        ],
+        "B": [
+          {
+            "model": "gpt-5.6-terra",
+            "p_modal_mean": 0.9764705882352942
+          },
+          {
+            "model": "gpt-5.6-sol",
+            "p_modal_mean": 0.9676470588235294
+          }
+        ]
+      }
+    }
+  },
+  "sensitivity_1_unparsed": {
+    "cross_mean": 0.8593350383631714,
+    "diff": 0.03118783745382203,
+    "excluded": [],
+    "identical_to_primary": true,
+    "interval": {
+      "hi": 0.058265842568911805,
+      "lo": 0.007175333901676895
+    },
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-sonnet-4-6",
+      "claude-opus-4-8",
+      "gpt-5.6-terra",
+      "gpt-5.6-sol",
+      "deepseek-v4-flash",
+      "deepseek-v4-pro",
+      "glm-5.2"
+    ],
+    "within_lab_balanced": 0.8905228758169934
+  },
+  "sensitivity_2_single_anthropic": {
+    "diff_range": [
+      0.023190045248868696,
+      0.025452488687782715
+    ],
+    "note": "each recompute removes all Anthropic within-lab pairs by construction; no single representative is designated",
+    "runs": {
+      "claude-haiku-4-5-20251001": {
+        "cross_mean": 0.8506787330316743,
+        "diff": 0.024321266968325705,
+        "interval": {
+          "hi": 0.05825791855203622,
+          "lo": -0.006221719457013664
+        },
+        "models": [
+          "claude-haiku-4-5-20251001",
+          "gpt-5.6-terra",
+          "gpt-5.6-sol",
+          "deepseek-v4-flash",
+          "deepseek-v4-pro",
+          "glm-5.2"
+        ],
+        "within_lab_balanced": 0.875
+      },
+      "claude-opus-4-8": {
+        "cross_mean": 0.8518099547511313,
+        "diff": 0.023190045248868696,
+        "interval": {
+          "hi": 0.05885180995475122,
+          "lo": -0.009615384615384803
+        },
+        "models": [
+          "claude-opus-4-8",
+          "gpt-5.6-terra",
+          "gpt-5.6-sol",
+          "deepseek-v4-flash",
+          "deepseek-v4-pro",
+          "glm-5.2"
+        ],
+        "within_lab_balanced": 0.875
+      },
+      "claude-sonnet-4-6": {
+        "cross_mean": 0.8495475113122173,
+        "diff": 0.025452488687782715,
+        "interval": {
+          "hi": 0.06052036199095023,
+          "lo": -0.005656108597285159
+        },
+        "models": [
+          "claude-sonnet-4-6",
+          "gpt-5.6-terra",
+          "gpt-5.6-sol",
+          "deepseek-v4-flash",
+          "deepseek-v4-pro",
+          "glm-5.2"
+        ],
+        "within_lab_balanced": 0.875
+      }
+    }
+  },
+  "sensitivity_3_tie_intersection": {
+    "cross_mean": 0.8836317135549874,
+    "diff": 0.033034953111679255,
+    "interval": {
+      "hi": 0.06209150326797353,
+      "lo": 0.006599886331344291
+    },
+    "models": [
+      "claude-haiku-4-5-20251001",
+      "claude-sonnet-4-6",
+      "claude-opus-4-8",
+      "gpt-5.6-terra",
+      "gpt-5.6-sol",
+      "deepseek-v4-flash",
+      "deepseek-v4-pro",
+      "glm-5.2"
+    ],
+    "within_lab_balanced": 0.9166666666666666
+  },
+  "unparsed_rates": {
+    "A": {
+      "claude-haiku-4-5-20251001": 0.0,
+      "claude-opus-4-8": 0.0,
+      "claude-sonnet-4-6": 0.0,
+      "deepseek-v4-flash": 0.0,
+      "deepseek-v4-pro": 0.0,
+      "glm-5.2": 0.0,
+      "gpt-5.6-sol": 0.0,
+      "gpt-5.6-terra": 0.0
+    },
+    "B": {
+      "claude-haiku-4-5-20251001": 0.0,
+      "claude-opus-4-8": 0.0,
+      "claude-sonnet-4-6": 0.0,
+      "deepseek-v4-flash": 0.007352941176470588,
+      "deepseek-v4-pro": 0.0,
+      "gemini-3.1-pro-preview": 0.0029411764705882353,
+      "gemini-3.6-flash": 0.0,
+      "glm-5.2": 0.07794117647058824,
+      "gpt-5.6-sol": 0.0,
+      "gpt-5.6-terra": 0.0
+    }
+  },
+  "voided": {
+    "A": [],
+    "B": []
+  }
+}
