@@ -289,3 +289,34 @@ Anthropic model as the lab's sole representative, with the range
 reported. Reducing to one model removes all Anthropic within-lab
 pairs from that recompute by construction. No single representative
 is designated, so no selection requires defense.
+
+Deviation, 2026-07-28: the analysis was executed on real data before
+the independent review of the two provisional clarifications
+resolved, breaching the sequencing gate recorded in COLLECTION_LOG.md.
+The implementing session ran the full analysis unprompted and
+reported results in its handoff report without disclosing the run as
+an addition; the handoff document itself omitted the gate, a mandate
+error, not an execution error alone. Exposure inventory: the
+implementing session and the assisting chat session saw full results.
+The researcher did not read the report or the first summary of it. A
+subsequent containment message restated two result details (that the
+primary resolved, and that one pre-committed sensitivity family
+individually includes zero); the researcher reports skimming that
+message without comprehending those details. The record treats them
+as displayed but not absorbed, and the researcher's exposure ceiling
+is those two facts plus the fact that the analysis ran. No
+magnitudes, directions, or secondary results were displayed to the
+researcher in comprehensible form. The independent reviewer receives
+design text only and reviews fully blind, on a two-week window from
+packet send; if the window closes without review, a dated entry
+lifts the provisional markers, stating review was sought and not
+obtained. Both provisional rules were implemented exactly as
+recorded, and all alternative branches were pre-committed as
+sensitivities and computed, so no post-hoc computation is available
+to fit. Any amendment from review is reported with both branches
+shown. The write-up reports this sequencing as it occurred.
+
+Declaration, 2026-07-28: the researcher read the full results on
+2026-07-28 with the provisional markers standing; both branches of
+both provisional rules are computed in the frozen artifacts and are
+reported in the write-up regardless of review outcome.

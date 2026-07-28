@@ -51,3 +51,7 @@ total (0.49 percent), no cell above the 0.10 sensitivity threshold.
 Sensitivity 1 excludes no model. Analysis is gated on the analyzer
 build (handoff pending with Claude Code) and resolution of the two
 provisional clarifications under independent review.
+
+2026-07-28. Sequencing breach: see the Deviations entry of this date
+in PRE_REGISTRATION_CONVERGENCE.md. The analysis gate recorded above
+was not cleared before the first real-data analysis run.
