@@ -39,3 +39,15 @@ convergence/results/collection_stdout.log (gitignored), keeping
 stderr, including halt and refusal reports, on the console. A runner
 change is deferred until collection completes to avoid mid-collection
 code churn.
+
+2026-07-28. Collection complete. Final totals: 12,240 rows, 18
+model-arm cells at exactly 680 each, 5,440 Arm A and 6,800 Arm B.
+gemini-3.1-pro-preview completed 2026-07-27 across three daily quota
+windows (2026-07-24 through 2026-07-27) with a single echoed id on
+every row; the preview-id exposure window is closed and the aliasing
+risk is retired. File-wide integrity: no multi-echo model, zero
+duplicate (model, arm, item_id, sample_index) keys, 60 unparsed rows
+total (0.49 percent), no cell above the 0.10 sensitivity threshold.
+Sensitivity 1 excludes no model. Analysis is gated on the analyzer
+build (handoff pending with Claude Code) and resolution of the two
+provisional clarifications under independent review.
