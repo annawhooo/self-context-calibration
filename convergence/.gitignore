@@ -7,3 +7,8 @@ results/*.log
 
 # Sampling-variance probe outputs (full model replies per probe run).
 probe_reports/
+
+# Analysis artifacts are deterministic and regenerable; a frozen result is
+# committed deliberately with git add -f (claude_code_handoff_analysis.md,
+# Output).
+analysis/
