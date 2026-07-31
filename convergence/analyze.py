@@ -554,6 +554,51 @@ def test_retest(fresh_rows, baseline_rows):
     return out
 
 
+def compare_runs(rows_a, rows_b, arm, label_a, label_b):
+    """Distribution distance between two convergence-schema row files
+    for the same models on the same bank. Same measures and scale as
+    test_retest, so a same-day self-distance is directly comparable to
+    the three-week supplement. Not part of the pre-registered analysis:
+    an instrument characterization, reported on its own."""
+    out = {"label": "instrument characterization; not part of the "
+                    "pre-registered analysis",
+           "arm": arm, "file_a": label_a, "file_b": label_b, "models": {}}
+    ids = sorted(it["id"] for it in ITEMS)
+    models = sorted({r.get("model") for r in rows_a}
+                    & {r.get("model") for r in rows_b})
+    for model in models:
+        da = item_distribution(model_rows(arm_rows(rows_a, arm), model))
+        db = item_distribution(model_rows(arm_rows(rows_b, arm), model))
+        items_out, tvds, matches, undefined = [], [], 0, 0
+        for iid in ids:
+            ca, cb = da.get(iid, Counter()), db.get(iid, Counter())
+            ia, ib = modal_info(ca), modal_info(cb)
+            if ia["n_parsed"] and ib["n_parsed"]:
+                na, nb = ia["n_parsed"], ib["n_parsed"]
+                tvd = 0.5 * sum(abs(ca.get(o, 0) / na - cb.get(o, 0) / nb)
+                                for o in OPTIONS)
+                tvds.append(tvd)
+                if ia["modal"] and ib["modal"] and ia["modal"] == ib["modal"]:
+                    matches += 1
+                elif ia["modal"] is None or ib["modal"] is None:
+                    undefined += 1
+                items_out.append(
+                    {"item_id": iid, "tvd": round(tvd, 4),
+                     "modal_a": ia["modal"], "modal_b": ib["modal"],
+                     "match": bool(ia["modal"] and ib["modal"]
+                                   and ia["modal"] == ib["modal"])})
+        n = len(tvds)
+        out["models"][model] = {
+            "n_items_compared": n,
+            "modal_matches": matches,
+            "modal_undefined_either_side": undefined,
+            "mean_tvd": round(sum(tvds) / n, 4) if n else None,
+            "max_tvd": round(max(tvds), 4) if n else None,
+            "full_flips": sum(1 for t in tvds if t == 1.0),
+            "items": items_out}
+    return out
+
+
 def analyze(rows, roster, baseline_rows, B=BOOT_B, seed=BOOT_SEED,
             malformed=0):
     """The full pre-registered computation. Raises MultiEchoError or
@@ -969,7 +1014,32 @@ def main():
     ap.add_argument("--out-dir", default=DEFAULT_OUT_DIR)
     ap.add_argument("--integrity-only", action="store_true",
                     help="print the integrity report and write nothing")
+    ap.add_argument("--compare-runs", nargs=2, metavar=("FILE_A", "FILE_B"),
+                    help="instrument characterization: distribution "
+                         "distance between two convergence-schema row "
+                         "files; writes its own file and nothing else")
+    ap.add_argument("--compare-arm", default="A",
+                    help="arm to compare for --compare-runs (default A)")
+    ap.add_argument("--compare-out",
+                    default="convergence/analysis_runs/compare_runs.json",
+                    help="output path for --compare-runs")
     args = ap.parse_args()
+
+    if args.compare_runs:
+        pa, pb = args.compare_runs
+        os.makedirs(os.path.dirname(args.compare_out) or ".", exist_ok=True)
+        ra, _ = load_rows(pa)
+        rb, _ = load_rows(pb)
+        res = compare_runs(ra, rb, args.compare_arm, pa, pb)
+        write_json(args.compare_out, res)
+        for m, v in sorted(res["models"].items()):
+            print(f"{m:34s} items {v['n_items_compared']:3d}  "
+                  f"modal match {v['modal_matches']:3d}  "
+                  f"tied/undefined {v['modal_undefined_either_side']:2d}  "
+                  f"mean TVD {v['mean_tvd']}  max {v['max_tvd']}  "
+                  f"full flips {v['full_flips']}")
+        print("wrote", args.compare_out)
+        return
 
     roster = load_roster(args.roster)
     rows, malformed = load_rows(args.rows)

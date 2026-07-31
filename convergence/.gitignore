@@ -12,3 +12,6 @@ probe_reports/
 # committed deliberately with git add -f (claude_code_handoff_analysis.md,
 # Output).
 analysis/
+
+# Instrument characterization outputs (compare-runs); not analysis artifacts.
+analysis_runs/
