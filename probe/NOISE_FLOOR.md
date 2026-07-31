@@ -53,6 +53,17 @@ snapshot ids over three weeks is real and detectable on this bank.
    items going erratic means the model moved; equipoise items going
    quiet means the ruler or the sampler moved.
 
+## Reproducibility
+
+Same-day distances: frozen at
+convergence/analysis_runs/noise_floor.json, regenerable via the
+analyzer's --compare-runs mode from the two run files. Three-week
+distances: the frozen analysis artifacts (test-retest supplement).
+K-subsample check: probe/scripts/k_subsample_check.py (seed
+20260731, 200 resamples). Cross-model reference:
+probe/scripts/cross_tier_reference.py. Both scripts run against the
+frozen row files with no network.
+
 ## Caveats
 
 The three-week comparison crosses collection machinery: baseline rows
