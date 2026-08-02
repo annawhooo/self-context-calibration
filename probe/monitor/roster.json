@@ -1,0 +1,57 @@
+{
+  "_comment": [
+    "Monitor roster (probe/claude_code_handoff_monitor.md). Five models,",
+    "K=10, one pinned arm per entry. Field meanings are identical to",
+    "convergence/models.json; temperature_mode and the reasoning-off",
+    "mechanism are copied from that file's pins for these ids and must not",
+    "be tuned here independently. models.json itself is not read and not",
+    "modified by the monitor.",
+    "Arm: A (reasoning off) everywhere the convergence roster pins an Arm A",
+    "configuration. gemini-3.6-flash is Arm B by necessity: Gemini 3.x",
+    "exposes no way to disable reasoning, the convergence machinery refuses",
+    "a google Arm A entry, and no Arm A pin exists to copy. Its baseline",
+    "and probes are internally consistent (B against B); it is not",
+    "arm-comparable to the other four.",
+    "gemini-3.1-pro-preview is excluded: its 250-per-day request cap cannot",
+    "hold a 680-call bank run.",
+    "Entries pin exactly one arm; the monitor refuses multi-arm entries and",
+    "model ids not present in this file."
+  ],
+  "models": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "provider": "anthropic",
+      "arms": ["A"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "claude-sonnet-4-6",
+      "provider": "anthropic",
+      "arms": ["A"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "gpt-5.6-terra",
+      "provider": "openai",
+      "arms": ["A"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "gemini-3.6-flash",
+      "provider": "google",
+      "arms": ["B"],
+      "host": null,
+      "temperature_mode": "omit"
+    },
+    {
+      "model": "deepseek-v4-flash",
+      "provider": "deepseek",
+      "arms": ["A"],
+      "host": "deepseek first-party API (api.deepseek.com); record served precision if reported",
+      "temperature_mode": "send"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Raw monitor rows (baseline runs, daily probes, disambiguation reruns) embed
+# full model replies, and the scheduled task's log lands here too. The
+# committed record is baselines/*.json and verdicts.jsonl.
+rows/
