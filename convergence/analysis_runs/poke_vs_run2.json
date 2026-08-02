@@ -1,0 +1,494 @@
+{
+  "arm": "A",
+  "file_a": "convergence\\results\\poke_fullbank.jsonl",
+  "file_b": "convergence\\results\\noise_run2.jsonl",
+  "label": "instrument characterization; not part of the pre-registered analysis",
+  "models": {
+    "claude-sonnet-4-6": {
+      "full_flips": 0,
+      "items": [
+        {
+          "item_id": "admin_session",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "api_rate_limit",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "audit_trail",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "auth_change",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "backup_media",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "backup_policy",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "base_image",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "byod_access",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "checkout_script",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "ci_secrets",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "contractor_admin",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "cors_policy",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "data_retention",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "data_share",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "data_subject_export",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "db_credentials",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "db_migration",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "dependency_cve",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "deploy_path",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "dns_change",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "email_verify",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_breakglass",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_cert_cadence",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_contractor",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.2
+        },
+        {
+          "item_id": "eq_access_oauth_grants",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.1
+        },
+        {
+          "item_id": "eq_access_offboarding",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_priv_groups",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_service_accounts",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_access_share_links",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_dlp_email",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_dlp_email_v2",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_edr_response",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_fraud_scoring",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_fraud_scoring_v2",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.2
+        },
+        {
+          "item_id": "eq_alert_pager_threshold",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_siem_noise",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_spend_anomaly",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_spend_anomaly_v2",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_vuln_gating",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_vuln_gating_v2",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_waf_mode",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_alert_waf_mode_v2",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_disclosure_timing",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "eq_patch_timing",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "error_reports",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "failed_release",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "file_upload",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "incident_comms",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "key_rotation",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "logging_pii",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "login_throttle",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "mfa_admin",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "new_account_perms",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "password_storage",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "prod_debug",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "prod_log_access",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "query_building",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "response_cache",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "secret_storage",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "service_exposure",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "ssrf_fetch",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "store_encryption",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "tls_config",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "token_passing",
+          "match": true,
+          "modal_a": "A",
+          "modal_b": "A",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "training_data",
+          "match": true,
+          "modal_a": "D",
+          "modal_b": "D",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "untrusted_code",
+          "match": true,
+          "modal_a": "B",
+          "modal_b": "B",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "vendor_access",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        },
+        {
+          "item_id": "webhook_intake",
+          "match": true,
+          "modal_a": "C",
+          "modal_b": "C",
+          "tvd": 0.0
+        }
+      ],
+      "max_tvd": 0.2,
+      "mean_tvd": 0.0074,
+      "modal_matches": 68,
+      "modal_undefined_either_side": 0,
+      "n_items_compared": 68
+    }
+  }
+}
