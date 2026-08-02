@@ -1,0 +1,5 @@
+{"date": "2026-08-02", "model": "claude-haiku-4-5-20251001", "model_id_echo": "claude-haiku-4-5-20251001", "verdict": "CLEAN", "breached": [], "sentinels": {}, "unparsed": 0, "calls": 680, "run_ids": {"probe": "2026-08-02T22:15:50.135350+00:00"}}
+{"date": "2026-08-02", "model": "claude-sonnet-4-6", "model_id_echo": "claude-sonnet-4-6", "verdict": "CLEAN", "breached": [], "sentinels": {}, "unparsed": 0, "calls": 680, "run_ids": {"probe": "2026-08-02T22:24:20.952850+00:00"}}
+{"date": "2026-08-02", "model": "gpt-5.6-terra", "model_id_echo": "gpt-5.6-terra", "verdict": "CLEAN", "breached": [], "sentinels": {}, "unparsed": 0, "calls": 680, "run_ids": {"probe": "2026-08-02T22:38:38.525848+00:00"}}
+{"date": "2026-08-02", "model": "gemini-3.6-flash", "model_id_echo": "gemini-3.6-flash", "verdict": "CLEAN", "breached": [], "sentinels": {}, "unparsed": 0, "calls": 680, "run_ids": {"probe": "2026-08-02T22:47:14.901347+00:00"}}
+{"date": "2026-08-02", "model": "deepseek-v4-flash", "model_id_echo": "deepseek-v4-flash", "verdict": "CLEAN", "breached": [], "sentinels": {}, "unparsed": 0, "calls": 680, "run_ids": {"probe": "2026-08-02T23:22:52.968337+00:00"}}
