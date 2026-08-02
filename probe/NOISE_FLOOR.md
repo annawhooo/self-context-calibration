@@ -2,6 +2,11 @@
 
 Date: 2026-07-31. Companion to ARCHITECTURE.md.
 
+Notice, 2026-08-01: the sonnet same-day figures below include a drift
+event that straddled the calibration window; see
+DRIFT_EVENT_2026-07-31.md for the corrected reading. Original text
+preserved unedited.
+
 ## Question
 
 Whether fixed-bank response distributions are stable enough that a
