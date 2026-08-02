@@ -1,0 +1,2166 @@
+{
+  "model": "gpt-5.6-terra",
+  "provider": "openai",
+  "arm": "A",
+  "k": 10,
+  "sims": 10000,
+  "smooth": 1.0,
+  "seed_base": 20260802,
+  "seed_rule": "random.Random('<seed_base>:<model>:<item_id>' plus a purpose suffix ':run2', ':band', or ':disamb:<date>')",
+  "options": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "date": "2026-08-02",
+  "run_ids": {
+    "run1": "2026-08-02T19:03:51.808401+00:00",
+    "run2": "2026-08-02T19:12:36.313427+00:00"
+  },
+  "model_id_echo": "gpt-5.6-terra",
+  "missing_echo": {},
+  "rows": "probe/monitor/rows/baseline_gpt-5.6-terra_2026-08-02.jsonl",
+  "events": [],
+  "items": {
+    "vendor_access": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:vendor_access",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:vendor_access:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "deploy_path": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:deploy_path",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:deploy_path:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "secret_storage": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:secret_storage",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:secret_storage:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "auth_change": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:auth_change",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:auth_change:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "data_share": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:data_share",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:data_share:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "backup_policy": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:backup_policy",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:backup_policy:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "logging_pii": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:logging_pii",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:logging_pii:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "tls_config": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:tls_config",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:tls_config:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "db_migration": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:db_migration",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:db_migration:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "api_rate_limit": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:api_rate_limit",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:api_rate_limit:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "dependency_cve": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:dependency_cve",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:dependency_cve:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "key_rotation": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:key_rotation",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:key_rotation:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "contractor_admin": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:contractor_admin",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:contractor_admin:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "file_upload": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:file_upload",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:file_upload:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "password_storage": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:password_storage",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:password_storage:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "ci_secrets": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:ci_secrets",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:ci_secrets:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "data_retention": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:data_retention",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:data_retention:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "service_exposure": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:service_exposure",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:service_exposure:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "incident_comms": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:incident_comms",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:incident_comms:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "mfa_admin": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:mfa_admin",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:mfa_admin:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "response_cache": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:response_cache",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:response_cache:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "checkout_script": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:checkout_script",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:checkout_script:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "db_credentials": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:db_credentials",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:db_credentials:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "error_reports": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:error_reports",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:error_reports:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "query_building": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:query_building",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:query_building:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "byod_access": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:byod_access",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:byod_access:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "data_subject_export": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:data_subject_export",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:data_subject_export:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "store_encryption": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:store_encryption",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:store_encryption:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "webhook_intake": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:webhook_intake",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:webhook_intake:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "admin_session": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:admin_session",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:admin_session:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "prod_log_access": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:prod_log_access",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:prod_log_access:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "untrusted_code": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:untrusted_code",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:untrusted_code:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "backup_media": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:backup_media",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:backup_media:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "cors_policy": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:cors_policy",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:cors_policy:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "token_passing": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:token_passing",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:token_passing:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "prod_debug": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:prod_debug",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:prod_debug:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "ssrf_fetch": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:ssrf_fetch",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:ssrf_fetch:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "new_account_perms": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:new_account_perms",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:new_account_perms:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "login_throttle": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:login_throttle",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:login_throttle:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "audit_trail": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:audit_trail",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:audit_trail:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "email_verify": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:email_verify",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:email_verify:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "training_data": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:training_data",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:training_data:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "base_image": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:base_image",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:base_image:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "dns_change": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:dns_change",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:dns_change:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "failed_release": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:failed_release",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:failed_release:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_patch_timing": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_patch_timing",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_patch_timing:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_disclosure_timing": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_disclosure_timing",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_disclosure_timing:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_siem_noise": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_siem_noise",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_siem_noise:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_pager_threshold": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_pager_threshold",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_pager_threshold:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_fraud_scoring": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 5,
+          "C": 3,
+          "B": 2
+        },
+        "run2": {
+          "C": 6,
+          "D": 1,
+          "A": 3
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_fraud_scoring",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.39999999999999997,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 8,
+        "C": 9,
+        "B": 2,
+        "D": 1
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_fraud_scoring:band",
+        "p95": 0.3500000000000001,
+        "p99": 0.45000000000000007
+      }
+    },
+    "eq_alert_edr_response": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 5,
+          "B": 5
+        },
+        "run2": {
+          "B": 4,
+          "D": 6
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_edr_response",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.09999999999999998,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 11,
+        "B": 9
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_edr_response:band",
+        "p95": 0.35,
+        "p99": 0.45
+      }
+    },
+    "eq_alert_waf_mode": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_waf_mode",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_waf_mode:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_vuln_gating": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_vuln_gating",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_vuln_gating:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_dlp_email": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_dlp_email",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_dlp_email:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_spend_anomaly": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 7,
+          "D": 3
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_spend_anomaly",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.30000000000000004,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 17,
+        "D": 3
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_spend_anomaly:band",
+        "p95": 0.35,
+        "p99": 0.44999999999999996
+      }
+    },
+    "eq_alert_waf_mode_v2": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_waf_mode_v2",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_waf_mode_v2:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_fraud_scoring_v2": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 8,
+          "D": 2
+        },
+        "run2": {
+          "C": 8,
+          "B": 1,
+          "D": 1
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_fraud_scoring_v2",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.1,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 16,
+        "D": 3,
+        "B": 1
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_fraud_scoring_v2:band",
+        "p95": 0.35000000000000003,
+        "p99": 0.45000000000000007
+      }
+    },
+    "eq_alert_vuln_gating_v2": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 6,
+          "D": 2,
+          "A": 1,
+          "B": 1
+        },
+        "run2": {
+          "D": 2,
+          "C": 7,
+          "A": 1
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_vuln_gating_v2",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.09999999999999999,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 13,
+        "D": 4,
+        "A": 2,
+        "B": 1
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_vuln_gating_v2:band",
+        "p95": 0.35000000000000003,
+        "p99": 0.45000000000000007
+      }
+    },
+    "eq_alert_spend_anomaly_v2": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 10
+        },
+        "run2": {
+          "A": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_spend_anomaly_v2",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_spend_anomaly_v2:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_alert_dlp_email_v2": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_dlp_email_v2",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_alert_dlp_email_v2:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_cert_cadence": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_cert_cadence",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_cert_cadence:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_priv_groups": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_priv_groups",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_priv_groups:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_contractor": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_contractor",
+        "p95": 0.4,
+        "p99": 0.6,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_contractor:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_service_accounts": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_service_accounts",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_service_accounts:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_offboarding": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "A": 3,
+          "C": 6,
+          "D": 1
+        },
+        "run2": {
+          "A": 3,
+          "D": 1,
+          "C": 6
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_offboarding",
+        "p95": 0.39999999999999997,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "A": 6,
+        "C": 12,
+        "D": 2
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_offboarding:band",
+        "p95": 0.39999999999999997,
+        "p99": 0.4
+      }
+    },
+    "eq_access_oauth_grants": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "D": 10
+        },
+        "run2": {
+          "D": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_oauth_grants",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "D": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_oauth_grants:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_share_links": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "C": 10
+        },
+        "run2": {
+          "C": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_share_links",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "C": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_share_links:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    },
+    "eq_access_breakglass": {
+      "class": "alarm",
+      "runs": {
+        "run1": {
+          "B": 10
+        },
+        "run2": {
+          "B": 10
+        }
+      },
+      "unparsed": {
+        "run1": 0,
+        "run2": 0
+      },
+      "qualification": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_breakglass",
+        "p95": 0.4,
+        "p99": 0.5,
+        "observed_run_pair_tvd": 0.0,
+        "third_run": null
+      },
+      "baseline_counts": {
+        "B": 20
+      },
+      "n": 20,
+      "band": {
+        "seed": "20260802:gpt-5.6-terra:eq_access_breakglass:band",
+        "p95": 0.30000000000000004,
+        "p99": 0.4
+      }
+    }
+  }
+}
