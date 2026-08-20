@@ -64,6 +64,31 @@ Notes:
   budget enforcement in code; each verdict line records calls made, so
   spend is auditable from the log.
 
+## The preflight task (06:00, alert-only)
+
+check-env verifies variables are set; the August outages showed the
+real failure modes pass that test (a set key with exhausted credits,
+http 429, Aug 14-16; a set-but-revoked key, http 401, Aug 19-20).
+probe\monitor\preflight.py makes one minimal real request per roster
+provider through the production request builder and emails on any
+failure, three hours before the probe. It never touches monitor.py,
+the bands, or any committed record.
+
+    schtasks /Create /TN "scc-drift-preflight" /SC DAILY /ST 06:00 /TR "cmd /c cd /d C:\Users\Anna\PycharmProjects\self-context-calibration && C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\monitor\preflight.py --fresh-env >> probe\monitor\rows\preflight_task.log 2>&1"
+
+One-time alert setup (user-level variables, like the API keys):
+SCC_ALERT_EMAIL (the address, used as both from and to) and
+SCC_ALERT_SMTP_PASS (a Gmail app password, not the account password).
+Unset, the preflight still runs and logs; it just cannot email.
+Manual check from any shell, stale or fresh:
+
+    C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\monitor\preflight.py --fresh-env --no-email
+
+--fresh-env overlays HKCU user environment before checking, so a
+window opened before a setx still tells the truth. That flag exists
+because key rotation without re-verification is exactly how Aug 19
+happened.
+
 ## Where output lands
 
 - probe\monitor\verdicts.jsonl - one verdict line per model per day,
