@@ -10,6 +10,15 @@ experiment, its paid-API harness, and its raw model outputs version independentl
 from the writing, and so confabulated model text never bleeds into the drafting
 repo.
 
+Four things live here. Three experiments: the generalized and faithful
+self-context families described below, and the convergence study under
+`convergence/`. One live instrument: the drift monitor under `probe/`, which
+samples five production models daily against a frozen August 2 baseline and
+appends a committed verdict log. 
+
+If you arrived from the August 21 CSA AARM Working Group talk, the two-page summary is
+`docs/aarm_wg_20260821_handout_v2.pdf`, and the monitor's own README is `probe/monitor/README.md`.
+
 ## What this measures
 
 In turn 1 the model assesses four labeled options and commits to the single
@@ -88,7 +97,8 @@ therefore appear across the repo, never more than three within one study.
 - Generalized family (v1): harness built; pilot ran clean on Haiku (all three
   inspection signs passed) and is excluded from primary per pre-registration.
   `PRE_REGISTRATION.md` remains a draft; no generalized real run has occurred.
-- Item bank: 68 items, 45 derivable and 23 equipoise, in `items/items.py`.
+- Item bank: 68 items, 45 clear-cut (derivable) and 23 judgment
+  (designed-equipoise), in `items/items.py`.
   Authoring rationale in `docs/equipoise_authoring_notes.md`.
 - Baselines: 2,850 rows across the three v1 models, complete K=10 over the
   68-item bank with identifying pairs at K=30. Run ids and the read rule:
@@ -164,7 +174,7 @@ The convergence runner is `convergence/collect.py`; the monitor is
 
 ## Pre-registration
 
-Three registrations exist, one per study, at different lock states.
+Three registrations and one committed instrument rule, at different lock states.
 
 - Generalized (v1): `PRE_REGISTRATION.md`, still a draft. It becomes the lock
   only when committed as a dated, tagged record before the first generalized
@@ -176,3 +186,9 @@ Three registrations exist, one per study, at different lock states.
 - Convergence: `convergence/PRE_REGISTRATION_CONVERGENCE.md`, with its own
   Deviations section. `convergence/COLLECTION_LOG.md` is the operational log;
   methodological changes do not live there.
+- Drift monitor: the decision rule, bands, and roster were committed 2026-08-02 (`probe/monitor/monitor.py`, `probe/monitor/roster.json`), and
+  `probe/REPORTING_COMMITMENT.md` was declared the same day, before any
+  scheduled observation ran. The recurrence statistic in
+  `probe/scripts/recurrence_structure_null.py` was specified 2026-08-20 on the
+  record to date and is not pre-registered; it concedes the observed breach
+  rate to the null.
