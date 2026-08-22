@@ -89,6 +89,53 @@ window opened before a setx still tells the truth. That flag exists
 because key rotation without re-verification is exactly how Aug 19
 happened.
 
+## The push task (11:30, verdicts out)
+
+The probe appends verdict lines locally; committing and pushing them
+was a manual, batched step, and the published record lagged origin by
+days (the Aug 22 non-fast-forward rejection: two days of lines local,
+a PR merged remotely in between). probe\scripts\push_verdicts.py is
+the scheduled push: it stages exactly verdicts.jsonl and
+derived\daily_counts.jsonl and only when each diff is append-only,
+commits with a factual tally message, rebases local commits onto
+origin/main, and pushes with retries. It refuses to run off main and
+never forces; anything else in the tree is never touched. Method,
+guards, and exit codes are in its docstring.
+
+    schtasks /Create /TN "scc-drift-push" /SC DAILY /ST 11:30 /TR "cmd /c cd /d C:\Users\Anna\PycharmProjects\self-context-calibration && C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\scripts\push_verdicts.py --export >> probe\monitor\rows\push_task.log 2>&1"
+
+11:30 leaves close to an hour after the slowest observed probe finish
+(10:39 local, Aug 17). A day whose probe overruns simply pushes the
+next day: the script is a no-op when there is nothing new, and it
+picks up any commit a failed push left behind.
+
+One-time verification, in order:
+
+1. Credentials. The task pushes over HTTPS with whatever Git
+   Credential Manager has stored; in a non-interactive task GCM can
+   only reuse, never prompt. Push once by hand from an interactive
+   cmd first so the stored credential exists and is current.
+2. Run the script by hand once from the repo root:
+
+       C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\scripts\push_verdicts.py --export
+
+   Expect either "nothing to push" or a real commit and push; verify
+   on origin either way.
+3. Create the task, `schtasks /Run /TN "scc-drift-push"` once, and
+   check both push_task.log and origin before trusting it.
+
+Notes:
+- Automated commit messages are factual tallies ("Verdicts 2026-08-21
+  to 2026-08-22: 4 CLEAN, ..."). Narrative milestone commits ("Days 17
+  and 18: ...") stay a by-hand act, and the two coexist: whatever was
+  already committed by hand, the script just pushes.
+- --export regenerates derived\daily_counts.jsonl from rows\ before
+  staging (deterministic; export_daily_counts.py). Because the export
+  rebuilds the whole file, pruning rows\ would make the regenerated
+  file drop published history; the append-only guard catches exactly
+  that, leaves the file unstaged with a warning in the log, and the
+  verdicts still push alone.
+
 ## Where output lands
 
 - probe\monitor\verdicts.jsonl - one verdict line per model per day,
