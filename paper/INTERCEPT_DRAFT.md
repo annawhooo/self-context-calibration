@@ -40,7 +40,10 @@ sometimes arriving as same-day joint moves across items
 movement concentrates entirely where judgment is contested:
 [FREEZE: 29 of 29] breach entries landed on designed-equipoise
 items while the decisive class produced zero exceedances in
-[FREEZE: 2,700] slot-day checks. Third, every serving covariate
+[FREEZE: 2,700] slot-day checks, and quiet equipoise slots show no
+movement beyond exact sampling expectation on any vendor: the
+drift is not ambient, it lives in named recurring threads. Third,
+every serving covariate
 observable from outside the API stayed constant across [FREEZE:
 41,090] rows while behavior moved, so a customer can detect the
 change but cannot attribute it. A snapshot evaluation certifies the
@@ -85,9 +88,10 @@ This paper contributes:
     class;
 (c) detection-without-attribution measured jointly: behavior moved
     while every observable covariate held;
-(d) per-vendor temporal phenotypes: per-call consistency and
-    temporal stability are different axes, and the most
-    deterministic-looking vendor styles are not the most stable;
+(d) per-vendor temporal phenotypes on two axes, per-call
+    commitment and drift morphology: quiet slots show zero excess
+    movement on all five models, and drift, where it occurs, is
+    discrete unidirectional oscillation or diffuse wander;
 (e) the instrument itself: reproducible, vendor-agnostic, roughly
     20 USD per month to operate.
 
@@ -196,10 +200,19 @@ under the smoothed null, p = 0.029]. What the null cannot produce
 is the structure. Chance breaches spread across slots; the
 observed entries pile onto repeat threads. [FREEZE: five slots
 carry three or more breaches each, against 0.0101 expected slots
-at that depth, P = 8.0e-13.] Every repeating thread moved the same
-direction every time it moved [FREEZE: 5 of 5; combined with
-recurrence, P = 1.3e-16; count-calibrated survival estimate
-2.3e-10]. Slots within a model-day share a scaffold and are not
+at that depth, P = 8.0e-13.] Direction is structured too, and it
+splits the threads into two morphologies. Every oscillator thread
+moved toward the same option every time it moved [FREEZE: 6 of 6
+at the drafting record, against 0.008 expected same-direction
+threads; tails in T1]. The one repeat thread that is not
+direction-stable is not an oscillator at all: deepseek's
+contractor-access item breached toward three different options
+across four entries and carries the record's only UNSTABLE
+verdict, a same-day rerun matching neither probe nor baseline.
+That thread is a diffuse wander, not a two-state flip, and the two
+morphologies are kept distinct wherever drift is counted
+(paper/figures/quiet_slot_decomposition.py, part 3). Slots within
+a model-day share a scaffold and are not
 independent; the recurrence statistics are computed per-slot
 across days, where the sharing argument does not apply, and the
 caveat is stated wherever the numbers are.
@@ -226,15 +239,29 @@ monitor's product is a dated evidence trail, not a diagnosis.
 
 #### 3.5 Temporal phenotypes
 
-Five vendors, two axes: per-call consistency (does K=10 return one
-answer or a spread) and temporal stability (does the distribution
-hold across days). The axes dissociate. One vendor is frozen on
-both (committed answers, no movement all window). One is
-honest-noise: wide per-call spread, stable distribution. Two are
-commit-and-flip: near-deterministic per call, and the committed
-answer is the thing that changes day to day. Per-call determinism
-is not temporal stability, and the most confident-looking style is
-the least snapshot-auditable.
+Where drift does not live settles what per-call behavior means.
+Outside the focal threads, no model moves: on quiet equipoise
+slots, mean observed TVD sits within [FREEZE: +0.009] of the exact
+expectation under a stationary baseline, on all five models, once
+the expectation charges for probe sampling and baseline estimation
+noise together. That holds while per-call spread varies widely
+(mean modal share [FREEZE: 0.92 to 0.99] across vendors). Ambient
+drift is zero at this instrument's resolution; every detected
+movement belongs to a named, recurring thread.
+
+The phenotypes are therefore two axes that do not reduce to each
+other: how a model answers (per-call commitment) and how it moves
+when it moves (thread morphology). The Claude models and gpt are
+commit-and-flip: near-deterministic per call, threads that are
+discrete oscillations with exact state recurrence, entries
+unidirectional every time. Deepseek is honest noise: the widest
+per-call spread in the roster, quiet slots fully explained by
+sampling arithmetic, and the record's only diffuse-wander thread
+in its contractor item (its dlp thread is discrete, so the wander
+is a thread property, not a vendor property). Gemini sat
+near-frozen through the window [FREEZE: two transient breaches].
+Per-call determinism is not temporal stability, and the most
+confident-looking style is the least snapshot-auditable.
 
 Format rides along as an independent observable. On the
 vulnerability-gating item, answer state and response format flip in
@@ -247,7 +274,7 @@ descriptively.
 
 ### 4. What the instrument got wrong
 
-The CFP asks for honest failure. Four items, each a dated commit
+The CFP asks for honest failure. Five items, each a dated commit
 in the public record, each load-bearing for someone building the
 same thing.
 
@@ -274,6 +301,13 @@ same thing.
     assumed. Measured probe-to-rerun gaps run [FREEZE: 0.43 to
     5.28] minutes. The label was demoted in the analysis rather
     than defended.
+(e) The first version of this paper's phenotype figure repeated
+    the baseline error in miniature. Its expected-movement term
+    treated the frozen n=20 baseline as exact, which charges the
+    widest-distribution vendor for its own sampling spread, and
+    the figure misread honest noise as drift. The corrected
+    expectation propagates baseline noise exactly; mistake and
+    correction are same-day dated commits.
 
 ### 5. Operational guidance
 
@@ -351,7 +385,11 @@ submitted PDF.]
 
 ---
 
-## Figures and tables (placeholders, regenerate at freeze)
+## Figures and tables (regenerate at freeze)
+
+Generation scripts live in paper/figures/ and read only the
+committed record; current renders in paper/figures/out are stamped
+with their data-through date. The freeze regeneration is a re-run.
 
 - F1 Regime map. Threads x days state timeline, baseline/drifted/
   breach marks per focal thread. The money figure. 12-day version
@@ -361,8 +399,9 @@ submitted PDF.]
   visits.
 - F3 False-alarm curve. Empirical quiet-slot exceedance vs band
   width; mark deployed bands and the declined K=30 bands.
-- F4 Phenotype 2x2. Per-call consistency x temporal stability,
-  five models placed.
+- F4 Phenotype grid. Per-call commitment x excess movement, quiet
+  and thread slots split per model; quiet slots hug zero on all
+  five. Decomposition table: quiet_slot_decomposition.py.
 - T1 Structure vs null. Observed / expected / P for count,
   recurrence tiers, direction stability, cross-model.
 - T2 Instrument summary. Bank composition, cadence, bands, cost.
