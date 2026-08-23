@@ -116,6 +116,28 @@ def probe_dates(verdicts):
     return dates, dict(ran)
 
 
+def baseline_for(rec, date):
+    """The reference in force on a date, honoring supersession.
+
+    A re-baselined item record (probe/scripts/rebaseline_item.py)
+    carries its prior references under "superseded", each with a
+    validity window; the boundary convention is pinned there: a
+    superseded reference governs THROUGH its valid_through day, and
+    the active reference from the day after. Records without
+    supersession return themselves, so call sites can route every
+    lookup through here unconditionally.
+    """
+    for old in rec.get("superseded", []):
+        if old["valid_from"] <= date <= old["valid_through"]:
+            return old
+    return rec
+
+
+def ref_key(rec, date):
+    """Cache key for per-reference computations on one item."""
+    return baseline_for(rec, date).get("valid_from", "origin")
+
+
 def is_equipoise(item_id):
     return item_id.startswith("eq_")
 
@@ -173,6 +195,60 @@ def expected_tvd(base_rec, k=10, truth="empirical"):
                      * probs[2] ** c * probs[3] ** d)
                 total += w * tvd(comp, emp)
     return total
+
+
+def _compositions(k):
+    """All compositions of k draws into the four options, as an
+    (m, 4) numpy int array with m = C(k+3, 3)."""
+    import numpy as np
+    comps = [(a, b, c, k - a - b - c)
+             for a in range(k + 1)
+             for b in range(k + 1 - a)
+             for c in range(k + 1 - a - b)]
+    return np.array(comps)
+
+
+def _multinomial_weights(comps, probs):
+    """Multinomial probability of each composition row under probs."""
+    import numpy as np
+    from math import lgamma
+    k = int(comps[0].sum())
+    logs = np.zeros(len(comps))
+    lg = np.vectorize(lambda x: lgamma(x + 1))
+    logs += lgamma(k + 1) - lg(comps).sum(axis=1)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        lp = np.where(comps > 0, comps * np.log(np.maximum(probs, 1e-300)),
+                      0.0)
+    return np.exp(logs + lp.sum(axis=1))
+
+
+def expected_tvd_pair(base_rec, probe_k=10, base_n=20):
+    """Exact E[TVD(probe, baseline)] with BOTH sides redrawn.
+
+    The plug-in truth is the empirical baseline c/n. The probe is a
+    probe_k-draw and the reference itself a base_n-draw from that
+    truth, so the expectation charges the slot for probe sampling
+    AND baseline estimation noise together (DESIGN_LIMITATIONS.md
+    Limitation 3, propagated instead of ignored). base_n=None keeps
+    the baseline exact and reduces to the single-draw expectation.
+    Exact enumeration over both composition sets, no sampling.
+    """
+    import numpy as np
+    base = base_rec["baseline_counts"]
+    n = sum(base.values())
+    probs = np.array([base.get(o, 0) / n for o in OPTIONS])
+    pc = _compositions(probe_k)
+    pw = _multinomial_weights(pc, probs)
+    pf = pc / probe_k
+    if base_n is None:
+        ref_f = probs[None, :]
+        ref_w = np.array([1.0])
+    else:
+        bc = _compositions(base_n)
+        ref_w = _multinomial_weights(bc, probs)
+        ref_f = bc / base_n
+    tvds = 0.5 * np.abs(pf[:, None, :] - ref_f[None, :, :]).sum(axis=2)
+    return float(pw @ tvds @ ref_w)
 
 
 def style(ax):

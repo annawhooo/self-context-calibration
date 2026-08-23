@@ -38,7 +38,8 @@ def main():
         base_rec = baselines[model][item]
         for x, date in enumerate(dates):
             counts = daily.get((date, model, item))
-            state = fd.classify_day(counts, base_rec)
+            state = fd.classify_day(counts,
+                                    fd.baseline_for(base_rec, date))
             if state is None and date not in ran.get(model, ()):
                 ax.add_patch(Rectangle((x, y), 0.92, 0.82, fill=False,
                                        hatch="////", linewidth=0,
@@ -76,7 +77,7 @@ def main():
         Patch(facecolor=fd.BREACH_FILL,
               label="breach (E event, T transient, U unstable)"),
         Patch(facecolor="white", edgecolor=fd.GRID, hatch="////",
-              label="no probe (provider error)"),
+              label="no probe recorded (error or pending)"),
     ]
     ax.legend(handles=legend, loc="upper center",
               bbox_to_anchor=(0.5, -0.30), ncol=2, frameon=False,
