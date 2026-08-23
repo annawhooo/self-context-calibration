@@ -1825,13 +1825,13 @@
       "class": "alarm",
       "runs": {
         "run1": {
-          "D": 8,
+          "D": 5,
           "A": 1,
-          "B": 1
+          "B": 4
         },
         "run2": {
-          "D": 9,
-          "A": 1
+          "D": 3,
+          "B": 7
         }
       },
       "unparsed": {
@@ -1839,22 +1839,76 @@
         "run2": 0
       },
       "qualification": {
-        "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2",
+        "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2:rebl:2026-08-23",
         "p95": 0.4,
         "p99": 0.5,
-        "observed_run_pair_tvd": 0.09999999999999999,
+        "observed_run_pair_tvd": 0.29999999999999993,
         "third_run": null
       },
       "baseline_counts": {
-        "D": 17,
-        "A": 2,
-        "B": 1
+        "D": 8,
+        "A": 1,
+        "B": 11
       },
       "n": 20,
       "band": {
-        "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2:band",
-        "p95": 0.35,
+        "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2:rebl-band:2026-08-23",
+        "p95": 0.35000000000000003,
         "p99": 0.45
+      },
+      "run_ids": {
+        "run1": "2026-08-23T18:22:16.089289+00:00",
+        "run2": "2026-08-23T18:22:22.929077+00:00"
+      },
+      "model_id_echo": "claude-haiku-4-5-20251001",
+      "rows": "probe/monitor/rows/rebaseline_claude-haiku-4-5-20251001_eq_alert_spend_anomaly_v2_2026-08-23.jsonl",
+      "distance_from_superseded": 0.5,
+      "valid_from": "2026-08-23",
+      "superseded": [
+        {
+          "class": "alarm",
+          "runs": {
+            "run1": {
+              "D": 8,
+              "A": 1,
+              "B": 1
+            },
+            "run2": {
+              "D": 9,
+              "A": 1
+            }
+          },
+          "unparsed": {
+            "run1": 0,
+            "run2": 0
+          },
+          "qualification": {
+            "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2",
+            "p95": 0.4,
+            "p99": 0.5,
+            "observed_run_pair_tvd": 0.09999999999999999,
+            "third_run": null
+          },
+          "baseline_counts": {
+            "D": 17,
+            "A": 2,
+            "B": 1
+          },
+          "n": 20,
+          "band": {
+            "seed": "20260802:claude-haiku-4-5-20251001:eq_alert_spend_anomaly_v2:band",
+            "p95": 0.35,
+            "p99": 0.45
+          },
+          "valid_from": "2026-08-02",
+          "valid_through": "2026-08-23"
+        }
+      ],
+      "rebaseline": {
+        "date": "2026-08-23",
+        "decision": "probe/REBASELINE_DECISION_2026-08-23.md",
+        "candidacy": "probe/STEP_CHANGE_CANDIDACY_2026-08-23.md",
+        "supersedes_valid_from": "2026-08-02"
       }
     },
     "eq_alert_dlp_email_v2": {
@@ -2136,5 +2190,12 @@
         "p99": 0.4
       }
     }
-  }
+  },
+  "rebaselines": [
+    {
+      "item": "eq_alert_spend_anomaly_v2",
+      "date": "2026-08-23",
+      "decision": "probe/REBASELINE_DECISION_2026-08-23.md"
+    }
+  ]
 }
