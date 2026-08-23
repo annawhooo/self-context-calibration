@@ -89,7 +89,7 @@ window opened before a setx still tells the truth. That flag exists
 because key rotation without re-verification is exactly how Aug 19
 happened.
 
-## The push task (11:30, verdicts out)
+## The push task (12:30, verdicts out)
 
 The probe appends verdict lines locally; committing and pushing them
 was a manual, batched step, and the published record lagged origin by
@@ -102,12 +102,19 @@ origin/main, and pushes with retries. It refuses to run off main and
 never forces; anything else in the tree is never touched. Method,
 guards, and exit codes are in its docstring.
 
-    schtasks /Create /TN "scc-drift-push" /SC DAILY /ST 11:30 /TR "cmd /c cd /d C:\Users\Anna\PycharmProjects\self-context-calibration && C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\scripts\push_verdicts.py --export >> probe\monitor\rows\push_task.log 2>&1"
+    schtasks /Create /TN "scc-drift-push" /SC DAILY /ST 12:30 /TR "cmd /c cd /d C:\Users\Anna\PycharmProjects\self-context-calibration && C:\Users\Anna\AppData\Local\Programs\Python\Python311\python.exe probe\scripts\push_verdicts.py --export >> probe\monitor\rows\push_task.log 2>&1"
 
-11:30 leaves close to an hour after the slowest observed probe finish
-(10:39 local, Aug 17). A day whose probe overruns simply pushes the
-next day: the script is a no-op when there is nothing new, and it
-picks up any commit a failed push left behind.
+12:30 was 11:30 until the probe of Aug 23 ran past 11:00 for the
+first time (gemini retry backoffs); the extra hour is cushion, not
+precision. A day whose probe overruns anyway simply pushes what is
+finished: the export includes only model-days whose verdict line
+exists, so a mid-probe firing publishes completed models and the
+next firing appends the rest. The script is a no-op when there is
+nothing new, and it picks up any commit a failed push left behind.
+To move an existing task's time, delete and recreate it with the
+command above; `schtasks /Change /ST` prompts for a run-as password
+and would convert the task to stored-credential mode, which
+resolves a different environment (the check-env warnings above).
 
 One-time verification, in order:
 
@@ -135,6 +142,14 @@ Notes:
   file drop published history; the append-only guard catches exactly
   that, leaves the file unstaged with a warning in the log, and the
   verdicts still push alone.
+- Clearing a refused counts rewrite: the guard refuses any diff with
+  a deleted line, and it keeps refusing until the file is committed
+  by hand once. Inspect the diff, confirm it only repairs a known
+  bad line (a partial export, a pruned row file), then
+  `git add probe\monitor\derived\daily_counts.jsonl`, commit with a
+  message naming the repair, and push. The one incident so far: the
+  2026-08-23 11:30 firing exported a gemini item mid-sampling
+  (n=5); the verdict-gated export above prevents the class.
 
 ## Where output lands
 
