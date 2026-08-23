@@ -163,14 +163,21 @@ this oscillation rather than drift.
 
 #### 3.1.1 The pre-committed step-change rule
 
-[FREEZE: report the haiku spend-anomaly episode as it resolved.
-As of drafting: the rule (committed 2026-08-16, blind to the
-deciding data) classified the first episode as alternation on its
-first evaluated day. A second sustained away run began Aug 15 and
-stood at six consecutive observed away days on Aug 22; whether it
-reached the seven-day step-change threshold is known by the
-freeze. Report whichever way it resolved; the rule and both
-outcomes are dated commits.]
+The rule, committed 2026-08-16 blind to the deciding data,
+resolved the first episode as alternation on its first evaluated
+day (a home visit on Aug 14). A second away run began Aug 15 and
+crossed the pre-committed threshold on 2026-08-23: seven
+consecutive observed away days, every one B-modal on the identical
+discrete vector or a deeper excursion, and the rule designated the
+item a step-change candidate with no judgment in the loop. The
+operator response was a dual-reference re-baseline: the alarm
+reference moved to the new state, the frozen original stayed
+preserved in the same record, and a return criterion against the
+original was pre-registered before any new-regime data accrued
+[FREEZE: report the return-watch outcome; a return day revises the
+classification to slow alternation, no return leaves the step
+change standing with a stated day-count bound, and both branches
+are dated commits].
 
 #### 3.2 The movement concentrates where judgment is contested
 

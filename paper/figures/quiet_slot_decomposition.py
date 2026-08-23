@@ -48,33 +48,37 @@ def main():
     breaches = fd.breach_index(verdicts)
     print("record: %s" % fd.datestamp(verdicts))
 
-    obs = collections.defaultdict(list)
+    obs = collections.defaultdict(lambda: {"ref": None, "vals": []})
     for (date, model, item), counts in sorted(daily.items()):
         if not fd.is_equipoise(item) or item not in baselines.get(
                 model, {}):
             continue
         group = "thread" if (model, item) in breaches else "quiet"
-        obs[(model, group, item)].append(
-            fd.tvd(counts, baselines[model][item]["baseline_counts"]))
+        rec = baselines[model][item]
+        ref = fd.baseline_for(rec, date)
+        bucket = obs[(model, group, item, fd.ref_key(rec, date))]
+        bucket["ref"] = ref
+        bucket["vals"].append(fd.tvd(counts, ref["baseline_counts"]))
 
-    print("\npart 1: equipoise slot-day TVD vs exact expectations")
+    print("\npart 1: equipoise slot-day TVD vs exact expectations "
+          "(one bucket per item and reference epoch)")
     print("model         group   slots  days  obs    exp"
           "    exp+b20  excess")
     for model in fd.MODELS:
         for group in ("quiet", "thread"):
-            items = sorted(i for (m, g, i) in obs
-                           if m == model and g == group)
-            if not items:
+            keys = sorted(k for k in obs
+                          if k[0] == model and k[1] == group)
+            if not keys:
                 continue
             o = e1 = e2 = days = 0.0
-            for item in items:
-                rec = baselines[model][item]
-                d = obs[(model, group, item)]
+            for key in keys:
+                bucket = obs[key]
+                d = bucket["vals"]
                 days += len(d)
                 o += sum(d) / len(d)
-                e1 += fd.expected_tvd_pair(rec, base_n=None)
-                e2 += fd.expected_tvd_pair(rec, base_n=20)
-            k = len(items)
+                e1 += fd.expected_tvd_pair(bucket["ref"], base_n=None)
+                e2 += fd.expected_tvd_pair(bucket["ref"], base_n=20)
+            k = len(keys)
             o, e1, e2 = o / k, e1 / k, e2 / k
             print("%-13s %-7s %5d %5d  %.3f  %.3f  %.3f  %+.3f"
                   % (fd.SHORT[model], group, k, days, o, e1, e2,
@@ -84,13 +88,16 @@ def main():
           " two-draw floor")
     for model in fd.MODELS:
         pair_obs, floors = [], []
-        for (m, g, item) in sorted(obs):
+        for key in sorted(obs):
+            m, g, item, refkey = key
             if m != model or g != "quiet":
                 continue
             rec = baselines[model][item]
-            floor = fd.expected_tvd_pair(rec, probe_k=10, base_n=10)
+            floor = fd.expected_tvd_pair(obs[key]["ref"], probe_k=10,
+                                         base_n=10)
             dates = sorted(d for (d, mm, i) in daily
-                           if mm == model and i == item)
+                           if mm == model and i == item
+                           and fd.ref_key(rec, d) == refkey)
             for d1, d2 in zip(dates, dates[1:]):
                 pair_obs.append(fd.tvd(daily[(d1, model, item)],
                                        daily[(d2, model, item)]))
@@ -106,15 +113,18 @@ def main():
     for (model, item), hits in sorted(breaches.items()):
         if len(hits) < 3:
             continue
-        base = baselines[model][item]["baseline_counts"]
+        rec = baselines[model][item]
         dirs = []
         for date in sorted(hits):
             counts = daily.get((date, model, item))
+            base = fd.baseline_for(rec, date)["baseline_counts"]
             dirs.append((date, hits[date][0],
                          direction(counts, base) if counts else "?"))
+        first_base = fd.baseline_for(
+            rec, sorted(hits)[0])["baseline_counts"]
         uni = len({d for _, _, d in dirs if d != "?"}) == 1
         print("  %s %s  baseline %s  %s" % (
-            fd.SHORT[model], fd.item_short(item), vec(base),
+            fd.SHORT[model], fd.item_short(item), vec(first_base),
             "unidirectional" if uni else "MIXED"))
         for date, v, d in dirs:
             print("    %s  %s  toward %s" % (date, v, d))

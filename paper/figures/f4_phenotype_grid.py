@@ -47,7 +47,8 @@ def main():
     breaches = fd.breach_index(verdicts)
 
     commit = collections.defaultdict(list)
-    obs = collections.defaultdict(lambda: collections.defaultdict(list))
+    obs = collections.defaultdict(lambda: collections.defaultdict(
+        lambda: {"ref": None, "vals": []}))
     for (date, model, item), counts in sorted(daily.items()):
         if model not in baselines or item not in baselines[model]:
             continue
@@ -57,16 +58,21 @@ def main():
         commit[model].append(max(counts.values()) / n)
         if fd.is_equipoise(item):
             group = "thread" if (model, item) in breaches else "quiet"
-            obs[(model, group)][item].append(fd.tvd(
-                counts, baselines[model][item]["baseline_counts"]))
+            rec = baselines[model][item]
+            ref = fd.baseline_for(rec, date)
+            bucket = obs[(model, group)][(item, fd.ref_key(rec, date))]
+            bucket["ref"] = ref
+            bucket["vals"].append(fd.tvd(counts,
+                                         ref["baseline_counts"]))
 
     def excess(model, group):
-        items = obs.get((model, group))
-        if not items:
+        buckets = obs.get((model, group))
+        if not buckets:
             return None
         vals = []
-        for item, days in items.items():
-            exp = fd.expected_tvd_pair(baselines[model][item], base_n=20)
+        for bucket in buckets.values():
+            exp = fd.expected_tvd_pair(bucket["ref"], base_n=20)
+            days = bucket["vals"]
             vals.append(sum(days) / len(days) - exp)
         return sum(vals) / len(vals)
 

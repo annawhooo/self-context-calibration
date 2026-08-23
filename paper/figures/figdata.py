@@ -116,6 +116,28 @@ def probe_dates(verdicts):
     return dates, dict(ran)
 
 
+def baseline_for(rec, date):
+    """The reference in force on a date, honoring supersession.
+
+    A re-baselined item record (probe/scripts/rebaseline_item.py)
+    carries its prior references under "superseded", each with a
+    validity window; the boundary convention is pinned there: a
+    superseded reference governs THROUGH its valid_through day, and
+    the active reference from the day after. Records without
+    supersession return themselves, so call sites can route every
+    lookup through here unconditionally.
+    """
+    for old in rec.get("superseded", []):
+        if old["valid_from"] <= date <= old["valid_through"]:
+            return old
+    return rec
+
+
+def ref_key(rec, date):
+    """Cache key for per-reference computations on one item."""
+    return baseline_for(rec, date).get("valid_from", "origin")
+
+
 def is_equipoise(item_id):
     return item_id.startswith("eq_")
 

@@ -40,8 +40,8 @@ def main():
         if (model, item) in breached_slots:
             continue
         cls = "equipoise" if fd.is_equipoise(item) else "decisive"
-        tvds[cls].append(fd.tvd(counts, baselines[model][item]
-                                ["baseline_counts"]))
+        ref = fd.baseline_for(baselines[model][item], date)
+        tvds[cls].append(fd.tvd(counts, ref["baseline_counts"]))
 
     deployed = sorted({rec["band"]["p99"]
                        for items in baselines.values()

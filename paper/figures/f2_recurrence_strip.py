@@ -23,9 +23,10 @@ ITEM = "eq_alert_fraud_scoring_v2"
 def main():
     verdicts = fd.load_verdicts()
     daily = fd.load_daily()
-    base_rec = fd.load_baselines()[MODEL][ITEM]
     breaches = fd.breach_index(verdicts).get((MODEL, ITEM), {})
     dates, ran = fd.probe_dates(verdicts)
+    base_rec = fd.baseline_for(fd.load_baselines()[MODEL][ITEM],
+                               dates[0])
 
     bars = [("baseline", base_rec["baseline_counts"], None)]
     for date in dates:
