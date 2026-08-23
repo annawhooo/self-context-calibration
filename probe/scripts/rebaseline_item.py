@@ -169,7 +169,7 @@ def main():
     args = ap.parse_args()
 
     roster = mon.load_roster(mon.ROSTER_PATH)
-    models = mon.select_models(roster, [args.model])
+    models = mon.select_models(roster, args.model)
     m = models[0]
     mon.validate_monitor_model(m)
     item = next((i for i in mon.ITEMS if i["id"] == args.item), None)
