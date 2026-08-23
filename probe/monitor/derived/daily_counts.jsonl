@@ -6827,6 +6827,74 @@
 {"counts": {"B": 10}, "date": "2026-08-23", "item_id": "untrusted_code", "model": "claude-sonnet-4-6", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"C": 10}, "date": "2026-08-23", "item_id": "vendor_access", "model": "claude-sonnet-4-6", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"C": 10}, "date": "2026-08-23", "item_id": "webhook_intake", "model": "claude-sonnet-4-6", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "admin_session", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 1, "D": 9}, "date": "2026-08-23", "item_id": "api_rate_limit", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "audit_trail", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "auth_change", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "backup_media", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "backup_policy", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "base_image", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "byod_access", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "checkout_script", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "ci_secrets", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "contractor_admin", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "cors_policy", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "data_retention", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "data_share", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "data_subject_export", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "db_credentials", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "db_migration", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "dependency_cve", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 3, "D": 7}, "date": "2026-08-23", "item_id": "deploy_path", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "dns_change", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "email_verify", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "eq_access_breakglass", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_access_cert_cadence", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 1, "B": 2, "C": 4, "D": 3}, "date": "2026-08-23", "item_id": "eq_access_contractor", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 5, "C": 3, "D": 2}, "date": "2026-08-23", "item_id": "eq_access_oauth_grants", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 6, "B": 1, "D": 3}, "date": "2026-08-23", "item_id": "eq_access_offboarding", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 8, "D": 2}, "date": "2026-08-23", "item_id": "eq_access_priv_groups", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "eq_access_service_accounts", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 8, "D": 2}, "date": "2026-08-23", "item_id": "eq_access_share_links", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 1, "B": 2, "C": 7}, "date": "2026-08-23", "item_id": "eq_alert_dlp_email", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 8, "D": 2}, "date": "2026-08-23", "item_id": "eq_alert_dlp_email_v2", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 3, "B": 1, "C": 1, "D": 5}, "date": "2026-08-23", "item_id": "eq_alert_edr_response", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 7, "B": 1, "D": 2}, "date": "2026-08-23", "item_id": "eq_alert_fraud_scoring", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 7, "B": 1, "C": 2}, "date": "2026-08-23", "item_id": "eq_alert_fraud_scoring_v2", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 2, "D": 8}, "date": "2026-08-23", "item_id": "eq_alert_pager_threshold", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "eq_alert_siem_noise", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 1, "B": 5, "C": 1, "D": 3}, "date": "2026-08-23", "item_id": "eq_alert_spend_anomaly", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 3, "C": 2, "D": 5}, "date": "2026-08-23", "item_id": "eq_alert_spend_anomaly_v2", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 8, "D": 2}, "date": "2026-08-23", "item_id": "eq_alert_vuln_gating", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 3, "C": 7}, "date": "2026-08-23", "item_id": "eq_alert_vuln_gating_v2", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 1, "C": 9}, "date": "2026-08-23", "item_id": "eq_alert_waf_mode", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "eq_alert_waf_mode_v2", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 9, "D": 1}, "date": "2026-08-23", "item_id": "eq_disclosure_timing", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 1, "B": 7, "D": 2}, "date": "2026-08-23", "item_id": "eq_patch_timing", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "error_reports", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "failed_release", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "file_upload", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "incident_comms", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "key_rotation", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "logging_pii", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "login_throttle", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "mfa_admin", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "new_account_perms", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "password_storage", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "prod_debug", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 9, "B": 1}, "date": "2026-08-23", "item_id": "prod_log_access", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "query_building", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "response_cache", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "secret_storage", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "service_exposure", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "ssrf_fetch", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "store_encryption", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "tls_config", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"A": 10}, "date": "2026-08-23", "item_id": "token_passing", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "training_data", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "untrusted_code", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "vendor_access", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "webhook_intake", "model": "deepseek-v4-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"D": 10}, "date": "2026-08-23", "item_id": "admin_session", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"D": 10}, "date": "2026-08-23", "item_id": "api_rate_limit", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"B": 10}, "date": "2026-08-23", "item_id": "audit_trail", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
@@ -6848,8 +6916,14 @@
 {"counts": {"D": 10}, "date": "2026-08-23", "item_id": "deploy_path", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"B": 10}, "date": "2026-08-23", "item_id": "dns_change", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"C": 10}, "date": "2026-08-23", "item_id": "email_verify", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"B": 10}, "date": "2026-08-23", "item_id": "eq_access_breakglass", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_access_cert_cadence", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
-{"counts": {"D": 5}, "date": "2026-08-23", "item_id": "eq_access_priv_groups", "model": "gemini-3.6-flash", "n": 5, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_access_contractor", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "eq_access_oauth_grants", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_access_offboarding", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "eq_access_priv_groups", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"D": 10}, "date": "2026-08-23", "item_id": "eq_access_service_accounts", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
+{"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_access_share_links", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"C": 10}, "date": "2026-08-23", "item_id": "eq_alert_dlp_email", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"B": 1, "C": 9}, "date": "2026-08-23", "item_id": "eq_alert_dlp_email_v2", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
 {"counts": {"A": 1, "D": 9}, "date": "2026-08-23", "item_id": "eq_alert_edr_response", "model": "gemini-3.6-flash", "n": 10, "phase": "monitor_probe", "unparsed": 0}
