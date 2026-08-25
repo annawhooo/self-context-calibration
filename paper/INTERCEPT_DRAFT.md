@@ -1,34 +1,36 @@
 # INTERCEPT draft: Judgment-Layer Drift, No Changelog
 
-Status: prose draft, 2026-08-22, written from
+Status: prose draft, 2026-08-22; numbers keyed and refreshed to
+the record through 2026-08-25. Written from
 docs/claude_code_handoff_intercept_paper.md. Target: INTERCEPT
 Defenders track, IEEE conference template, 4 to 6 pages, submission
 closes 2026-10-01.
 
-Numbers policy. Every figure tagged [FREEZE] is the verified 12-day
-figure (2026-08-02 to 2026-08-13) and is a placeholder: regenerate
-at the 2026-09-26 data freeze and replace before it enters the PDF.
-Untagged numbers are instrument constants, verified against the
-committed record at drafting time (band histogram recomputed from
-the five committed baseline files on 2026-08-22: p99 0.40 x311,
-0.45 x28, 0.50 x1). No number goes to the PDF without a script
+Numbers policy. Every record-dependent figure sits in a keyed tag,
+[FREEZE <key>: <value>], and regenerates from the committed record:
+paper/figures/freeze_numbers.py writes the manifest,
+check_draft_numbers.py diffs the draft against it, and its --apply
+swaps values in place. The freeze re-run (2026-09-26) is that loop
+run until clean, plus the prose pass its STALE list points at.
+Tags whose manifest entry says raw-rows or no-script carry the
+last published figure, not a regenerated one, and the manifest
+names the source. No number goes to the PDF without a script
 behind it and a verifier match.
 
 Title picked at drafting; the two alternates from the handoff stay
-available. Day count in the title is [FREEZE: 55 at the planned
-freeze date].
+available. The title's day count regenerates with the record.
 
 ---
 
 ## Judgment-Layer Drift, No Changelog
 
-*[FREEZE: 55] Days Monitoring Five LLM APIs*
+*[FREEZE days: 24] Days Monitoring Five LLM APIs*
 
 ### Abstract
 
 Served LLM behavior changes behind stable model ids, and the change
 has a shape. I ran a calibrated behavioral monitor against five
-production LLM APIs daily for [FREEZE: 55] days: a frozen 68-item
+production LLM APIs daily for [FREEZE days: 24] days: a frozen 68-item
 security judgment bank, K=10 samples per item, per-item total
 variation distance against a frozen baseline, simulation-calibrated
 alarm bands, and a same-day disambiguation rerun on every breach.
@@ -36,16 +38,20 @@ Three findings. First, judgment behavior oscillates: models revisit
 exact prior answer distributions on contested items, day-scale
 dwell, week-scale persistence of the attractor states, entries
 sometimes arriving as same-day joint moves across items
-([FREEZE] two round trips in seven days on one vendor). Second, the
+([FREEZE sonnet-joint-round-trips: two round trips in six days] on
+one vendor). Second, the
 movement concentrates entirely where judgment is contested:
-[FREEZE: 29 of 29] breach entries landed on designed-equipoise
-items while the decisive class produced zero exceedances in
-[FREEZE: 2,700] slot-day checks, and quiet equipoise slots show no
+[FREEZE breach-entries-eq-of-total: 51 of 51] breach entries landed
+on designed-equipoise
+items while the decisive class produced zero breaches in
+[FREEZE decisive-slot-days: 5,047] slot-day checks, and quiet
+equipoise slots show no
 movement beyond exact sampling expectation on any vendor: the
 drift is not ambient, it lives in named recurring threads. Third,
 every serving covariate
-observable from outside the API stayed constant across [FREEZE:
-41,090] rows while behavior moved, so a customer can detect the
+observable from outside the API stayed constant across
+[FREEZE total-rows: 75,990] rows while behavior moved, so a
+customer can detect the
 change but cannot attribute it. A snapshot evaluation certifies the
 day it ran, not the period it is cited for. The monitor costs about
 20 USD per month, and the full instrument, record, and analysis are
@@ -84,8 +90,8 @@ This paper contributes:
     with exact recurrence of prior answer distributions;
 (b) a drift instrument built from a stratified judgment bank,
     designed-equipoise items alongside decisive ones, with a
-    [FREEZE: 2,700] slot-day zero-movement null on the decisive
-    class;
+    [FREEZE decisive-slot-days: 5,047] slot-day zero-breach null
+    on the decisive class;
 (c) detection-without-attribution measured jointly: behavior moved
     while every observable covariate held;
 (d) per-vendor temporal phenotypes on two axes, per-call
@@ -105,8 +111,8 @@ per item, daily at 13:00 UTC. The 340 model-item slots each carry a
 frozen baseline (n=20: two pooled same-day K=10 runs) and a
 per-item alarm band: the p99 of TVD-to-baseline under a
 Laplace-smoothed multinomial simulation, seeds deterministic and
-recorded. Bands across the 340 slots: 0.40 x311, 0.45 x28,
-0.50 x1.
+recorded. Bands across the 340 slots:
+[FREEZE band-histogram-qualified: 0.40 x311, 0.45 x28, 0.50 x1].
 
 A day's probe compares each slot's observed distribution to its
 baseline. A breach (strict inequality above band) fires a same-day
@@ -122,9 +128,10 @@ quiet windows get published with the same care as event windows.
 
 The false-alarm rate is not assumed from the band percentile. It is
 computed by exact enumeration over all 286 compositions of ten
-draws into four options, per item, against each item's band: 1.64
-expected false breaches per day if the smoothed baseline is truth,
-0.05 if the empirical baseline is truth. Observed daily breach
+draws into four options, per item, against each item's band:
+[FREEZE expected-false-breaches: 1.64 expected false breaches per
+day if the smoothed baseline is truth, 0.05 if the empirical
+baseline is truth]. Observed daily breach
 counts sit against that null throughout. Everything above is
 regenerable from the committed repository: baselines, bands, seeds,
 verdict log, and the enumeration script.
@@ -138,26 +145,33 @@ discrete states, revisited exactly.
 
 One vendor's model held a two-item joint state (unanimous terse A
 on a fraud-scoring item; verbose 9-10 D on a vulnerability-gating
-item), left it, and re-entered it [FREEZE: twice in seven days],
+item), left it, and re-entered it
+[FREEZE sonnet-joint-reentries: twice in six days],
 with entries arriving as same-day joint moves and exits staggering
 across days. The fraud-scoring item visited the identical pure-A
-distribution [FREEZE: four times (Aug 3, 4, 6, 10)]. A second
-vendor's offboarding item recurred at exact vectors [FREEZE:
-8/0/2/0 three times, 9/0/1/0 twice]. A third vendor's
+distribution
+[FREEZE fraud-pure-a-visits: four times (Aug 3, 4, 6, 10)]. A
+second vendor's offboarding item recurred at exact vectors
+[FREEZE offboarding-vector-repeats: 8/0/2/0 four times, 9/0/1/0
+twice]. A third vendor's
 spend-anomaly item settled into an away state at the identical
-vector [FREEZE: 0/6/0/4, twice by Aug 13; the episode continued
-past the window and resolved under a pre-committed decision rule,
-reported in 3.1.1]. Dwell in a state is one to two daily
+vector [FREEZE spend-away-vector: 0/6/0/4, eight times (Aug 12,
+13, 15, 16, 17, 21, 23, 25)]; the episode crossed a pre-committed
+threshold and resolved as a step-change candidate,
+reported in 3.1.1. Dwell in a state is one to two daily
 observations; the attractor states themselves persist for weeks.
 The same-day rerun bounds within-state reversion: across the
-window, probe-to-rerun gaps run [FREEZE: 0.43 to 5.28] minutes
-(median 2.4), and reruns reproduced the probe exactly on the
-strongest events.
+window, probe-to-rerun gaps run
+[FREEZE rerun-gap-minutes: 0.43 to 5.28] minutes
+(median [FREEZE rerun-gap-median: 2.4]), and reruns reproduced the
+probe exactly on the strongest events.
 
 Under the frozen baselines these are not plausible draws. The
-recurring pure-A state has per-run probability [FREEZE: 5.5e-5];
-the 10 D verbose state, [FREEZE: 1.6e-14 per run, 2.5e-28 across a
-probe-rerun pair]. The states are also not new: they are prior
+recurring pure-A state has per-run probability
+[FREEZE fraud-pure-a-prob: 5.5e-5];
+the 10 D verbose state, [FREEZE vuln-10d-prob: 1.6e-14] per run,
+[FREEZE vuln-10d-prob-pair: 2.5e-28] across a
+probe-rerun pair. The states are also not new: they are prior
 observed states of the same items. That is what motivates calling
 this oscillation rather than drift.
 
@@ -173,22 +187,27 @@ item a step-change candidate with no judgment in the loop. The
 operator response was a dual-reference re-baseline: the alarm
 reference moved to the new state, the frozen original stayed
 preserved in the same record, and a return criterion against the
-original was pre-registered before any new-regime data accrued
-[FREEZE: report the return-watch outcome; a return day revises the
-classification to slow alternation, no return leaves the step
-change standing with a stated day-count bound, and both branches
-are dated commits].
+original was pre-registered before any new-regime data accrued.
+The watch stands at [FREEZE return-watch: no return observed in
+two post-transition probe days]. A return day revises the
+classification to slow alternation; no return through the freeze
+leaves the step change standing with a stated day-count bound.
+Both branches are dated commits.
 
 #### 3.2 The movement concentrates where judgment is contested
 
 Every breach the monitor has recorded is an equipoise item.
-[FREEZE: 29 of 29] breach entries across [FREEZE: 12] days landed
+[FREEZE breach-entries-eq-of-total: 51 of 51] breach entries
+across [FREEZE days: 24] days landed
 on designed-equipoise slots; the decisive class produced zero
-exceedances in [FREEZE: 2,700] slot-day observations. The honest
-null share for the equipoise class is 0.381 of breach mass (not
+breaches in [FREEZE decisive-slot-days: 5,047] slot-day
+observations. The honest
+null share for the equipoise class is
+[FREEZE eq-null-share: 0.382] of breach mass (not
 the 0.338 uniform share; equipoise bands sit differently), and the
-concentration survives that weighting: [FREEZE: P(all-equipoise)
-7.3e-13 at entry level, 3.6e-6 on distinct slots].
+concentration survives that weighting: P(all-equipoise)
+[FREEZE p-all-entries-eq: 4.6e-22] at entry level,
+[FREEZE p-all-distinct-eq: 7.7e-8] on distinct slots.
 
 The claim needs its ceiling stated. At K=10 the bands sit near TVD
 0.4 regardless of item distribution, so a breach needs roughly
@@ -202,19 +221,24 @@ behavior stayed frozen at the resolution this instrument has.
 #### 3.3 Structure against the honest null
 
 The breach count alone is weak evidence, and I will say so before
-leaning elsewhere: [FREEZE: 29 observed against 19.7 expected
-under the smoothed null, p = 0.029]. What the null cannot produce
+leaning elsewhere: [FREEZE entries-vs-null: 51 observed against
+39.4 expected under the smoothed null, p = 0.043]. What the null
+cannot produce
 is the structure. Chance breaches spread across slots; the
-observed entries pile onto repeat threads. [FREEZE: five slots
-carry three or more breaches each, against 0.0101 expected slots
-at that depth, P = 8.0e-13.] Direction is structured too, and it
+observed entries pile onto repeat threads. [FREEZE slots-ge3:
+seven slots carry three or more breaches each, against 0.0877
+expected slots at that depth, P = 6.3e-12]. Direction is
+structured too, and it
 splits the threads into two morphologies. Every oscillator thread
-moved toward the same option every time it moved [FREEZE: 6 of 6
-at the drafting record, against 0.008 expected same-direction
-threads; tails in T1]. The one repeat thread that is not
+moved toward the same option every time it moved
+([FREEZE oscillator-direction: 6 of 6], against
+[FREEZE oscillator-null: 0.015] expected same-direction
+threads under the null; tails in T1). The one repeat thread that
+is not
 direction-stable is not an oscillator at all: deepseek's
-contractor-access item breached toward three different options
-across four entries and carries the record's only UNSTABLE
+contractor-access item breached
+[FREEZE wanderer: toward three different options across five
+entries] and carries the record's only UNSTABLE
 verdict, a same-day rerun matching neither probe nor baseline.
 That thread is a diffuse wander, not a two-state flip, and the two
 morphologies are kept distinct wherever drift is counted
@@ -226,15 +250,18 @@ caveat is stated wherever the numbers are.
 
 #### 3.4 Detection without attribution
 
-Behavior moved. Nothing else did. Across [FREEZE: 41,090] rows,
+Behavior moved. Nothing else did. Across
+[FREEZE total-rows: 75,990] rows,
 every serving covariate visible from outside held constant: the
 echoed model id never changed, reasoning flags were constant per
 model, and no infrastructure field co-varied with any breach. The
 EVENT label itself is weaker than designed and I demote it
-honestly: the same-day rerun certifies persistence over [FREEZE:
-0.4 to 5.3] minutes, not the twenty the design assumed, and under
+honestly: the same-day rerun certifies persistence over
+[FREEZE rerun-gap-coarse: 0.4 to 5.3] minutes, not the twenty the
+design assumed, and under
 a serving-state correlation model the EVENT/TRANSIENT split
-carries [FREEZE: p = 0.68] of discriminating power. The
+carries [FREEZE event-power: p = 0.68] of discriminating power.
+The
 persistence evidence is not the rerun. It is cross-day recurrence
 of exact states.
 
@@ -248,11 +275,13 @@ monitor's product is a dated evidence trail, not a diagnosis.
 
 Where drift does not live settles what per-call behavior means.
 Outside the focal threads, no model moves: on quiet equipoise
-slots, mean observed TVD sits within [FREEZE: +0.009] of the exact
+slots, mean observed TVD sits within
+[FREEZE quiet-excess-max: +0.010] of the exact
 expectation under a stationary baseline, on all five models, once
 the expectation charges for probe sampling and baseline estimation
 noise together. That holds while per-call spread varies widely
-(mean modal share [FREEZE: 0.92 to 0.99] across vendors). Ambient
+(mean modal share [FREEZE modal-share-range: 0.91 to 0.99] across
+vendors). Ambient
 drift is zero at this instrument's resolution; every detected
 movement belongs to a named, recurring thread.
 
@@ -266,13 +295,15 @@ per-call spread in the roster, quiet slots fully explained by
 sampling arithmetic, and the record's only diffuse-wander thread
 in its contractor item (its dlp thread is discrete, so the wander
 is a thread property, not a vendor property). Gemini sat
-near-frozen through the window [FREEZE: two transient breaches].
+near-frozen through the record
+([FREEZE gemini-breaches: two transient breaches]).
 Per-call determinism is not temporal stability, and the most
 confident-looking style is the least snapshot-auditable.
 
 Format rides along as an independent observable. On the
 vulnerability-gating item, answer state and response format flip in
-lockstep [FREEZE: 148 of 150 samples]: terse 9-character rows in
+lockstep ([FREEZE vuln-lockstep: 148 of 150] samples): terse
+9-character rows in
 one state, 766 to 1,421 character reasoned rows in the other. The
 fraud-scoring item flips with zero length change. Format is a
 serving-state signal the parsed-letter statistic only sees when
@@ -292,21 +323,25 @@ same thing.
     and 0.05 (empirical truth), and the correction is the citable
     number.
 (b) A sensitivity upgrade was approved, built, and declined the
-    same day. K=30 narrows bands from roughly 0.40 to [FREEZE:
-    0.267 to 0.317]; the between-day variance the bands never
-    modeled sits at [FREEZE: p99 = 0.35] on equipoise items, above
-    the proposed bands. Shipping it would have manufactured
-    [FREEZE: 1.5 to 2.5] false alarms per day. Two weeks of
-    accumulated cross-day data vindicated the decline empirically.
-(c) The frozen baseline can be the anomaly. [FREEZE: 82 of 115]
+    same day. K=30 narrows bands from roughly 0.40 to
+    [FREEZE k30-bands-range: 0.267 to 0.317]. The between-day
+    spread the bands never modeled puts the quiet-slot p99 at
+    [FREEZE between-day-eq-p99: 0.30] on equipoise items; against
+    the proposed bands that spread converts to
+    [FREEZE k30-false-alarms: 0.8 to 1.6] alarms per day on
+    behavior the verdict log calls quiet. The accumulated
+    cross-day record vindicated the decline empirically.
+(c) The frozen baseline can be the anomaly.
+    [FREEZE eq-unanimous-baseline: 82 of 115]
     equipoise slots were unanimous at baseline, on items designed
     to split. For those slots the monitor may have enshrined an
     excursion as the reference and then alarmed on movement toward
     designed behavior. The instrument therefore says "changed,"
     never "degraded"; the sign of change is not identified.
 (d) EVENT certifies minutes, not the roughly twenty the design
-    assumed. Measured probe-to-rerun gaps run [FREEZE: 0.43 to
-    5.28] minutes. The label was demoted in the analysis rather
+    assumed. Measured probe-to-rerun gaps run
+    [FREEZE rerun-gap-minutes: 0.43 to 5.28] minutes. The label
+    was demoted in the analysis rather
     than defended.
 (e) The first version of this paper's phenotype figure repeated
     the baseline error in miniature. Its expected-movement term
@@ -322,11 +357,13 @@ For a team running judgment-layer automation on a frontier API,
 the numbers above convert to practice.
 
 Split the bank by class and band accordingly. Decisive items are
-near-noiseless ([FREEZE: zero exceedances above 0.20 in 2,700
-slot-days]): their bands can tighten to 0.25 and monitoring there
-is essentially free sensitivity. Equipoise bands cannot narrow at
-K=10: between-day spread does not shrink with K ([FREEZE:
-sqrt-K scaling measured wrong for the equipoise class]), so they
+near-noiseless ([FREEZE decisive-020-exceedances: three
+exceedances above 0.20 in 5,047 slot-days], none a breach): their
+bands can tighten to 0.25 and monitoring there
+is close to free sensitivity. Equipoise bands cannot narrow at
+K=10: between-day spread does not shrink with K (measured K=30
+shrink [FREEZE eq-k30-shrink: 0.71] against the 0.577 sqrt-K
+prediction), so they
 stay at 0.40 or above and their alarms are read as regime signals,
 not degradation.
 
@@ -370,7 +407,7 @@ mechanism for silent behavioral variation is documented in
 
 ### 7. Limitations and reproducibility
 
-One bank, five models, one scaffold, [FREEZE: N] days. The
+One bank, five models, one scaffold, [FREEZE days: 24] days. The
 phenotypes are observed styles, not vendor properties. Slots
 within a model-day share a scaffold; day-level counts are
 overdispersed and the per-slot recurrence statistics carry the
@@ -378,7 +415,8 @@ independence caveat stated in 3.3. The detection floor at K=10 is
 roughly a four-of-ten answer shift, so sub-floor movement is
 invisible and decisive-class stability is bounded, not proven.
 The strict inequality at the band is load-bearing: moving to
-greater-or-equal raises null breach mass [FREEZE: 4.8x]. Cost and
+greater-or-equal raises null breach mass
+[FREEZE ge-vs-gt-ratio: 4.8x]. Cost and
 cadence are modest by design; the instrument trades sensitivity
 for a false-alarm budget an operator can actually staff.
 

@@ -1,0 +1,389 @@
+{
+  "data_through": "2026-08-25",
+  "entries": {
+    "band-histogram-active": {
+      "provenance": "constant",
+      "render": "0.40 x311, 0.45 x28, 0.50 x1",
+      "source": "p99 histogram over the 340 slots, active references",
+      "value": {
+        "0.40": 311,
+        "0.45": 28,
+        "0.50": 1
+      }
+    },
+    "band-histogram-qualified": {
+      "provenance": "constant",
+      "render": "0.40 x311, 0.45 x28, 0.50 x1",
+      "source": "p99 histogram over the 340 slots, qualified references",
+      "value": {
+        "0.40": 311,
+        "0.45": 28,
+        "0.50": 1
+      }
+    },
+    "between-day-eq-p99": {
+      "note": "this percentile moves with window length (0.35 in the validated 12-day window); if it sits inside the proposed K=30 band range the draft's section 4(b) sentence needs rewording, and the alarms-per-day figure below is the sturdier support",
+      "provenance": "record",
+      "render": "0.30",
+      "source": "between_day_variance.py: pooled quiet eq slot-day TVD p99, full window",
+      "value": 0.3
+    },
+    "breach-entries-eq-of-total": {
+      "provenance": "record",
+      "render": "51 of 51",
+      "source": "breach entries in the verdict log, eq_ share",
+      "value": [
+        51,
+        51
+      ]
+    },
+    "days": {
+      "provenance": "record",
+      "render": "24",
+      "source": "distinct dates in probe/monitor/verdicts.jsonl",
+      "value": 24
+    },
+    "decisive-020-exceedances": {
+      "note": "above 0.25: 2; max decisive slot-day TVD 0.30. The draft's section 5 claim of zero is the 12-day figure; reword at the freeze if this is nonzero.",
+      "provenance": "record",
+      "render": "three exceedances above 0.20 in 5,047 slot-days",
+      "source": "decisive slot-day TVDs strictly above 0.20, in-force references",
+      "value": 3
+    },
+    "decisive-breaches": {
+      "provenance": "record",
+      "render": "zero",
+      "source": "decisive breach entries (band exceedances) in the log",
+      "value": 0
+    },
+    "decisive-slot-days": {
+      "note": "includes partial rows collected on ERROR model-days before the failure (the bank probes decisive items first); an ERROR day contributes data but no verdict",
+      "provenance": "record",
+      "render": "5,047",
+      "source": "decisive slot-days with probe data in the derived counts",
+      "value": 5047
+    },
+    "entries-vs-null": {
+      "provenance": "record",
+      "render": "51 observed against 39.4 expected under the smoothed null, p = 0.043",
+      "source": "recurrence_structure_null.py, full window",
+      "value": [
+        51,
+        39.424,
+        0.04273
+      ]
+    },
+    "eq-k30-shrink": {
+      "note": "the sqrt-K-scaling-is-wrong claim in section 5",
+      "provenance": "record",
+      "render": "0.71",
+      "source": "between_day_variance.py decomposition: projected K=30 eq mean TVD over the K=10 mean; sqrt-K predicts 0.577",
+      "value": 0.708
+    },
+    "eq-null-share": {
+      "provenance": "record",
+      "render": "0.382",
+      "source": "recurrence_structure_null.py: eq_ share of null breach mass, day-weighted",
+      "value": 0.38159
+    },
+    "eq-unanimous-baseline": {
+      "provenance": "record",
+      "render": "82 of 115",
+      "source": "equipoise slots whose as-qualified n=20 reference is unanimous",
+      "value": [
+        82,
+        115
+      ]
+    },
+    "event-power": {
+      "note": "numbers policy blocks this from the PDF until the analysis lands as a committed script",
+      "provenance": "no-script",
+      "render": "p = 0.68",
+      "source": "EVENT/TRANSIENT discriminating power under the serving-state correlation model; session analysis, 2026-08-16 deep read",
+      "value": 0.68
+    },
+    "expected-false-breaches": {
+      "note": "under the ACTIVE references (post re-baseline) the smoothed figure is 1.65; the draft cites the as-qualified 1.64 and should say so at the freeze",
+      "provenance": "record",
+      "render": "1.64 expected false breaches per day if the smoothed baseline is truth, 0.05 if the empirical baseline is truth",
+      "source": "exact enumeration, expected_false_breaches.py method, as-qualified references",
+      "value": {
+        "active-empirical": 0.054,
+        "active-smoothed": 1.6454,
+        "qualified-empirical": 0.0508,
+        "qualified-smoothed": 1.6424
+      }
+    },
+    "fraud-pure-a-prob": {
+      "provenance": "record",
+      "render": "5.5e-5",
+      "source": "P(10/0/0/0) under the Laplace-smoothed frozen sonnet fraud baseline, exact",
+      "value": 5.499366670846942e-05
+    },
+    "fraud-pure-a-visits": {
+      "provenance": "record",
+      "render": "four times (Aug 3, 4, 6, 10)",
+      "source": "days whose probe vector is exactly 10/0/0/0 on the sonnet fraud-scoring slot",
+      "value": [
+        "2026-08-03",
+        "2026-08-04",
+        "2026-08-06",
+        "2026-08-10"
+      ]
+    },
+    "ge-vs-gt-ratio": {
+      "provenance": "record",
+      "render": "4.8x",
+      "source": "smoothed null breach mass at >= divided by strict >, active references, exact enumeration",
+      "value": 4.79155909243604
+    },
+    "gemini-breaches": {
+      "note": "entries: 2026-08-15 eq_alert_spend_anomaly TRANSIENT; 2026-08-20 eq_alert_spend_anomaly_v2 TRANSIENT",
+      "provenance": "record",
+      "render": "two transient breaches",
+      "source": "gemini breach entries and their item verdicts",
+      "value": [
+        [
+          "2026-08-15",
+          "eq_alert_spend_anomaly",
+          "TRANSIENT"
+        ],
+        [
+          "2026-08-20",
+          "eq_alert_spend_anomaly_v2",
+          "TRANSIENT"
+        ]
+      ]
+    },
+    "k30-bands-range": {
+      "provenance": "record",
+      "render": "0.267 to 0.317",
+      "source": "p99 bands recomputed at K=30 from the stored per-item band seeds, as-qualified references, monitor.py band simulation replicated (validated against every committed K=10 band first)",
+      "value": [
+        0.26666666666666666,
+        0.31666666666666665
+      ]
+    },
+    "k30-false-alarms": {
+      "provenance": "record",
+      "render": "0.8 to 1.6",
+      "source": "quiet slot-day TVDs strictly above the proposed K=30 band, per probe day, from the between_day_variance.py false-alarm curve (0.317 gives the low end, 0.267 the high)",
+      "value": {
+        "0.267": 1.626,
+        "0.317": 0.791
+      }
+    },
+    "modal-share-range": {
+      "provenance": "record",
+      "render": "0.91 to 0.99",
+      "source": "mean per-day modal share over all slot-days, per model (the F4 x axis)",
+      "value": {
+        "deepseek": 0.9145,
+        "gemini-flash": 0.9896,
+        "gpt-terra": 0.9713,
+        "haiku": 0.9947,
+        "sonnet": 0.9946
+      }
+    },
+    "offboarding-vector-repeats": {
+      "provenance": "record",
+      "render": "8/0/2/0 four times, 9/0/1/0 twice",
+      "source": "exact probe vectors on gpt offboarding breach days, multiplicity >= 2",
+      "value": {
+        "8/0/2/0": 4,
+        "9/0/1/0": 2
+      }
+    },
+    "oscillator-direction": {
+      "note": "threads >=3: 7, unidirectional 6; E[slots >=3 same dir] under the null 0.0154 (the draft's 0.008 was the through-2026-08-20 value)",
+      "provenance": "record",
+      "render": "6 of 6",
+      "source": "recurrence_structure_null.py; oscillators = the unidirectional >=3-threads, the mixed-direction wanderer counted separately",
+      "value": [
+        6,
+        7,
+        0.015361
+      ]
+    },
+    "oscillator-null": {
+      "provenance": "record",
+      "render": "0.015",
+      "source": "recurrence_structure_null.py: E[slots >=3 breaches all one direction] under the no-drift null",
+      "value": 0.015361
+    },
+    "p-all-distinct-eq": {
+      "provenance": "record",
+      "render": "7.7e-8",
+      "source": "recurrence_structure_null.py, distinct slots",
+      "value": 7.71e-08
+    },
+    "p-all-entries-eq": {
+      "provenance": "record",
+      "render": "4.6e-22",
+      "source": "recurrence_structure_null.py",
+      "value": 4.584e-22
+    },
+    "quiet-excess-max": {
+      "note": "per model: haiku +0.001, sonnet +0.004, gpt-terra +0.006, gemini-flash +0.009, deepseek +0.010",
+      "provenance": "record",
+      "render": "+0.010",
+      "source": "quiet_slot_decomposition.py part 1: max over models of quiet-slot excess (observed minus probe-plus-baseline expectation)",
+      "value": 0.01
+    },
+    "rerun-gap-coarse": {
+      "provenance": "raw-rows",
+      "render": "0.4 to 5.3",
+      "source": "the same range at one decimal, as section 3.4 prints it",
+      "value": {
+        "max": 5.3,
+        "min": 0.4
+      }
+    },
+    "rerun-gap-median": {
+      "provenance": "raw-rows",
+      "render": "2.4",
+      "source": "median of the same item-level gaps",
+      "value": 2.4
+    },
+    "rerun-gap-minutes": {
+      "note": "regenerate from the local row store at the freeze; the verdict log holds only run-level start times",
+      "provenance": "raw-rows",
+      "render": "0.43 to 5.28",
+      "source": "item-level gap, last probe sample to first rerun sample; 12-day figures from probe/DRIFT_WINDOW_2026-08-07_to_13.md",
+      "value": {
+        "max": 5.28,
+        "median": 2.4,
+        "min": 0.43
+      }
+    },
+    "return-watch": {
+      "provenance": "record",
+      "render": "no return observed in two post-transition probe days",
+      "source": "the pre-registered return criterion of REBASELINE_DECISION_2026-08-23.md against the committed counts (probe/scripts/return_watch.py is the standalone check)",
+      "value": {
+        "post_days": 2,
+        "return_days": []
+      }
+    },
+    "slots-ge3": {
+      "provenance": "record",
+      "render": "seven slots carry three or more breaches each, against 0.0877 expected slots at that depth, P = 6.3e-12",
+      "source": "recurrence_structure_null.py, full window",
+      "value": [
+        7,
+        0.08768,
+        6.274e-12
+      ]
+    },
+    "sonnet-joint-reentries": {
+      "provenance": "record",
+      "render": "twice in six days",
+      "source": "the sonnet-joint-round-trips facts phrased for the 3.1 sentence (re-entered it N times in M days)",
+      "value": {
+        "reentries": 2,
+        "span_days": 6
+      }
+    },
+    "sonnet-joint-round-trips": {
+      "note": "the abstract's 'seven days' counted from the Jul 30 pre-baseline observation; the committed record starts 2026-08-02",
+      "provenance": "record",
+      "render": "two round trips in six days",
+      "source": "joint-away day: fraud modal A and vuln modal D, the recurring pair state; a round trip is a joint-away run that exits within the record; span runs first entry to the day the last completed trip exited",
+      "value": {
+        "completed": 2,
+        "joint_away_runs": [
+          [
+            "2026-08-03",
+            "2026-08-03",
+            true
+          ],
+          [
+            "2026-08-06",
+            "2026-08-07",
+            true
+          ]
+        ],
+        "span_days": 6
+      }
+    },
+    "spend-away-vector": {
+      "provenance": "record",
+      "render": "0/6/0/4, eight times (Aug 12, 13, 15, 16, 17, 21, 23, 25)",
+      "source": "days whose probe vector is exactly 0/6/0/4 on the haiku spend slot, either reference epoch",
+      "value": [
+        "2026-08-12",
+        "2026-08-13",
+        "2026-08-15",
+        "2026-08-16",
+        "2026-08-17",
+        "2026-08-21",
+        "2026-08-23",
+        "2026-08-25"
+      ]
+    },
+    "total-rows": {
+      "note": "9 model-days are ERROR: 2026-08-14 gpt-terra, 2026-08-15 gpt-terra, 2026-08-16 gpt-terra, 2026-08-19 haiku, 2026-08-19 sonnet, 2026-08-20 haiku, 2026-08-20 sonnet, 2026-08-22 gemini-flash, 2026-08-24 gemini-flash",
+      "provenance": "record",
+      "render": "75,990",
+      "source": "sum of the calls field over all verdict lines (probe plus rerun rows; ERROR days contribute none)",
+      "value": 75990
+    },
+    "unstable-entries": {
+      "note": "2026-08-15 deepseek eq_access_contractor",
+      "provenance": "record",
+      "render": "one",
+      "source": "UNSTABLE item verdicts in the log",
+      "value": 1
+    },
+    "vuln-10d-prob": {
+      "provenance": "record",
+      "render": "1.6e-14",
+      "source": "P(0/0/0/10) under the Laplace-smoothed frozen sonnet vuln baseline, exact",
+      "value": 1.577202957908649e-14
+    },
+    "vuln-10d-prob-pair": {
+      "provenance": "record",
+      "render": "2.5e-28",
+      "source": "the same state across an independent probe-rerun pair",
+      "value": 2.4875691704357914e-28
+    },
+    "vuln-lockstep": {
+      "note": "row lengths never enter the committed derived counts; regenerate from the local row store",
+      "provenance": "raw-rows",
+      "render": "148 of 150",
+      "source": "answer-format lockstep samples on the sonnet vuln slot; 12-day figure from the deep read",
+      "value": [
+        148,
+        150
+      ]
+    },
+    "wanderer": {
+      "note": "per-entry: 2026-08-09 E toward D; 2026-08-11 E toward A; 2026-08-15 U toward C; 2026-08-17 T toward A; 2026-08-21 T toward D",
+      "provenance": "record",
+      "render": "toward three different options across five entries",
+      "source": "quiet_slot_decomposition.py part 3, deepseek contractor",
+      "value": {
+        "directions": [
+          "A",
+          "C",
+          "D"
+        ],
+        "entries": 5
+      }
+    },
+    "window": {
+      "provenance": "record",
+      "render": "2026-08-02 to 2026-08-25",
+      "source": "verdict log date span",
+      "value": [
+        "2026-08-02",
+        "2026-08-25"
+      ]
+    }
+  },
+  "probe_days": 24,
+  "window": [
+    "2026-08-02",
+    "2026-08-25"
+  ]
+}
