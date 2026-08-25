@@ -225,9 +225,7 @@ leaning elsewhere: [FREEZE entries-vs-null: 51 observed against
 39.4 expected under the smoothed null, p = 0.043]. What the null
 cannot produce
 is the structure. Chance breaches spread across slots; the
-observed entries pile onto repeat threads. [FREEZE slots-ge3:
-seven slots carry three or more breaches each, against 0.0877
-expected slots at that depth, P = 6.3e-12]. Direction is
+observed entries pile onto repeat threads. [FREEZE slots-ge3: Seven slots carry three or more breaches each, against 0.0877 expected slots at that depth, P = 6.3e-12]. Direction is
 structured too, and it
 splits the threads into two morphologies. Every oscillator thread
 moved toward the same option every time it moved

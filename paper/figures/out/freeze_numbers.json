@@ -267,8 +267,8 @@
     },
     "slots-ge3": {
       "provenance": "record",
-      "render": "seven slots carry three or more breaches each, against 0.0877 expected slots at that depth, P = 6.3e-12",
-      "source": "recurrence_structure_null.py, full window",
+      "render": "Seven slots carry three or more breaches each, against 0.0877 expected slots at that depth, P = 6.3e-12",
+      "source": "recurrence_structure_null.py, full window; the render opens a sentence and is capitalized",
       "value": [
         7,
         0.08768,

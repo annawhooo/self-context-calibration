@@ -339,8 +339,9 @@ def main():
     entry(E, "slots-ge3",
           "%s slots carry three or more breaches each, against "
           "%.3g expected slots at that depth, P = %s"
-          % (word(obs3), e3, sci(p3)), [obs3, e3, p3],
-          "recurrence_structure_null.py, full window")
+          % (word(obs3).capitalize(), e3, sci(p3)), [obs3, e3, p3],
+          "recurrence_structure_null.py, full window; the render "
+          "opens a sentence and is capitalized")
 
     eq_share = float(grab(null_out, "eq_ share of breach mass"))
     entry(E, "eq-null-share", "%.3f" % eq_share, eq_share,
