@@ -11,5 +11,5 @@
 | breach test | per-item TVD vs baseline, strictly above band; same-day rerun disambiguates |
 | verdict grammar | CLEAN, EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR |
 | expected false breaches | 1.64/day (smoothed truth), 0.05/day (empirical truth), exact enumeration |
-| record to date | 19 probe days, 60,270 calls |
+| record to date | 24 probe days, 75,990 calls |
 | operating cost | about 20 USD per month |

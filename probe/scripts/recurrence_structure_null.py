@@ -45,10 +45,29 @@ Out of scope: the two-stage EVENT/TRANSIENT disambiguation null
 stays in the analysis lane. Only the item_verdict labels already
 recorded in the verdict log are tallied here.
 
+Re-baselined items. An item record rewritten by
+probe/scripts/rebaseline_item.py carries its prior references under
+"superseded", each with a pinned validity window: a superseded
+reference governs THROUGH its valid_through day, the next reference
+from the day after (probe/REBASELINE_DECISION_2026-08-23.md). Both
+sides of this analysis honor that convention. Observed directions
+score each breach against the reference in force on its date, and
+the null treats every slot as a sequence of reference epochs: each
+epoch contributes Binomial(days_in_epoch, p_epoch) breaches, slot
+totals are exact convolutions across epochs, and direction masses
+are epoch-specific. No historical day is ever scored against a
+reference that was not in force when it ran. For records without
+supersession all of this reduces to the single-reference arithmetic.
+"sum p_i per day" is reported as expected entries divided by window
+days, which equals the plain per-day sum whenever every model has a
+verdict line on every window day.
+
 The analysis window defaults to the full record and matters because
 the record extends past the validated window. --selfcheck pins the
 window to 2026-08-02..2026-08-13 and asserts every adversarially
 verified figure, so future refactors can be checked in one command.
+The validated window predates the first re-baseline, so its pinned
+figures are unchanged by the epoch routing.
 
 Run: python probe/scripts/recurrence_structure_null.py
        [--start 2026-08-02] [--end 2026-08-13] [--selfcheck]
@@ -192,6 +211,37 @@ def tail_ge(dist, m):
     return sum(dist[m:])
 
 
+def ref_epochs(rec):
+    """Reference epochs of one item record, oldest first: every
+    superseded reference with its pinned validity window, then the
+    active reference, open ended. Records without supersession yield
+    the single active epoch."""
+    eps = []
+    for old in rec.get("superseded", []):
+        eps.append({"src": old, "from": old["valid_from"],
+                    "through": old["valid_through"]})
+    eps.append({"src": rec, "from": rec.get("valid_from"),
+                "through": None})
+    for ep in eps:
+        src = ep["src"]
+        ep["base"] = [src["baseline_counts"].get(o, 0)
+                      for o in OPTIONS]
+        ep["n"] = src["n"]
+        ep["p99"] = src["band"]["p99"]
+        del ep["src"]
+    return eps
+
+
+def epoch_for(slot, date):
+    """The reference epoch in force on a date: the superseded epoch
+    whose validity window holds it, else the active one. Mirrors
+    paper/figures/figdata.baseline_for."""
+    for ep in slot["epochs"][:-1]:
+        if ep["from"] <= date <= ep["through"]:
+            return ep
+    return slot["epochs"][-1]
+
+
 def load_slots():
     paths = sorted(glob.glob(os.path.join(BASELINE_DIR, "*.json")))
     if not paths:
@@ -211,9 +261,7 @@ def load_slots():
                 continue
             slots.append({
                 "model": doc["model"], "iid": iid,
-                "base": [rec["baseline_counts"].get(o, 0)
-                         for o in OPTIONS],
-                "n": rec["n"], "p99": rec["band"]["p99"],
+                "epochs": ref_epochs(rec),
                 "eq": iid.startswith("eq_")})
     return slots
 
@@ -247,17 +295,17 @@ def load_probe_counts():
     return out
 
 
-def slot_null(slot):
-    """Attach exact null quantities to one slot: the daily breach
-    probability p, and the conditional direction distribution and tie
-    mass given a breach. Direction of a breaching composition is the
-    option with the largest share gain over the baseline, ties
+def epoch_null(ep):
+    """Attach exact null quantities to one reference epoch: the daily
+    breach probability p, and the conditional direction distribution
+    and tie mass given a breach. Direction of a breaching composition
+    is the option with the largest share gain over the baseline, ties
     resolved to the earliest option in A..D order (the tie mass is
     tracked separately)."""
-    n = slot["n"]
-    base_share = [b / n for b in slot["base"]]
-    w = comp_probs([(b + 1.0) / (n + 4.0) for b in slot["base"]])
-    p99 = slot["p99"]
+    n = ep["n"]
+    base_share = [b / n for b in ep["base"]]
+    w = comp_probs([(b + 1.0) / (n + 4.0) for b in ep["base"]])
+    p99 = ep["p99"]
     p = 0.0
     dvec = [0.0, 0.0, 0.0, 0.0]
     tie = 0.0
@@ -274,22 +322,65 @@ def slot_null(slot):
         if len(idxs) > 1:
             tie += wj
         dvec[idxs[0]] += wj
-    slot["p"] = p
-    slot["dir_cond"] = ([x / p for x in dvec] if p > 0
-                        else [0.25] * 4)
-    slot["tie_cond"] = tie / p if p > 0 else 0.0
+    ep["p"] = p
+    ep["dir_cond"] = ([x / p for x in dvec] if p > 0
+                      else [0.25] * 4)
+    ep["tie_cond"] = tie / p if p > 0 else 0.0
 
 
-def entry_direction(slot, counts):
+def slot_count_pmf(slot, infl=1.0):
+    """Exact pmf of the slot's window breach count: the convolution
+    of Binomial(days_in_epoch, p_epoch) across reference epochs,
+    optionally with every epoch probability inflated by infl."""
+    nd = sum(ep["days"] for ep in slot["epochs"])
+    if nd == 0:
+        return [1.0]
+    return binom_sum_dist(
+        [(ep["days"], min(ep["p"] * infl, 1.0))
+         for ep in slot["epochs"]], nd)
+
+
+def slot_same_dir_ge(slot, thr):
+    """P(the slot collects at least thr breaches in the window and
+    every one points at the same option), exact across reference
+    epochs. Within an epoch each breach independently points at
+    option o with the epoch's conditional direction mass; across
+    epochs the all-point-at-o counts convolve. The single-epoch case
+    reduces to sum_m pmf[m] * sum_o dir[o]^m over m >= thr, the
+    original arithmetic."""
+    if sum(ep["days"] for ep in slot["epochs"]) < thr:
+        return 0.0
+    total = 0.0
+    for o in range(4):
+        dist = [1.0]
+        for ep in slot["epochs"]:
+            if ep["days"] == 0:
+                continue
+            pmf = binom_pmf(ep["days"], ep["p"])
+            f = [pmf[m] * ep["dir_cond"][o] ** m
+                 for m in range(len(pmf))]
+            new = [0.0] * (len(dist) + len(f) - 1)
+            for i, di in enumerate(dist):
+                if di == 0.0:
+                    continue
+                for j, fj in enumerate(f):
+                    new[i + j] += di * fj
+            dist = new
+        total += sum(dist[thr:])
+    return total
+
+
+def entry_direction(slot, counts, date):
     """Index in OPTIONS of the max-share-gain option of one observed
-    probe, ties to the earliest option."""
+    probe against the reference in force on its date, ties to the
+    earliest option."""
     total = sum(counts.values())
     if total == 0:
         raise SystemExit("empty probe counts for %s %s"
                          % (slot["model"], slot["iid"]))
-    n = slot["n"]
-    gains = [counts.get(o, 0) / total - b / n
-             for o, b in zip(OPTIONS, slot["base"])]
+    ep = epoch_for(slot, date)
+    gains = [counts.get(o, 0) / total - b / ep["n"]
+             for o, b in zip(OPTIONS, ep["base"])]
     return gains.index(max(gains))
 
 
@@ -309,7 +400,8 @@ def observed_structure(in_window, slot_map, probe_map):
         if pkey not in probe_map:
             raise SystemExit("no derived probe counts for breach "
                              "entry %s %s %s" % pkey)
-        e["dir"] = entry_direction(slot_map[key], probe_map[pkey])
+        e["dir"] = entry_direction(slot_map[key], probe_map[pkey],
+                                   e["date"])
 
     per_slot = collections.Counter(
         (e["model"], e["iid"]) for e in entries)
@@ -369,11 +461,13 @@ def analyze(start, end):
             "no verdict lines in %s..%s (the record covers %s..%s)"
             % (start, end, all_dates[0], all_dates[-1]))
     dates = sorted(set(v["date"] for v in in_window))
-    days_by_model = collections.Counter(v["model"] for v in in_window)
+    dates_by_model = collections.defaultdict(set)
+    for v in in_window:
+        dates_by_model[v["model"]].add(v["date"])
 
     slots = load_slots()
     slot_map = {(s["model"], s["iid"]): s for s in slots}
-    for m in days_by_model:
+    for m in dates_by_model:
         if not any(s["model"] == m for s in slots):
             raise SystemExit("verdict model %s has no baseline" % m)
 
@@ -386,29 +480,39 @@ def analyze(start, end):
                                    load_probe_counts()))
 
     for s in slots:
-        slot_null(s)
-        s["days"] = days_by_model.get(s["model"], 0)
+        model_dates = dates_by_model.get(s["model"], set())
+        for ep in s["epochs"]:
+            epoch_null(ep)
+            ep["days"] = sum(1 for d in model_dates
+                             if epoch_for(s, d) is ep)
 
-    sum_p = sum(s["p"] for s in slots)
-    figs["sum_p_per_day"] = sum_p
-    figs["e_total_entries"] = sum(s["days"] * s["p"] for s in slots)
-    figs["e_distinct_slots"] = sum(
-        1 - (1 - s["p"]) ** s["days"] for s in slots)
-    figs["eq_share"] = sum(s["p"] for s in slots if s["eq"]) / sum_p
+    def slot_mass(s):
+        return sum(ep["days"] * ep["p"] for ep in s["epochs"])
+
+    total_mass = sum(slot_mass(s) for s in slots)
+    figs["e_total_entries"] = total_mass
+    figs["sum_p_per_day"] = total_mass / len(dates)
+    figs["e_distinct_slots"] = 0.0
+    for s in slots:
+        p_never = 1.0
+        for ep in s["epochs"]:
+            p_never *= (1 - ep["p"]) ** ep["days"]
+        figs["e_distinct_slots"] += 1 - p_never
+    figs["eq_share"] = sum(slot_mass(s) for s in slots
+                           if s["eq"]) / total_mass
     figs["p_all_entries_eq"] = (
         figs["eq_share"] ** figs["obs_entries"])
     figs["p_all_distinct_eq"] = (
         figs["eq_share"] ** figs["obs_distinct_slots"])
 
     cap_total = max(80, figs["obs_entries"] + 20)
-    dist = binom_sum_dist([(s["days"], s["p"]) for s in slots],
-                          cap_total)
+    dist = binom_sum_dist([(ep["days"], ep["p"]) for s in slots
+                           for ep in s["epochs"]], cap_total)
     figs["p_total_ge_obs"] = tail_ge(dist, figs["obs_entries"])
 
     cap_slots = max(15, figs["obs_slots_ge2"] + 5)
     for thr in (2, 3, 5):
-        qs = [sum(binom_pmf(s["days"], s["p"])[thr:])
-              for s in slots]
+        qs = [tail_ge(slot_count_pmf(s), thr) for s in slots]
         figs["e_slots_ge%d" % thr] = sum(qs)
         figs["p_nslots_ge%d_tail" % thr] = tail_ge(
             bernoulli_sum_dist(qs, cap_slots),
@@ -418,8 +522,7 @@ def analyze(start, end):
         infl = figs["obs_entries"] / figs["e_total_entries"]
         figs["calib_factor"] = infl
         for thr in (2, 3, 5):
-            qs = [sum(binom_pmf(s["days"],
-                                min(s["p"] * infl, 1.0))[thr:])
+            qs = [tail_ge(slot_count_pmf(s, infl), thr)
                   for s in slots]
             figs["calib_e_slots_ge%d" % thr] = sum(qs)
             figs["calib_p_nslots_ge%d_tail" % thr] = tail_ge(
@@ -429,20 +532,14 @@ def analyze(start, end):
         figs["calib_factor"] = None
 
     figs["pooled_same_dir_3of3"] = sum(
-        s["p"] * sum(x ** 3 for x in s["dir_cond"])
-        for s in slots) / sum_p
+        ep["days"] * ep["p"] * sum(x ** 3 for x in ep["dir_cond"])
+        for s in slots for ep in s["epochs"]) / total_mass
     figs["pooled_tie_mass"] = sum(
-        s["p"] * s["tie_cond"] for s in slots) / sum_p
+        ep["days"] * ep["p"] * ep["tie_cond"]
+        for s in slots for ep in s["epochs"]) / total_mass
     for thr, obs_key in ((3, "obs_threads_ge3_same_dir"),
                          (5, "obs_threads_ge5_same_dir")):
-        qs = []
-        for s in slots:
-            pmf = binom_pmf(s["days"], s["p"])
-            tot = 0.0
-            for m in range(thr, s["days"] + 1):
-                same = sum(x ** m for x in s["dir_cond"])
-                tot += pmf[m] * same
-            qs.append(tot)
+        qs = [slot_same_dir_ge(s, thr) for s in slots]
         figs["e_slots_ge%d_same_dir" % thr] = sum(qs)
         p_none = 1.0
         for q in qs:

@@ -33,6 +33,20 @@ Reported, over the chosen window:
     excess, plus a K=30 projection that shrinks only the sampling
     term by sqrt(3) and leaves the excess untouched
 
+Re-baselined items. An item record rewritten by
+probe/scripts/rebaseline_item.py carries its prior references under
+"superseded", each with a pinned validity window: a superseded
+reference governs THROUGH its valid_through day, the next reference
+from the day after (probe/REBASELINE_DECISION_2026-08-23.md). Every
+slot-day here is scored against the reference in force on its date,
+so the breach cross-check against verdicts.jsonl stays exact across
+re-baselines, and quiet-slot overdispersion rows split per
+reference epoch, one row per slot and epoch with data, mirroring
+paper/figures/quiet_slot_decomposition.py. The within-day run-pair
+floor in (e) keeps the active record's qualification run pair. The
+validated selfcheck window predates the first re-baseline and is
+unchanged by the routing.
+
 Window. --start and --end (ISO dates, inclusive) default to the
 full derived record; the window actually used is printed first.
 Windows matter because the record now extends past the validated
@@ -166,6 +180,21 @@ def load_daily_counts(start, end):
     return counts, sorted(dates)
 
 
+def ref_for(rec, date):
+    """The reference in force on a date: the superseded entry whose
+    pinned validity window holds it, else the record itself. Mirrors
+    paper/figures/figdata.baseline_for."""
+    for old in rec.get("superseded", []):
+        if old["valid_from"] <= date <= old["valid_through"]:
+            return old
+    return rec
+
+
+def ref_key(rec, date):
+    """Grouping key for per-epoch buckets on one item."""
+    return ref_for(rec, date).get("valid_from", "origin")
+
+
 def load_verdict_breaches(dates):
     """Set of (date, model, item_id) breached per verdicts.jsonl."""
     breached = set()
@@ -191,9 +220,6 @@ def compute(base, counts, dates):
     for model in sorted(base):
         for iid in sorted(base[model]):
             rec = base[model][iid]
-            bc = rec["baseline_counts"]
-            bn = rec["n"]
-            p99 = rec["band"]["p99"]
             per = {}
             br = []
             for d in dates:
@@ -201,9 +227,11 @@ def compute(base, counts, dates):
                 if c is None or sum(c.values()) == 0:
                     skipped += 1
                     continue
-                t = tvd(bc, bn, c, sum(c.values()))
+                ref = ref_for(rec, d)
+                t = tvd(ref["baseline_counts"], ref["n"], c,
+                        sum(c.values()))
                 per[d] = t
-                if t > p99:
+                if t > ref["band"]["p99"]:
                     br.append(d)
             if per:
                 daily[(model, iid)] = per
@@ -252,17 +280,25 @@ def compute(base, counts, dates):
     comps = list(compositions(K, len(OPTIONS)))
     assert len(comps) == 286
     slots = []  # (model, item, class, obs_mean, exp_emp, exp_smo)
+    # One row per quiet slot and reference epoch with data; slots
+    # without supersession contribute exactly one row, as before.
     for (model, iid) in quiet:
         rec = base[model][iid]
-        bc = collections.Counter(rec["baseline_counts"])
-        bn = rec["n"]
-        emp = [bc.get(o, 0) / bn for o in OPTIONS]
-        smo = [(bc.get(o, 0) + 1.0) / (bn + 4.0) for o in OPTIONS]
-        vals = list(daily[(model, iid)].values())
-        slots.append((model, iid, cls_of(iid),
-                      sum(vals) / len(vals),
-                      expected_mean_tvd(bc, bn, emp, comps),
-                      expected_mean_tvd(bc, bn, smo, comps)))
+        epochs = collections.defaultdict(list)
+        for d in sorted(daily[(model, iid)]):
+            epochs[ref_key(rec, d)].append(d)
+        for key in sorted(epochs):
+            ref = ref_for(rec, epochs[key][0])
+            bc = collections.Counter(ref["baseline_counts"])
+            bn = ref["n"]
+            emp = [bc.get(o, 0) / bn for o in OPTIONS]
+            smo = [(bc.get(o, 0) + 1.0) / (bn + 4.0)
+                   for o in OPTIONS]
+            vals = [daily[(model, iid)][d] for d in epochs[key]]
+            slots.append((model, iid, cls_of(iid),
+                          sum(vals) / len(vals),
+                          expected_mean_tvd(bc, bn, emp, comps),
+                          expected_mean_tvd(bc, bn, smo, comps)))
 
     def group_stats(members):
         obs = sum(r[3] for r in members)
