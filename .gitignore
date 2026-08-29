@@ -20,3 +20,12 @@ results/scratch/
 # commit a frozen snapshot deliberately (git add -f), not every run.
 results/*.jsonl
 results/*.log
+
+# latex build artifacts (paper/latex/build.sh regenerates them; the
+# submitted PDF is produced at freeze time, not committed per-build)
+paper/latex/*.aux
+paper/latex/*.log
+paper/latex/*.out
+paper/latex/*.bbl
+paper/latex/*.blg
+paper/latex/main.pdf
