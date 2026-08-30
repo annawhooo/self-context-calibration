@@ -76,12 +76,20 @@ def main():
                 if not days:
                     print("  no post-rebaseline probe days in the "
                           "committed counts yet")
+                far = 0.0
                 for d in days:
                     c = daily[(d, b["model"], iid)]
+                    t = tvd(c, ref)
                     flag = "RETURN" if is_return(c, old) else "away"
+                    if t > far:
+                        far = t
+                        # a new maximum departure from the superseded
+                        # reference; no threshold, extremes only
+                        # (RULINGS_2026-08-30.md, return-watch scope)
+                        flag += "  FARTHEST-YET"
                     print("  %s  %s  tvd_vs_superseded=%.2f  %s" % (
                         d, "/".join(str(c.get(o, 0)) for o in OPTIONS),
-                        tvd(c, ref), flag))
+                        t, flag))
     if not watched:
         print("no superseded references in any baseline file; "
               "nothing to watch")
