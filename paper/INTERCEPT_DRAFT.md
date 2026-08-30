@@ -214,8 +214,11 @@ at the drafting record, against 0.008 expected same-direction
 threads; tails in T1]. The one repeat thread that is not
 direction-stable is not an oscillator at all: deepseek's
 contractor-access item breached toward three different options
-across four entries and carries the record's only UNSTABLE
-verdict, a same-day rerun matching neither probe nor baseline.
+across [FREEZE: five] entries and carries the record's only
+UNSTABLE verdict, a same-day rerun matching neither probe nor
+baseline (as recorded; under exact arithmetic two of its entries
+are at-band and the UNSTABLE day reads clean, leaving a
+still-mixed direction sequence, per the census in section 4).
 That thread is a diffuse wander, not a two-state flip, and the two
 morphologies are kept distinct wherever drift is counted
 (paper/figures/quiet_slot_decomposition.py, part 3). Slots within
@@ -281,7 +284,7 @@ descriptively.
 
 ### 4. What the instrument got wrong
 
-The CFP asks for honest failure. Five items, each a dated commit
+The CFP asks for honest failure. Six items, each a dated commit
 in the public record, each load-bearing for someone building the
 same thing.
 
@@ -315,6 +318,19 @@ same thing.
     the figure misread honest noise as drift. The corrected
     expectation propagates baseline noise exactly; mistake and
     correction are same-day dated commits.
+(f) The breach comparison ran in floating point on quantities that
+    are exact rationals, and the summation path decided real
+    verdicts: [FREEZE: six] breach entries fired on exact at-band
+    equalities the float path read as strictly-above, from both
+    sides of the comparison (four observed-side, two where the
+    stored band itself floated low). A bit-faithful census
+    (committed script) found zero breaches missed, zero verdict
+    flips among surviving entries, and every headline claim intact
+    under exact arithmetic, with the false-breach null moving in
+    step. The verdict log stands as recorded; the sensitivity
+    companion appears with each headline number; the instrument
+    moves to exact integer comparison after submission, on a dated
+    schedule.
 
 ### 5. Operational guidance
 
@@ -378,7 +394,10 @@ independence caveat stated in 3.3. The detection floor at K=10 is
 roughly a four-of-ten answer shift, so sub-floor movement is
 invisible and decisive-class stability is bounded, not proven.
 The strict inequality at the band is load-bearing: moving to
-greater-or-equal raises null breach mass [FREEZE: 4.8x]. Cost and
+greater-or-equal raises null breach mass [FREEZE: 4.8x], and its
+float implementation decided [FREEZE: six] at-band entries (item f
+above; every reported number carries its exact-arithmetic
+companion from the committed census). Cost and
 cadence are modest by design; the instrument trades sensitivity
 for a false-alarm budget an operator can actually staff.
 
