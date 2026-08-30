@@ -1,5 +1,11 @@
 # Re-baseline decision: haiku spend_anomaly_v2, dual reference
 
+Notice, 2026-08-30: the return-sensitivity claim below ("a return
+home IS a breach") holds only for a deep home vector; the observed
+home vector sits inside the new band, so return detection rests on
+the offline watch. See CORRECTIONS_2026-08-30.md, E3. Original
+text preserved unedited.
+
 Date: 2026-08-23. Status: DRAFT until merged to main; the merge is
 the operator's adoption of this decision, and the decision takes
 effect only when probe/scripts/rebaseline_item.py has been run and

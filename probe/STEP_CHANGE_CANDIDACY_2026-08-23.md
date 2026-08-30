@@ -1,5 +1,10 @@
 # Step-change candidacy: haiku spend_anomaly_v2, episode two
 
+Notice, 2026-08-30: the depth claim below ("the deepest single
+reading for this item in the record") is wrong; the Aug 12 rerun
+was deeper. See CORRECTIONS_2026-08-30.md, E1. Original text
+preserved unedited.
+
 Date: 2026-08-23. Companion to STEP_CHANGE_DECISION_RULE_2026-08-16.md
 (the rule applied here), STEP_CHANGE_RESOLUTION_2026-08-16.md (which
 closed episode one as alternation and declared any later sustained
