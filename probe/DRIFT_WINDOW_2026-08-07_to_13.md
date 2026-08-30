@@ -1,5 +1,10 @@
 # Drift window: 2026-08-07 to 2026-08-13
 
+Notice, 2026-08-30: the contractor direction claim below ("D-ward
+at the peaks") is wrong for Aug 11, which is A-ward under the
+pinned direction rule. See CORRECTIONS_2026-08-30.md, E2. Original
+text preserved unedited.
+
 Date: 2026-08-16, covering the seven probe days between the last
 dated event note (DRIFT_EVENT_2026-08-06.md) and the twelve-day
 analysis cutoff. Companions: NOISE_FLOOR.md, DESIGN_LIMITATIONS.md,
