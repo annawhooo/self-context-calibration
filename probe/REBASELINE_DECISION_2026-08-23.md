@@ -6,6 +6,13 @@ home vector sits inside the new band, so return detection rests on
 the offline watch. See CORRECTIONS_2026-08-30.md, E3. Original
 text preserved unedited.
 
+Notice, 2026-09-02: the pre-registered return criterion fired
+(RETURN day 2026-09-02, post-rebaseline day 10). Its pre-committed
+consequence, revision to slow alternation and re-examination of
+the re-baseline, is executed in
+SLOW_ALTERNATION_REVISION_2026-09-02.md. Original text preserved
+unedited.
+
 Date: 2026-08-23. Status: DRAFT until merged to main; the merge is
 the operator's adoption of this decision, and the decision takes
 effect only when probe/scripts/rebaseline_item.py has been run and

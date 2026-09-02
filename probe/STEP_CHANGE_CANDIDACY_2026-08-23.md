@@ -5,6 +5,13 @@ reading for this item in the record") is wrong; the Aug 12 rerun
 was deeper. See CORRECTIONS_2026-08-30.md, E1. Original text
 preserved unedited.
 
+Notice, 2026-09-02: the step-change candidate designation below is
+revised. The item returned to the superseded reference on
+2026-09-02 after a sixteen-observed-day away dwell, and episode
+two is closed as slow alternation. See
+SLOW_ALTERNATION_REVISION_2026-09-02.md. Original text preserved
+unedited.
+
 Date: 2026-08-23. Companion to STEP_CHANGE_DECISION_RULE_2026-08-16.md
 (the rule applied here), STEP_CHANGE_RESOLUTION_2026-08-16.md (which
 closed episode one as alternation and declared any later sustained
