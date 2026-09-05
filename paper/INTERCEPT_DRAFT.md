@@ -173,11 +173,23 @@ item a step-change candidate with no judgment in the loop. The
 operator response was a dual-reference re-baseline: the alarm
 reference moved to the new state, the frozen original stayed
 preserved in the same record, and a return criterion against the
-original was pre-registered before any new-regime data accrued
-[FREEZE: report the return-watch outcome; a return day revises the
-classification to slow alternation, no return leaves the step
-change standing with a stated day-count bound, and both branches
-are dated commits].
+original was pre-registered before any new-regime data accrued.
+The criterion fired on post-rebaseline day 10. On 2026-09-02,
+after sixteen consecutive observed away days spanning the
+re-baseline, the item revisited the original reference: inside
+the superseded band, modal restored, on a vector identical to two
+of its early home-dwell days four weeks prior. The pre-registered
+branch executed the same day as a dated commit. The
+classification is revised to slow alternation with week-scale
+dwell, the candidacy stands as a correctly fired rule, and the
+re-baseline was re-examined as pre-committed and kept: the item
+rests in the new state and visits the old one, and the preserved
+original is what made the return visible at all. This was not a
+step change. It is the longest-dwell alternation in the record,
+and every step of the loop, rule, candidacy, re-baseline, return
+criterion, revision, ran on machinery pinned before its deciding
+data existed [FREEZE: post-revision watch record through the
+freeze, visit or re-dwell].
 
 #### 3.2 The movement concentrates where judgment is contested
 
@@ -221,7 +233,10 @@ are at-band and the UNSTABLE day reads clean, leaving a
 still-mixed direction sequence, per the census in section 4).
 That thread is a diffuse wander, not a two-state flip, and the two
 morphologies are kept distinct wherever drift is counted
-(paper/figures/quiet_slot_decomposition.py, part 3). Slots within
+(paper/figures/quiet_slot_decomposition.py, part 3). One
+oscillator thread has since closed a full cycle out and back under
+the pre-committed machinery (3.1.1), which upgrades the two-state
+reading of that morphology from inference to observation. Slots within
 a model-day share a scaffold and are not
 independent; the recurrence statistics are computed per-slot
 across days, where the sharing argument does not apply, and the
@@ -264,7 +279,12 @@ other: how a model answers (per-call commitment) and how it moves
 when it moves (thread morphology). The Claude models and gpt are
 commit-and-flip: near-deterministic per call, threads that are
 discrete oscillations with exact state recurrence, entries
-unidirectional every time. Deepseek is honest noise: the widest
+unidirectional every time. The spend-anomaly thread has now
+completed a measured cycle: a seven-observed-day rest, a
+sixteen-observed-day away dwell, single-day visits between, and a
+return to a vector it had produced four weeks earlier. Slow
+alternation is commit-and-flip at thread scale; the dwells
+lengthen, the states recur exactly. Deepseek is honest noise: the widest
 per-call spread in the roster, quiet slots fully explained by
 sampling arithmetic, and the record's only diffuse-wander thread
 in its contractor item (its dlp thread is discrete, so the wander
@@ -353,6 +373,19 @@ flagged periods to secondary review, gate automated decisions
 qualified against prior behavior, and write the observable into
 vendor contracts (distribution stability on a pinned bank), not
 the cause, which no customer can observe.
+
+Re-baseline without discarding. When a monitored slot settles
+into a new state and the alarm channel turns into a daily repeat
+of the same event, do not choose between the old reference and
+the new one; keep both. Move the alarm to the new reference,
+preserve the original in the same record, and pre-register the
+return criterion before any new-regime data accrues. The first
+use of this pattern ran its full loop inside the record: rule
+fired, re-baseline the same day, return detected on
+post-rebaseline day 10, pre-registered revision the same day as
+detection (3.1.1). A bare re-baseline would have converted a slow
+alternator into a permanent misclassification; the preserved
+reference is the difference between the two.
 
 Know what the tool cannot do. Detection tells you when to stop
 trusting your own automation. It does not tell you whom to blame,
