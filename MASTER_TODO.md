@@ -142,8 +142,6 @@ fired (rollback rules, re-baseline reversals).
   sent, contrary to the April conversation record) got only auto-replies, and
   the six Anthropic-side open questions in the Mechanism Description ride on it
   reaching a human. (Gmail thread "Responsible Disclosure: …")
-- [ ] Send the drafted Slack message to Brian (second human on the evidence —
-  unsent since Apr 8).
 - [ ] Share the April screenshots/write-up with Sebastian Garcia for an uncued
   "what do you make of this?" read.
 - [ ] Decide on the drafted Henry Sleight (Anthropic) LinkedIn pitch — taxonomy +
@@ -272,9 +270,6 @@ fired (rollback rules, re-baseline reversals).
   the local audit chain — coffer has no upgrade path for them yet.
 - [ ] Moveworks HM interview **Sep 14, 2:30 PM PDT** with Kyle Hirai (Staff Security
   Engineer, Compliance) — prep.
-- [ ] DEF CON CFP feedback: Bob Weiss promised feedback on the declined
-  "What Caterpillars Taught Me About Hacking AI Agents" submission "well after
-  the CON"; queue was warned to run into September — fair to nudge now.
 - [ ] coffer-mcp backlog (`docs/NEXT_STEPS.md`): async exec job pattern (~60s
   client timeout truncates long commands), parameterized argv slots, stdin
   passthrough, retire legacy AAD fallbacks (RR-L6), Fix C generic key-pattern
@@ -318,3 +313,7 @@ fired (rollback rules, re-baseline reversals).
   done.
 - April drift-window operator items (float policy, gpt step-change ruling,
   return-watch scope) all closed by the merged Aug 30–Sep 2 notes.
+- Dropped by decision, 2026-09-05: the April "Slack message to Brian" share
+  (declined; the underlying "no second human has seen the raw evidence" premise
+  was already stale) and the DEF CON CFP feedback nudge (feedback will arrive
+  unprompted; waiting is the plan).
