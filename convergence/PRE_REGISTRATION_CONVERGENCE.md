@@ -320,3 +320,15 @@ Declaration, 2026-07-28: the researcher read the full results on
 2026-07-28 with the provisional markers standing; both branches of
 both provisional rules are computed in the frozen artifacts and are
 reported in the write-up regardless of review outcome.
+
+Deviation, 2026-09-05: the independent statistical review of the two
+2026-07-25 provisional clarifications is closed without review, and
+the provisional markers are lifted as of this entry. The 2026-07-28
+entry committed a dated lifting entry if the two-week window from
+packet send closed without review. No packet was sent; the window
+never opened. The review was declared but never solicited, an
+omission error recorded here as it occurred. Analytic exposure is
+unchanged: both provisional rules were implemented exactly as
+recorded, both branches of both rules were pre-committed and computed
+in the frozen artifacts, and the write-up reports both branches. The
+clarifications stand as written, now unmarked.
