@@ -1,5 +1,12 @@
 # Step-change decision rules for two gpt threads, pinned 2026-08-31
 
+Notice, 2026-09-06: the contractor characterization below ("its
+six breaches have all reverted same-day, and it has never held an
+EVENT") is wrong; the item held EVENTs on Aug 9 and Aug 11 and
+logged an UNSTABLE on Aug 15. The no-pin decision stands on a
+corrected rationale. See CORRECTIONS_2026-09-06.md, E4. Original
+text preserved unedited. The two pinned gpt rules are unaffected.
+
 Date: 2026-08-31. Status: DRAFT until merged to main; the merge is
 the operator's adoption and is the pin. Companions:
 STEP_CHANGE_DECISION_RULE_2026-08-16.md (the template and the only
