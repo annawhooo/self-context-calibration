@@ -38,13 +38,16 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 MONITOR = os.path.join(REPO, "probe", "monitor")
 OPTIONS = ("A", "B", "C", "D")
 
-NOTE = "STEP_CHANGE_DECISION_RULES_2026-08-31.md"
-
 RULES = [
     {"model": "gpt-5.6-terra", "item_id": "eq_alert_fraud_scoring",
-     "threshold": 12, "count_from": "2026-09-01"},
+     "threshold": 12, "count_from": "2026-09-01",
+     "note": "STEP_CHANGE_DECISION_RULES_2026-08-31.md"},
     {"model": "gpt-5.6-terra", "item_id": "eq_access_offboarding",
-     "threshold": 8, "count_from": "2026-09-01"},
+     "threshold": 8, "count_from": "2026-09-01",
+     "note": "STEP_CHANGE_DECISION_RULES_2026-08-31.md"},
+    {"model": "deepseek-v4-flash", "item_id": "eq_alert_dlp_email_v2",
+     "threshold": 5, "count_from": "2026-09-08",
+     "note": "STEP_CHANGE_DECISION_RULE_2026-09-07.md"},
 ]
 
 
@@ -150,7 +153,8 @@ def watch():
     for rule in RULES:
         b = load_baseline(rule["model"])
         rec = b["items"][rule["item_id"]]
-        print("%s / %s  (%s)" % (rule["model"], rule["item_id"], NOTE))
+        print("%s / %s  (%s)" % (rule["model"], rule["item_id"],
+                                 rule["note"]))
         p_home = print_context("  rule", rec)
         print("  threshold %d consecutive observed AWAY days from %s; "
               "P(full null away run) = %.1e" % (
