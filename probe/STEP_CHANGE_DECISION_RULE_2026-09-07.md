@@ -65,8 +65,9 @@ Null context (probe/scripts/step_change_watch.py, exact
 enumeration): P(unique baseline modal survives a fair redraw) =
 0.998, P(HOME day) = 0.998. This is a strong-margin item in the
 haiku class, not a flapping item: away days here carry
-information, and a five-day null away run has probability about
-3e-12. No flapping correction is needed.
+information, and a five-day null away run has probability 5.9e-14
+(the watch script prints the exact value). No flapping correction
+is needed.
 
 ## The rule
 
