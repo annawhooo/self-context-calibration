@@ -114,7 +114,8 @@ rerun of the breached items only, and the rerun disambiguates: a
 rerun matching the probe and not the baseline is an EVENT, matching
 the baseline back is TRANSIENT, matching neither is UNSTABLE. Every
 response row records the echoed model id; a mid-run id change halts
-collection for that model (ECHO_CHANGE). One verdict line per model
+collection for that model (ECHO_CHANGE, exercised once in the
+record; section 3.4). One verdict line per model
 per day, appended to a committed log. The verdict grammar is CLEAN,
 EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR, and the reporting
 commitment was declared before the first scheduled observation:
@@ -246,8 +247,9 @@ caveat is stated wherever the numbers are.
 
 Behavior moved. Nothing else did. Across [FREEZE: 41,090] rows,
 every serving covariate visible from outside held constant: the
-echoed model id never changed, reasoning flags were constant per
-model, and no infrastructure field co-varied with any breach. The
+echoed model id never changed on any day behavior was sampled,
+reasoning flags were constant per model, and no infrastructure
+field co-varied with any breach. The
 EVENT label itself is weaker than designed and I demote it
 honestly: the same-day rerun certifies persistence over [FREEZE:
 0.4 to 5.3] minutes, not the twenty the design assumed, and under
@@ -255,6 +257,28 @@ a serving-state correlation model the EVENT/TRANSIENT split
 carries [FREEZE: p = 0.68] of discriminating power. The
 persistence evidence is not the rerun. It is cross-day recurrence
 of exact states.
+
+Then the one covariate that had held moved, and it was the
+identity itself. On 2026-09-10 the deepseek arm's first call
+echoed deepseek-flash against the pinned deepseek-v4-flash. The
+tripwire halted collection at one call and sampled nothing under
+the ambiguous identity; every day since has recorded the same
+divergent echo at first contact [FREEZE: echo-day count through
+the freeze]. The vendor surface, checked from the credentialed
+machine two days later and committed verbatim
+(probe/vendor_evidence/2026-09-12/), shows a silent alias: the
+pinned id is gone from the model list yet still serves, answered
+under the new name, with the same system fingerprint behind both
+names. Requests never failed. This is not an outage and it is
+not a deprecation; a customer pinning by request string would
+have seen nothing at all. The sequence on the record, stated
+without attribution: the arm's dlp-email thread ran nine breach
+days from Aug 17, five of them held EVENTs, every excursion
+D-ward and deepest in the four days before the name moved; then
+the record ends at 2026-09-09, with a pinned step-change counter
+suspended at two of five. Whether that escalation was a staged
+rollout is exactly what outside observation cannot say. The
+section's claim, demonstrated on its own instrument.
 
 The asymmetry is the operational point. A customer-side monitor
 can say "this model is not behaving as it did when qualified,"
@@ -386,6 +410,17 @@ post-rebaseline day 10, pre-registered revision the same day as
 detection (3.1.1). A bare re-baseline would have converted a slow
 alternator into a permanent misclassification; the preserved
 reference is the difference between the two.
+
+Pin by served identity, not by request string. The request id is
+an input; the identity that answers is an observation, and they
+can diverge without any request failing. When the deepseek flash
+tier was renamed mid-study, the pinned id kept serving as a
+silent alias, and only the response-side echo distinguished the
+qualified model from whatever now answered to its name
+(probe/vendor_evidence/2026-09-12/). Record the echo on every
+row, halt on divergence, and treat the halt as an event: that
+converted an invisible reroute into a dated detection at first
+contact.
 
 Know what the tool cannot do. Detection tells you when to stop
 trusting your own automation. It does not tell you whom to blame,
