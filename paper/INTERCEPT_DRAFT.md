@@ -368,9 +368,11 @@ same thing.
     equalities the float path read as strictly-above, from both
     sides of the comparison (four observed-side, two where the
     stored band itself floated low). A bit-faithful census
-    (committed script) found zero breaches missed, zero verdict
-    flips among surviving entries, and every headline claim intact
-    under exact arithmetic, with the false-breach null moving in
+    (committed script) found [FREEZE: zero] breaches missed and
+    [FREEZE: zero verdict flips at its 2026-08-30 run; the full
+    record adds at least one, an EVENT-to-TRANSIENT flip at the
+    rerun gate on 2026-09-13], with every headline claim intact
+    under exact arithmetic and the false-breach null moving in
     step. The verdict log stands as recorded; the sensitivity
     companion appears with each headline number; the instrument
     moves to exact integer comparison after submission, on a dated

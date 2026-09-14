@@ -48,6 +48,9 @@ RULES = [
     {"model": "deepseek-v4-flash", "item_id": "eq_alert_dlp_email_v2",
      "threshold": 5, "count_from": "2026-09-08",
      "note": "STEP_CHANGE_DECISION_RULE_2026-09-07.md"},
+    {"model": "gpt-5.6-terra", "item_id": "eq_disclosure_timing",
+     "threshold": 3, "count_from": "2026-09-15",
+     "note": "STEP_CHANGE_DECISION_RULE_2026-09-14.md"},
 ]
 
 
