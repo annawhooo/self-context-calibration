@@ -1,5 +1,12 @@
 # Step-change decision rule: gpt patch_timing, pinned 2026-09-20
 
+Notice, 2026-09-21: the sentence below reading "on 2026-09-19
+both of this model's unanimous-baseline equipoise items
+breached" asserts a false class count; the model has 17
+unanimous-baseline equipoise items, and the two that breached
+both belong to that class. See CORRECTIONS_2026-09-21.md, E6.
+Original text preserved unedited.
+
 Date: 2026-09-20. Status: DRAFT until merged to main; the merge is
 the operator's adoption and is the pin. Validity condition: this
 pin is valid only if merged before any post-2026-09-20 probe data
