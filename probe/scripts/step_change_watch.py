@@ -51,6 +51,9 @@ RULES = [
     {"model": "gpt-5.6-terra", "item_id": "eq_disclosure_timing",
      "threshold": 3, "count_from": "2026-09-15",
      "note": "STEP_CHANGE_DECISION_RULE_2026-09-14.md"},
+    {"model": "gpt-5.6-terra", "item_id": "eq_patch_timing",
+     "threshold": 4, "count_from": "2026-09-21",
+     "note": "STEP_CHANGE_DECISION_RULE_2026-09-20.md"},
 ]
 
 
