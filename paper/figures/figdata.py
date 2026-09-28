@@ -57,8 +57,15 @@ def _lines(path):
                 yield json.loads(line)
 
 
+# Optional data cap for the freeze re-render: when PAPER_DATA_THROUGH
+# is set (ISO date), every loader drops rows after that date, so the
+# scripts draw the frozen window even after the record grows past it.
+DATA_THROUGH = os.environ.get("PAPER_DATA_THROUGH", "9999-12-31")
+
+
 def load_verdicts():
-    return list(_lines(os.path.join(MONITOR, "verdicts.jsonl")))
+    return [v for v in _lines(os.path.join(MONITOR, "verdicts.jsonl"))
+            if v["date"] <= DATA_THROUGH]
 
 
 def load_daily(phase="monitor_probe"):
@@ -66,7 +73,7 @@ def load_daily(phase="monitor_probe"):
     rows = {}
     path = os.path.join(MONITOR, "derived", "daily_counts.jsonl")
     for r in _lines(path):
-        if r["phase"] == phase:
+        if r["phase"] == phase and r["date"] <= DATA_THROUGH:
             rows[(r["date"], r["model"], r["item_id"])] = r["counts"]
     return rows
 

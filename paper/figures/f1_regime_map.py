@@ -7,13 +7,20 @@ Columns are probe days. Cell fill encodes the day's state under the
 committed definitions (home, away), lightness-ordered so the figure
 reads in grayscale; a letter glyph marks verdict-log breaches (E
 EVENT, T TRANSIENT, U UNSTABLE); hatched cells are days the model
-returned no probe (ERROR). Run from anywhere:
+returned no probe (ERROR); dotted cells are days the echo tripwire
+halted the arm at first contact (ECHO_CHANGE, no distribution
+sampled); a dark left edge marks the day a slot's alarm reference
+was re-baselined, after which its home state is the new reference.
+Run from anywhere:
 
   python paper/figures/f1_regime_map.py
 """
+import datetime as dt
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle, Patch
 
 import figdata as fd
@@ -25,6 +32,8 @@ def main():
     baselines = fd.load_baselines()
     breaches = fd.breach_index(verdicts)
     dates, ran = fd.probe_dates(verdicts)
+    halted = {(v["model"], v["date"]) for v in verdicts
+              if v["verdict"] == "ECHO_CHANGE"}
 
     threads = sorted((slot for slot, hits in breaches.items()
                       if len(hits) >= 2),
@@ -45,6 +54,11 @@ def main():
                                        hatch="////", linewidth=0,
                                        edgecolor=fd.GRID))
                 continue
+            if state is None and (model, date) in halted:
+                ax.add_patch(Rectangle((x, y), 0.92, 0.82, fill=False,
+                                       hatch="....", linewidth=0,
+                                       edgecolor=fd.MUTED))
+                continue
             if state is None:
                 continue
             verdict = breaches[(model, item)].get(date)
@@ -57,6 +71,12 @@ def main():
                 ax.text(x + 0.46, y + 0.41, verdict[0], ha="center",
                         va="center", fontsize=6.5, color="white",
                         fontweight="bold")
+            for old in base_rec.get("superseded", []):
+                nxt = (dt.date.fromisoformat(old["valid_through"])
+                       + dt.timedelta(days=1)).isoformat()
+                if date == nxt:
+                    ax.plot([x, x], [y - 0.05, y + 0.87], color=fd.INK,
+                            linewidth=1.6, solid_capstyle="butt")
 
     ax.set_xlim(-0.1, len(dates))
     ax.set_ylim(len(threads), -0.2)
@@ -78,9 +98,13 @@ def main():
               label="breach (E event, T transient, U unstable)"),
         Patch(facecolor="white", edgecolor=fd.GRID, hatch="////",
               label="no probe recorded (error or pending)"),
+        Patch(facecolor="white", edgecolor=fd.MUTED, hatch="....",
+              label="arm halted by the echo tripwire (ECHO_CHANGE)"),
+        Line2D([], [], color=fd.INK, linewidth=1.6,
+               label="alarm reference re-baselined from this day"),
     ]
     ax.legend(handles=legend, loc="upper center",
-              bbox_to_anchor=(0.5, -0.30), ncol=2, frameon=False,
+              bbox_to_anchor=(0.5, -0.26), ncol=2, frameon=False,
               fontsize=6.5, labelcolor=fd.INK_2, handlelength=1.4)
     ax.set_title("Focal threads by probe day: state and verdict",
                  fontsize=9, color=fd.INK, loc="left", pad=8)

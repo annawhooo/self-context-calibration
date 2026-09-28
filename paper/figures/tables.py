@@ -19,10 +19,28 @@ import figdata as fd
 
 NULL_SCRIPT = os.path.join(fd.REPO, "probe", "scripts",
                            "recurrence_structure_null.py")
+EFB_SCRIPT = os.path.join(fd.REPO, "probe", "scripts",
+                          "expected_false_breaches.py")
+
+
+def expected_false_breaches():
+    """(smoothed, empirical) per-day expectations from the committed
+    enumeration script, read off its labeled lines."""
+    proc = subprocess.run((sys.executable, EFB_SCRIPT), cwd=fd.REPO,
+                          capture_output=True, text=True, check=True)
+    vals = {}
+    for line in proc.stdout.splitlines():
+        for key in ("smoothed", "empirical"):
+            if line.strip().startswith("truth = %s" % key):
+                vals[key] = line.split("baseline")[1].split()[0]
+    return vals["smoothed"], vals["empirical"]
 
 
 def null_output():
-    proc = subprocess.run((sys.executable, NULL_SCRIPT), cwd=fd.REPO,
+    cmd = [sys.executable, NULL_SCRIPT]
+    if fd.DATA_THROUGH != "9999-12-31":
+        cmd += ["--end", fd.DATA_THROUGH]
+    proc = subprocess.run(cmd, cwd=fd.REPO,
                           capture_output=True, text=True, check=True)
     return proc.stdout
 
@@ -104,6 +122,7 @@ def build_t2():
         for items in baselines.values() for rec in items.values())
     band_str = ", ".join("%.2f x%d" % (b, n)
                          for b, n in sorted(bands.items()))
+    efb = expected_false_breaches()
     days = len({v["date"] for v in verdicts})
     calls = sum(v["calls"] or 0 for v in verdicts)
     lines = [
@@ -124,8 +143,8 @@ def build_t2():
         "band; same-day rerun disambiguates |",
         "| verdict grammar | CLEAN, EVENT, TRANSIENT, UNSTABLE, "
         "ECHO_CHANGE, ERROR |",
-        "| expected false breaches | 1.64/day (smoothed truth), "
-        "0.05/day (empirical truth), exact enumeration |",
+        "| expected false breaches | %s/day (smoothed truth), "
+        "%s/day (empirical truth), exact enumeration |" % efb,
         "| record to date | %d probe days, %s calls |"
         % (days, format(calls, ",")),
         "| operating cost | about 20 USD per month |",
