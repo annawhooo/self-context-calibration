@@ -69,7 +69,7 @@ def main():
                                    linewidth=0))
             if verdict:
                 ax.text(x + 0.46, y + 0.41, verdict[0], ha="center",
-                        va="center", fontsize=6.5, color="white",
+                        va="center", fontsize=10.5, color="white",
                         fontweight="bold")
             for old in base_rec.get("superseded", []):
                 nxt = (dt.date.fromisoformat(old["valid_through"])
@@ -82,11 +82,11 @@ def main():
     ax.set_ylim(len(threads), -0.2)
     ax.set_xticks([i + 0.46 for i in range(len(dates))])
     ax.set_xticklabels([d[5:].replace("-", "/") for d in dates],
-                       fontsize=6, rotation=90, color=fd.INK_2)
+                       fontsize=10.5, rotation=90, color=fd.INK_2)
     ax.set_yticks([i + 0.41 for i in range(len(threads))])
     ax.set_yticklabels(["%s  %s" % (fd.SHORT[m], fd.item_short(i))
                         for m, i in threads],
-                       fontsize=7, color=fd.INK)
+                       fontsize=10.8, color=fd.INK)
     for side in ax.spines.values():
         side.set_visible(False)
     ax.tick_params(length=0)
@@ -104,12 +104,12 @@ def main():
                label="alarm reference re-baselined from this day"),
     ]
     ax.legend(handles=legend, loc="upper center",
-              bbox_to_anchor=(0.5, -0.26), ncol=2, frameon=False,
-              fontsize=6.5, labelcolor=fd.INK_2, handlelength=1.4)
+              bbox_to_anchor=(0.5, -0.19), ncol=2, frameon=False,
+              fontsize=10.5, labelcolor=fd.INK_2, handlelength=1.4)
     ax.set_title("Focal threads by probe day: state and verdict",
-                 fontsize=9, color=fd.INK, loc="left", pad=8)
+                 fontsize=14, color=fd.INK, loc="left", pad=8)
     ax.text(1.0, 1.02, fd.datestamp(verdicts), transform=ax.transAxes,
-            ha="right", fontsize=6, color=fd.MUTED)
+            ha="right", fontsize=10.5, color=fd.MUTED)
 
     fd.savefig(fig, "f1_regime_map")
 

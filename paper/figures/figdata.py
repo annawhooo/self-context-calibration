@@ -34,8 +34,8 @@ MODELS = ("claude-haiku-4-5-20251001", "claude-sonnet-4-6",
           "gpt-5.6-terra", "gemini-3.6-flash", "deepseek-v4-flash")
 SHORT = {"claude-haiku-4-5-20251001": "haiku",
          "claude-sonnet-4-6": "sonnet",
-         "gpt-5.6-terra": "gpt-terra",
-         "gemini-3.6-flash": "gemini-flash",
+         "gpt-5.6-terra": "gpt",
+         "gemini-3.6-flash": "gemini",
          "deepseek-v4-flash": "deepseek"}
 
 # Validated reference palette, light mode.
@@ -270,6 +270,11 @@ def style(ax):
 
 
 def savefig(fig, name):
+    """Embed TrueType (Type 42) fonts, which IEEE PDF eXpress accepts;
+    matplotlib's default Type 3 fonts are rejected at camera-ready."""
+    import matplotlib
+    matplotlib.rcParams["pdf.fonttype"] = 42
+    matplotlib.rcParams["ps.fonttype"] = 42
     os.makedirs(OUT, exist_ok=True)
     for ext in ("pdf", "png"):
         fig.savefig(os.path.join(OUT, "%s.%s" % (name, ext)),

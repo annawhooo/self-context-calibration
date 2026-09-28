@@ -44,7 +44,7 @@ def main():
     for x, (label, counts, verdict) in enumerate(bars):
         if counts is None:
             ax.text(x, 0.5, "no\nprobe", ha="center", va="center",
-                    fontsize=5, color=fd.MUTED, rotation=90)
+                    fontsize=10.5, color=fd.MUTED, rotation=90)
             continue
         n = sum(counts.values())
         bottom = 0.0
@@ -56,7 +56,7 @@ def main():
                        linewidth=0.6)
                 bottom += share
         if verdict:
-            ax.text(x, 1.04, verdict[0], ha="center", fontsize=6.5,
+            ax.text(x, 1.04, verdict[0], ha="center", fontsize=13.6,
                     color=fd.INK, fontweight="bold")
         if label != "baseline" and counts.get("A", 0) == n:
             pure_a.append(x)
@@ -68,11 +68,11 @@ def main():
     ax.set_xticks(range(len(bars)))
     ax.set_xticklabels([b[0] if b[0] == "baseline"
                         else b[0][5:].replace("-", "/") for b in bars],
-                       fontsize=6, rotation=90, color=fd.INK_2)
+                       fontsize=12.6, rotation=90, color=fd.INK_2)
     ax.set_ylim(0, 1.12)
     ax.set_yticks((0, 0.5, 1.0))
-    ax.set_yticklabels(("0", ".5", "1"), fontsize=7)
-    ax.set_ylabel("answer share", fontsize=7.5, color=fd.INK_2)
+    ax.set_yticklabels(("0", ".5", "1"), fontsize=14.8)
+    ax.set_ylabel("answer share", fontsize=15.9, color=fd.INK_2)
     ax.axvline(0.5, color=fd.BASELINE_AXIS, linewidth=0.8, ymax=0.9)
 
     seen = {o for _, c, _ in bars if c for o in c}
@@ -84,12 +84,12 @@ def main():
                           label="exact pure-A visit (10/0/0/0)"))
     ax.legend(handles=handles, loc="upper left",
               bbox_to_anchor=(0, -0.42), ncol=4, frameon=False,
-              fontsize=6.5, labelcolor=fd.INK_2, handlelength=1.2)
+              fontsize=13.6, labelcolor=fd.INK_2, handlelength=1.2)
     ax.set_title("%s / %s: daily answer distribution" % (
         fd.SHORT[MODEL], fd.item_short(ITEM)),
-        fontsize=9, color=fd.INK, loc="left", pad=8)
+        fontsize=19, color=fd.INK, loc="left", pad=8)
     ax.text(1.0, 1.05, fd.datestamp(verdicts), transform=ax.transAxes,
-            ha="right", fontsize=6, color=fd.MUTED)
+            ha="right", fontsize=12.6, color=fd.MUTED)
 
     fd.savefig(fig, "f2_recurrence_strip")
 

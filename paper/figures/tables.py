@@ -19,6 +19,27 @@ import figdata as fd
 
 NULL_SCRIPT = os.path.join(fd.REPO, "probe", "scripts",
                            "recurrence_structure_null.py")
+FREEZE_SCRIPT = os.path.join(fd.HERE, "freeze_numbers.py")
+
+
+def freeze_output():
+    proc = subprocess.run((sys.executable, FREEZE_SCRIPT), cwd=fd.REPO,
+                          capture_output=True, text=True, check=True)
+    return proc.stdout
+
+
+def conditional_direction(text):
+    """(obs, expected, tail) for the >=3 and >=5 thread sets from the
+    conditional direction block of freeze_numbers.py."""
+    out = {}
+    for line in text.splitlines():
+        m = re.match(r"\s*threads >=(\d): (\d+), unidirectional (\d+), "
+                     r"E\[unidirectional\] ([\d.]+), P\(>= \d+\) = (\S+)",
+                     line)
+        if m:
+            out[m.group(1)] = (m.group(3), m.group(2), m.group(4),
+                               m.group(5))
+    return out
 EFB_SCRIPT = os.path.join(fd.REPO, "probe", "scripts",
                           "expected_false_breaches.py")
 
@@ -54,9 +75,12 @@ def grab(text, label):
     raise KeyError(label)
 
 
-def build_t1(text):
+def build_t1(text, cond):
     window = re.search(r"window (\S+)\.\.(\S+), (\d+) probe days", text)
     start, end, days = window.groups()
+    probed = len({v["date"] for v in fd.load_verdicts()
+                  if v["verdict"] != "ERROR"
+                  and start <= v["date"] <= end})
     entries = int(grab(text, "breach entries").split()[0])
     exp_entries, p_count = re.match(
         r"([\d.]+)\s+P\(>= \d+\) = ([\d.e+-]+)",
@@ -81,10 +105,12 @@ def build_t1(text):
     lines = [
         "## T1: breach structure against the exact no-drift null",
         "",
-        "Window %s to %s, %s probe days. Null: exact enumeration under"
-        % (start, end, days),
-        "the smoothed baselines (recurrence_structure_null.py); the",
-        "count row is deliberately weak and reported first.",
+        "Window %s to %s, %s calendar days (%d with a probe). Null:"
+        % (start, end, days, probed),
+        "exact enumeration under the smoothed baselines",
+        "(recurrence_structure_null.py), charging every arm for all %s"
+        % days,
+        "days; the count row is deliberately weak and reported first.",
         "",
         "| quantity | observed | expected (null) | P(at least obs.) |",
         "| --- | --- | --- | --- |",
@@ -99,10 +125,16 @@ def build_t1(text):
         % (entries, entries, eq_share, p_all_entries),
         "| equipoise share, distinct slots | %d of %d | | %s |"
         % (distinct, distinct, p_all_distinct),
-        "| unidirectional >=3-threads | %s | %s | |" % (dir3,
-                                                        dir_tail3),
-        "| unidirectional >=5-threads | %s | %s | |" % (dir5,
-                                                        dir_tail5),
+        "| unidirectional >=3-threads, joint with clustering | %s | %s | |"
+        % (dir3, dir_tail3),
+        "| unidirectional >=5-threads, joint with clustering | %s | %s | |"
+        % (dir5, dir_tail5),
+        "| unidirectional >=3-threads, given the %s threads | %s of %s | %s | %s |"
+        % (cond["3"][1], cond["3"][0], cond["3"][1], cond["3"][2],
+           cond["3"][3]),
+        "| unidirectional >=5-threads, given the %s threads | %s of %s | %s | %s |"
+        % (cond["5"][1], cond["5"][0], cond["5"][1], cond["5"][2],
+           cond["5"][3]),
         "",
         "Slots within a model-day share a scaffold and are not",
         "independent; per-slot recurrence rows are computed across",
@@ -124,6 +156,7 @@ def build_t2():
                          for b, n in sorted(bands.items()))
     efb = expected_false_breaches()
     days = len({v["date"] for v in verdicts})
+    probed = len({v["date"] for v in verdicts if v["verdict"] != "ERROR"})
     calls = sum(v["calls"] or 0 for v in verdicts)
     lines = [
         "## T2: instrument summary",
@@ -133,11 +166,11 @@ def build_t2():
         "| item bank | 68 forced-choice judgment items "
         "(45 decisive, 23 designed-equipoise) |",
         "| models | 5 production APIs, one pinned arm each |",
-        "| alarm slots | %d (%d equipoise), zero sentinels |"
-        % (slots, eq),
-        "| cadence | daily, 13:00 UTC, K=10 samples per item |",
-        "| baseline | frozen n=20 per slot "
-        "(two pooled same-day K=10 runs, 2026-08-02) |",
+        "| alarm slots | %d (%d equipoise) |" % (slots, eq),
+        "| cadence | scheduled daily, 13:00 UTC, K=10 samples per item |",
+        "| baseline | frozen n=20 per slot (two pooled same-day K=10 "
+        "runs, 2026-08-02); one slot re-baselined 2026-08-23, original "
+        "preserved |",
         "| alarm bands (p99) | %s |" % band_str,
         "| breach test | per-item TVD vs baseline, strictly above "
         "band; same-day rerun disambiguates |",
@@ -145,9 +178,10 @@ def build_t2():
         "ECHO_CHANGE, ERROR |",
         "| expected false breaches | %s/day (smoothed truth), "
         "%s/day (empirical truth), exact enumeration |" % efb,
-        "| record to date | %d probe days, %s calls |"
-        % (days, format(calls, ",")),
-        "| operating cost | about 20 USD per month |",
+        "| record at freeze | %d calendar days (%d with a probe), %s calls |"
+        % (days, probed, format(calls, ",")),
+        "| operating cost | about 20 USD per month, vendor billing "
+        "(the rows record calls, not tokens) |",
     ]
     return "\n".join(lines) + "\n"
 
@@ -155,7 +189,8 @@ def build_t2():
 def main():
     os.makedirs(fd.OUT, exist_ok=True)
     text = null_output()
-    for name, content in (("t1_structure_vs_null.md", build_t1(text)),
+    cond = conditional_direction(freeze_output())
+    for name, content in (("t1_structure_vs_null.md", build_t1(text, cond)),
                           ("t2_instrument_summary.md", build_t2())):
         with open(os.path.join(fd.OUT, name), "w",
                   encoding="utf-8") as fh:
