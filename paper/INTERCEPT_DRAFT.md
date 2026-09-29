@@ -40,11 +40,12 @@ alarm bands, and a same-day disambiguation rerun on every breach.
 Three findings. First, judgment behavior oscillates rather than
 drifts: models revisit exact prior answer distributions on contested
 items, one item returning to the identical unanimous vector on four of
-its five breach days, with dwell from one daily observation to weeks.
-Second, the movement concentrates where judgment is contested. All 75
-breach entries landed on designed-equipoise items; the 225 decisive
-slots produced none in 11,057 slot-days; quiet equipoise slots on
-every vendor moved within 0.011 mean TVD of what sampling arithmetic
+its five breach days, with a state held from a single daily
+observation up to sixteen consecutive observed days. Second, the
+movement concentrates where judgment is contested. All 75 breach
+entries landed on designed-equipoise items; the 225 decisive slots
+produced none in 11,057 slot-days; quiet equipoise slots on every
+vendor moved within 0.011 mean TVD of what sampling arithmetic
 predicts. The count is not the evidence. The structure is: thirteen
 slots carry three or more entries against 1.04 expected, and ten of
 them moved toward the same option every time against 1.6 expected.
