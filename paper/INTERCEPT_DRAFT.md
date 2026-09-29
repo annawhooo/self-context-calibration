@@ -31,8 +31,8 @@ an operator judgment call recorded in SUBMISSION_FORM.md.
 
 ### Abstract
 
-Served LLM behavior changes behind stable model ids, and the change
-has a shape. I ran a calibrated behavioral monitor against five
+The behavior of a served LLM changes behind a stable model id, and
+the change has a shape. I ran a calibrated behavioral monitor against five
 production LLM APIs daily for 56 days: a frozen 68-item security
 judgment bank, K=10 samples per item, per-item total variation
 distance against a frozen baseline, simulation-calibrated alarm
