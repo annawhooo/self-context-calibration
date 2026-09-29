@@ -51,18 +51,22 @@ exceeded what sampling noise alone predicts by at most 0.011 TVD on
 any model. The breach count alone is not the evidence: the null
 expects 92 breaches in 56 days and the record holds 75. The structure
 is the evidence. Chance breaches would scatter across items and push
-in no particular direction. These pile onto thirteen items where the
-null expects one, and on ten of those thirteen every breach moved
+in no particular direction. Yet these pile onto thirteen items where
+the null expects one, and on ten of those thirteen every breach moved
 toward the same option, where the null expects 1.6. That is not noise
 crossing a threshold. It is the same items switching, repeatedly,
 between the same two answer states, one of which the baseline happened
 to catch. Third, every serving covariate visible from outside held
-while behavior moved, until the one that did move was the identity
-string itself: one vendor silently aliased the pinned id mid-study,
-and only the response-side echo caught it. A customer can detect the
-change and cannot attribute it. A snapshot evaluation certifies the
-day it ran, not the period it is cited for. The monitor bills about 20
-USD per month, and the instrument, the record, the analysis, and every
+constant while behavior moved, except one. The one that moved was the
+identity string itself: one vendor aliased the pinned id mid-study
+with no signal at the API surface, and only the response-side echo
+caught it. Even that was a detection, not an explanation. The echo
+says the name changed, not what changed behind it, and the behavioral
+movement on the other arms came with no covariate change at all. From
+outside the API, a customer can detect that a served model changed,
+but they cannot say why. A snapshot evaluation certifies the day it
+ran, not the period it is cited for. The monitor bills about 20 USD
+per month, and the instrument, the record, the analysis, and every
 correction are reproducible from a public artifact, apart from the
 row-level figures marked in the text.
 
