@@ -438,22 +438,23 @@ commit-and-flip: near-deterministic per call (modal share 0.97 to
 0.99), threads that are discrete oscillations with exact state
 recurrence, every one of their eight threads with three or more
 entries unidirectional. The haiku thread is commit-and-flip at week
-scale: a seven-observed-day rest, a sixteen-observed-day away
-dwell, and a return to a vector it had produced four weeks earlier.
-Deepseek is sampling noise with wander. It has the widest per-call
-spread in the roster (modal share 0.91), quiet slots within +0.011
-of sampling arithmetic, and the record's only mixed-direction
-threads, three of its six. Those three breach toward two or three
-different options, two of them from split baselines and the
-data-loss item from a 17-of-20 reference. Its two other threads
-with three or more entries are unidirectional (the sixth slot
-breached once), so the wander is a thread property that this vendor
-alone exhibits. Gemini sat near-frozen through its 46 probe days:
-two transient breaches on two different items and nothing held.
-Per-call determinism is not temporal stability. Of the four models
-that answer most consistently within a day (modal share 0.97 to
-0.99), three flipped between days; the other, gemini at 0.99, sat
-near-frozen.
+scale: a seven-observed-day rest, a sixteen-observed-day away dwell,
+and a return to a vector it had produced four weeks earlier. Deepseek
+is sampling noise with wander. It has the widest per-call spread in
+the roster (modal share 0.91), quiet slots within +0.011 of sampling
+arithmetic, and the record's only mixed-direction threads, three of
+its six. Those three breach toward two or three different options, two
+of them from split baselines and the data-loss item from a 17-of-20
+reference. Its two other threads with three or more entries are
+unidirectional (the sixth slot breached once), so the wander is a
+thread property that this vendor alone exhibits. Gemini sat
+near-frozen through its 46 probe days: two transient breaches on two
+different items and nothing held. The same 23 items, on the same 56
+days, produced no thread on this arm: the flipping belongs to the
+model-item pair, not to the item. Per-call determinism is not temporal
+stability. Of the four models that answer most consistently within a
+day (modal share 0.97 to 0.99), three flipped between days; the other,
+gemini at 0.99, sat near-frozen.
 
 Format rides along as an independent observable. On the
 vulnerability-gating item, answer state and response format flip in
