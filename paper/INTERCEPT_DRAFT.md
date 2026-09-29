@@ -495,7 +495,8 @@ same thing.
     those slots the monitor may have enshrined an excursion as the
     reference and then alarmed on movement toward designed behavior;
     three of the 82 breached. The instrument therefore says "changed,"
-    never "degraded"; the sign of change is not identified. (d) EVENT
+    never "degraded"; the sign of change is not identified.
+(d) EVENT
     certifies minutes, not the roughly twenty that the early record
     estimated for the probe-to-rerun gap. Measured item-level gaps run
     0.34 to 10.15 minutes [rows]; from run start to rerun start, 7.6
