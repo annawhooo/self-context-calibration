@@ -62,6 +62,16 @@ def _lines(path):
 # scripts draw the frozen window even after the record grows past it.
 DATA_THROUGH = os.environ.get("PAPER_DATA_THROUGH", "9999-12-31")
 
+# Optional blind render for the INTERCEPT submission: when PAPER_BLIND
+# is set, model labels become arm numbers in roster order (arm 1 to
+# arm 5) and the PDFs are written to paper/intercept/figures instead
+# of out/, PDF only. The public figures in out/ are untouched. Decided
+# 2026-09-29 (paper/intercept/SUBMISSION_FORM.md, decision 2).
+BLIND = bool(os.environ.get("PAPER_BLIND"))
+if BLIND:
+    SHORT = {m: "arm %d" % (k + 1) for k, m in enumerate(MODELS)}
+    OUT = os.path.join(REPO, "paper", "intercept", "figures")
+
 
 def load_verdicts():
     return [v for v in _lines(os.path.join(MONITOR, "verdicts.jsonl"))
@@ -276,10 +286,12 @@ def savefig(fig, name):
     matplotlib.rcParams["pdf.fonttype"] = 42
     matplotlib.rcParams["ps.fonttype"] = 42
     os.makedirs(OUT, exist_ok=True)
-    for ext in ("pdf", "png"):
+    exts = ("pdf",) if BLIND else ("pdf", "png")
+    for ext in exts:
         fig.savefig(os.path.join(OUT, "%s.%s" % (name, ext)),
                     dpi=200, bbox_inches="tight", facecolor="white")
-    print("wrote %s.{pdf,png} in %s" % (name, os.path.relpath(OUT, REPO)))
+    print("wrote %s.{%s} in %s" % (name, ",".join(exts),
+                                   os.path.relpath(OUT, REPO)))
 
 
 def datestamp(verdicts):

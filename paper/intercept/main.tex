@@ -77,7 +77,7 @@ The gap is not hypothetical. One vendor's published postmortem
 documents three overlapping serving-stack bugs, one of them sticky
 across follow-up requests, all three missed by the vendor's own
 evaluations, two of them resolved by
-rollback~\cite{anthropic-postmortem}. This paper measures from
+rollback~\cite{vendor-postmortem}. This paper measures from
 outside.
 
 Here is what measuring from outside looks like. On August 2, 2026,
@@ -253,11 +253,11 @@ temporally clustered beyond exchangeability (runs test on the
 home/away sequence: $|z| < 1.6$ on eleven of thirteen threads, $z =
 -0.11$ on the fraud-scoring item); two threads cluster ($z =
 -2.3$). Week-scale dwell in a breaching state was demonstrated
-under a pre-committed rule on the haiku thread alone
+under a pre-committed rule on the arm 1 thread alone
 (Section~\ref{sec:loop}), which also holds the record's longest
 away run, sixteen observed days against the frozen reference; four
 other threads carry away runs of 8 to 12 observed days that
-breached on at most two days each. Short dwell is the norm: the gpt
+breached on at most two days each. Short dwell is the norm: the arm 3
 disclosure-timing item, unanimous at baseline, never held an
 excursion past a single day in 52 observed, and its unanimous
 patch-timing sibling never past two. The same-day rerun bounds
@@ -285,7 +285,7 @@ before the edge. Data through 2026-09-26.}
 \centering
 \includegraphics[width=\textwidth]{f2_recurrence_strip.pdf}
 \caption{Exact recurrence. Daily answer distribution of the
-fraud-scoring item on the sonnet arm, with the frozen pooled
+fraud-scoring item on arm 2, with the frozen pooled
 baseline at left. Markers above the bars are the four identical
 pure-A visits; letters are verdict-log breaches. The item alternates
 between a split state near its baseline and an exact unanimous
@@ -297,7 +297,7 @@ state it re-enters.}
 \label{sec:loop}
 
 The rule, committed 2026-08-16 blind to the deciding data, resolved
-the first episode on the haiku spend-anomaly item as alternation on
+the first episode on the arm 1 spend-anomaly item as alternation on
 its first evaluated day (a home visit on Aug 14). A second away run
 began Aug 15 and crossed the pre-committed threshold on 2026-08-23:
 seven consecutive observed away days, and the rule designated the
@@ -328,12 +328,12 @@ data was read. The first rule was committed with three unread probe
 days already on disk, as its note records, and every later step's
 data postdates its pin.
 
-I pinned four more rules on gpt threads, three after a held EVENT
+I pinned four more rules on arm 3 threads, three after a held EVENT
 on the thread and one from home ahead of any live run. Their
 thresholds were 12, 8, 3, and 4 consecutive observed away days,
 each the thread's own longest returned-from dwell plus two days of
 clearance. None fired. The longest count any reached was 4 of 12.
-A fifth rule, on the deepseek data-loss item, stood at 2 of 5 when
+A fifth rule, on the arm 5 data-loss item, stood at 2 of 5 when
 the arm's identity changed and is suspended, not resolved. Of the
 six pins, two carry a registration caveat and one a process note.
 The first pin was committed with unread probe days on disk, and its
@@ -488,9 +488,9 @@ record estimated. The persistence evidence is not the rerun. It is
 cross-day recurrence of exact states.
 
 Then the one covariate that had held moved, and it was the
-identity itself. On 2026-09-10 the deepseek arm's first call echoed
-\texttt{deepseek-flash} against the pinned
-\texttt{deepseek-v4-flash}. The tripwire halted collection at one
+identity itself. On 2026-09-10 arm 5's first call echoed an identity
+string that dropped the version segment of the pinned id. The
+tripwire halted collection at one
 call; the single reply under the ambiguous identity was logged and
 no distribution was sampled under it. Every day since on which a
 call returned recorded the same divergent echo at first contact, 16
@@ -523,8 +523,8 @@ Outside the focal threads, no model moves. On quiet equipoise
 slots, mean observed TVD sits within $+0.011$ of the exact
 expectation under a stationary baseline on all five models, once
 the expectation charges for probe sampling and baseline estimation
-noise together. Per model: haiku $+0.000$, sonnet $+0.005$, gpt
-$+0.006$, gemini $+0.009$, deepseek $+0.011$. On the breached
+noise together. Per model: arm 1 $+0.000$, arm 2 $+0.005$, arm 3
+$+0.006$, arm 4 $+0.009$, arm 5 $+0.011$. On the breached
 threads the same excess runs $+0.086$ to $+0.137$
 (Fig.~\ref{fig:f4}). That holds while per-call spread varies
 widely: mean modal share runs 0.91 to 0.99 across vendors. Ambient
@@ -546,14 +546,14 @@ drift lives in the threads.}
 
 The phenotypes are two axes that do not reduce to each other: how
 a model answers (per-call commitment) and how it moves when it
-moves (thread morphology). The two Claude models and gpt are
+moves (thread morphology). Arms 1, 2, and 3 are
 commit-and-flip: near-deterministic per call (modal share 0.97 to
 0.99), threads that are discrete oscillations with exact state
 recurrence, every one of their eight threads with three or more
-entries unidirectional. The haiku thread is commit-and-flip at week
+entries unidirectional. The arm 1 thread is commit-and-flip at week
 scale: a seven-observed-day rest, a sixteen-observed-day away
 dwell, and a return to a vector it had produced four weeks earlier.
-Deepseek is sampling noise with wander. It has the widest per-call
+Arm 5 is sampling noise with wander. It has the widest per-call
 spread in the roster (modal share 0.91), quiet slots within
 $+0.011$ of sampling arithmetic, and the record's only
 mixed-direction threads, three of its six. Those three breach
@@ -561,11 +561,11 @@ toward two or three different options, two of them from split
 baselines and the data-loss item from a 17-of-20 reference. Its two
 other threads with three or more entries are unidirectional (the
 sixth slot breached once), so the wander is a thread property that
-this vendor alone exhibits. Gemini sat near-frozen through its 46
+this vendor alone exhibits. Arm 4 sat near-frozen through its 46
 probe days: two transient breaches on two different items and
 nothing held. Per-call determinism is not temporal stability. Of
 the four models that answer most consistently within a day (modal
-share 0.97 to 0.99), three flipped between days; the other, gemini
+share 0.97 to 0.99), three flipped between days; the other, arm 4
 at 0.99, sat near-frozen.
 
 Format rides along as an independent observable. On the
@@ -711,7 +711,7 @@ return.
 \textbf{Pin by served identity, not by request string.} The
 request id is an input; the identity that answers is an
 observation, and they can diverge without any request failing. When
-the name the deepseek flash tier answered under changed mid-study,
+the name arm 5's model tier answered under changed mid-study,
 the pinned id kept serving as a silent alias, and only the
 response-side echo distinguished the qualified model from whatever
 now answered to its name. Record the echo on every row, halt on
@@ -761,9 +761,9 @@ margin-density drift detection placed its sensors at the decision
 boundary~\cite{md3}, the same design choice the equipoise class
 makes here. Vendor-side ground truth that serving changes ship, can
 stick across follow-up requests, and evade vendor evals comes from
-a published postmortem~\cite{anthropic-postmortem}; the numerics
+a published postmortem~\cite{vendor-postmortem}; the numerics
 mechanism for silent behavioral variation is documented
-in~\cite{thinking-machines}.
+in~\cite{nondeterminism}.
 
 \section{Limitations and reproducibility}
 

@@ -88,3 +88,26 @@ and what no customer can (the cause), and argues for specifying
 the former. The full instrument, the 56-day append-only record,
 the pre-registered decision rules, and every dated correction are
 public; the link is supplied on acceptance.
+
+## Decisions taken 2026-09-29
+
+Recorded by the operator in session; each closes the matching item
+under "Operator decisions still open" above, which stands as
+written.
+
+1. Talk format: 25 minute case study.
+2. Vendor and model names: the fallback is applied, without asking
+   the organizers. In main.tex the five arms are arm 1 to arm 5 in
+   roster order (paper/figures/figdata.py MODELS); the echoed
+   identity strings of 2026-09-10 are described, not quoted; the
+   two web posts are cited by title and date only, and the chen
+   entry by arXiv id only (refs.bib). Figures F1, F2, and F4 are
+   regenerated with PAPER_BLIND=1 PAPER_DATA_THROUGH=2026-09-26,
+   which writes arm-labeled PDFs to paper/intercept/figures/ and
+   leaves paper/figures/out/ untouched. F3 prints no model label
+   and is unchanged. The markdown master (paper/INTERCEPT_DRAFT.md)
+   keeps the model names; it is the research record, not the
+   submission.
+3. Artifact link and searchability: the repository is set private
+   until the 2026-10-31 notification. No mirror. The link is
+   supplied on acceptance, as the last section above already says.
