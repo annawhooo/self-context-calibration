@@ -49,18 +49,21 @@ equipoise items that never breached, mean daily movement from baseline
 exceeded what sampling noise alone predicts by at most 0.011 TVD on
 any model. The breach count alone is not the evidence: the null
 expects 92 breaches in 56 days and the record holds 75. The structure
-is. Chance breaches scatter across slots, and the null expects about
-one slot to collect three or more; thirteen did. Given those thirteen
-threads, the null expects 1.6 of them to move toward the same option
-at every breach; ten did. Third, every serving covariate visible from
-outside held while behavior moved, until the one that did move was the
-identity string itself: one vendor silently aliased the pinned id
-mid-study, and only the response-side echo caught it. A customer can
-detect the change and cannot attribute it. A snapshot evaluation
-certifies the day it ran, not the period it is cited for. The monitor
-bills about 20 USD per month, and the instrument, the record, the
-analysis, and every correction are reproducible from a public
-artifact, apart from the row-level figures marked in the text.
+is the evidence. Chance breaches would scatter across items and push
+in no particular direction. These pile onto thirteen items where the
+null expects one, and on ten of those thirteen every breach moved
+toward the same option, where the null expects 1.6. That is not noise
+crossing a threshold. It is the same items switching, repeatedly,
+between the same two answer states, one of which the baseline happened
+to catch. Third, every serving covariate visible from outside held
+while behavior moved, until the one that did move was the identity
+string itself: one vendor silently aliased the pinned id mid-study,
+and only the response-side echo caught it. A customer can detect the
+change and cannot attribute it. A snapshot evaluation certifies the
+day it ran, not the period it is cited for. The monitor bills about 20
+USD per month, and the instrument, the record, the analysis, and every
+correction are reproducible from a public artifact, apart from the
+row-level figures marked in the text.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -793,19 +796,23 @@ a scaffold; day-level counts are overdispersed and the per-slot
 recurrence statistics carry the independence caveat stated in
 Section~\ref{sec:null}. The detection floor at $K{=}10$ is a
 five-of-ten answer shift, so sub-floor movement is invisible and
-decisive-class stability is bounded, not proven. The strict inequality
-at the band is load-bearing, and its float implementation decided ten
-at-band entries (item f); the entry, slot, thread, and direction
-counts carry their exact-arithmetic companions from the committed
-census, and the null tails are reported under the as-recorded
-semantics only. One arm's behavioral record ends on day 39 by its own
-tripwire, and another arm's availability failed for the last eight
-days of the window; the per-model probe-day counts are 53, 53, 52, 46,
-and 39. The per-call rows that carry response text are retained but
-not published, and therefore so are the rerun-gap, format, and
-covariate constancy numbers marked \rows; everything else is. Cost and
-cadence are modest by design; the instrument trades sensitivity for a
-false-alarm budget one person can staff.
+decisive-class stability is bounded, not proven. The baseline is one
+day. A multi-day baseline would have characterized two-state items
+before the bands were pinned; the pooled-record tails in
+Section~\ref{sec:osc} are the check that the finding does not depend
+on which state that day caught. The strict inequality at the band is
+load-bearing, and its float implementation decided ten at-band entries
+(item f); the entry, slot, thread, and direction counts carry their
+exact-arithmetic companions from the committed census, and the null
+tails are reported under the as-recorded semantics only. One arm's
+behavioral record ends on day 39 by its own tripwire, and another
+arm's availability failed for the last eight days of the window; the
+per-model probe-day counts are 53, 53, 52, 46, and 39. The per-call
+rows that carry response text are retained but not published, and
+therefore so are the rerun-gap, format, and covariate constancy
+numbers marked \rows; everything else is. Cost and cadence are modest
+by design; the instrument trades sensitivity for a false-alarm budget
+one person can staff.
 
 The full instrument is reproducible: item bank, baselines, bands,
 seeds, verdict log, derived daily counts, analysis scripts, and
