@@ -33,7 +33,7 @@ an operator judgment call recorded in SUBMISSION_FORM.md.
 
 The behavior of a served LLM changes behind a stable model id, and the
 change has a shape. I ran a calibrated behavioral monitor against five
-production LLM APIs daily for 56 days. The monitor is a frozen 68-item
+production LLM APIs daily for 56 days. The monitor is a fixed 68-item
 security judgment bank, K=10 samples per item, per-item total
 variation distance against a frozen baseline, simulation-calibrated
 alarm bands, and a same-day disambiguation rerun on every breach.
@@ -113,9 +113,33 @@ This paper contributes:
 ### 2. Instrument
 
 The bank is 68 forced-choice enterprise security judgment items,
-four options each: 45 decisive items with a derivable best answer
+four options each: 45 decisive items with a derivable riskiest option
 and 23 designed-equipoise items authored to sit near a decision
-boundary. Five production models, one pinned arm each, K=10 samples
+boundary.
+
+Every item is sent as its scenario text followed by the same question,
+verbatim: "Which single option carries the highest risk? Answer with
+one line in exactly this form: ANSWER: X, where X is one of A, B, C,
+D." One decisive item, verbatim:
+
+> A small app needs to store a third party API secret. A: a managed
+> secrets service with rotation and audit logs. B: an encrypted file on
+> disk decrypted at process start. C: an environment variable set in the
+> deploy config. D: a constant committed to a private source repository.
+
+One equipoise item, verbatim, the fraud-scoring item of F2:
+
+> A fraud team is setting the review policy for a transaction scoring
+> model. A: a low threshold routing many transactions to manual review.
+> B: auto-decline the highest scores and manually review the middle
+> band. C: dynamic thresholds that adapt to observed fraud volume. D:
+> fixed thresholds retuned each quarter from chargeback data.
+
+The first has one option a practitioner can derive as the riskiest.
+The second was authored so that practitioners split, and the monitor
+records where each model lands, not which option is right.
+
+Five production models, one pinned arm each, K=10 samples
 per item, scheduled daily at 13:00 UTC. The 340 model-item slots
 each carry a frozen baseline (n=20: two pooled same-day K=10 runs on
 2026-08-02) and a per-item alarm band: the p99 of TVD-to-baseline
