@@ -462,7 +462,8 @@ every breach; ten do ($P = 6.8\times10^{-10}$), and five of the seven
 deepest do against 0.7 expected ($P = 3.3\times10^{-7}$). The three
 threads that are not direction-stable all belong to one vendor, and
 Section~\ref{sec:pheno} returns to them. Two caveats travel with every
-number here. Slots within a model-day share a scaffold and are not
+number here. Slots within a model-day share a scaffold (the same
+prompt wrapper, request path, and scheduled hour) and are not
 independent; the recurrence statistics are computed per-slot across
 days, where the sharing argument does not apply. And the smoothed null
 charges every arm for all 56 days, including the 37 model-days whose

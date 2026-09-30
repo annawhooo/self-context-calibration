@@ -371,19 +371,20 @@ toward the same option at every breach; ten do (P = 6.8e-10), and five
 of the seven deepest do against 0.7 expected (P = 3.3e-7). The three
 threads that are not direction-stable all belong to one vendor, and
 section 3.5 returns to them. Two caveats travel with every number
-here. Slots within a model-day share a scaffold and are not
-independent; the recurrence statistics are computed per-slot across
-days, where the sharing argument does not apply. And the smoothed null
-charges every arm for all 56 days, including the 37 model-days whose
-run did not complete and were never gated, which inflates its
-expectations and makes each upper tail conservative; the one lower
-tail, P(zero) on decisive slots, moves the other way (3.7e-22 under
-probed days only). Under exact rather than floating-point arithmetic
-(section 4, item f) the record reads 65 entries on 16 slots, still all
-equipoise, ten threads at three or more entries (eight unidirectional)
-and five at five or more (four unidirectional). The concentration and
-direction findings survive in kind; the tail probabilities above are
-computed under the as-recorded semantics only.
+here. Slots within a model-day share a scaffold (the same prompt
+wrapper, request path, and scheduled hour) and are not independent;
+the recurrence statistics are computed per-slot across days, where the
+sharing argument does not apply. And the smoothed null charges every
+arm for all 56 days, including the 37 model-days whose run did not
+complete and were never gated, which inflates its expectations and
+makes each upper tail conservative; the one lower tail, P(zero) on
+decisive slots, moves the other way (3.7e-22 under probed days only).
+Under exact rather than floating-point arithmetic (section 4, item f)
+the record reads 65 entries on 16 slots, still all equipoise, ten
+threads at three or more entries (eight unidirectional) and five at
+five or more (four unidirectional). The concentration and direction
+findings survive in kind; the tail probabilities above are computed
+under the as-recorded semantics only.
 
 #### 3.4 Detection without attribution
 
