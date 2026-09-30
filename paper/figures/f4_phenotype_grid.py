@@ -92,31 +92,31 @@ def main():
                     markeredgewidth=1.4)
         dx, dy = LABEL_OFFSET[m]
         ax.annotate(fd.SHORT[m], (x, yq), textcoords="offset points",
-                    xytext=(dx, dy), ha="center", fontsize=7.5,
+                    xytext=(dx, dy), ha="center", fontsize=10.1,
                     color=fd.INK)
         print("  %-13s commitment %.3f  quiet %+.4f  thread %s"
               % (fd.SHORT[m], x, yq,
                  "%+.4f" % yt if yt is not None else "-"))
 
     ax.set_xlabel("per-call commitment (mean modal share, all slots)",
-                  fontsize=7.5, color=fd.INK_2)
+                  fontsize=10.1, color=fd.INK_2)
     ax.set_ylabel("excess movement, equipoise slots\n(observed minus"
                   " exact sampling + baseline expectation)",
-                  fontsize=7.5, color=fd.INK_2)
-    ax.tick_params(labelsize=7)
+                  fontsize=10.1, color=fd.INK_2)
+    ax.tick_params(labelsize=8)
     ax.legend(handles=[
         Line2D([], [], marker="o", linestyle="none", markersize=7,
                color=fd.INK, markerfacecolor="white",
                markeredgewidth=1.4, label="quiet slots (never breached)"),
         Line2D([], [], marker="x", linestyle="none", markersize=6,
                color=fd.INK_2, markeredgewidth=1.4,
-               label="focal-thread slots")],
-        loc="upper left", frameon=False, fontsize=6.5,
+               label="breached slots (any entry)")],
+        loc="upper left", frameon=False, fontsize=8.8,
         labelcolor=fd.INK_2, handlelength=1.2)
     ax.set_title("Quiet slots hug zero; drift lives in threads",
-                 fontsize=9, color=fd.INK, loc="left", pad=8)
-    ax.text(1.0, 1.09, fd.datestamp(verdicts), transform=ax.transAxes,
-            ha="right", fontsize=6, color=fd.MUTED)
+                 fontsize=12.2, color=fd.INK, loc="left", pad=8)
+    ax.text(1.0, 1.17, fd.datestamp(verdicts), transform=ax.transAxes,
+            ha="right", fontsize=8.1, color=fd.MUTED)
 
     fd.savefig(fig, "f4_phenotype_grid")
 

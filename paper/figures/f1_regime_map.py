@@ -7,13 +7,20 @@ Columns are probe days. Cell fill encodes the day's state under the
 committed definitions (home, away), lightness-ordered so the figure
 reads in grayscale; a letter glyph marks verdict-log breaches (E
 EVENT, T TRANSIENT, U UNSTABLE); hatched cells are days the model
-returned no probe (ERROR). Run from anywhere:
+returned no probe (ERROR); dotted cells are days the echo tripwire
+halted the arm at first contact (ECHO_CHANGE, no distribution
+sampled); a dark left edge marks the day a slot's alarm reference
+was re-baselined, after which its home state is the new reference.
+Run from anywhere:
 
   python paper/figures/f1_regime_map.py
 """
+import datetime as dt
+
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle, Patch
 
 import figdata as fd
@@ -25,6 +32,8 @@ def main():
     baselines = fd.load_baselines()
     breaches = fd.breach_index(verdicts)
     dates, ran = fd.probe_dates(verdicts)
+    halted = {(v["model"], v["date"]) for v in verdicts
+              if v["verdict"] == "ECHO_CHANGE"}
 
     threads = sorted((slot for slot, hits in breaches.items()
                       if len(hits) >= 2),
@@ -45,6 +54,11 @@ def main():
                                        hatch="////", linewidth=0,
                                        edgecolor=fd.GRID))
                 continue
+            if state is None and (model, date) in halted:
+                ax.add_patch(Rectangle((x, y), 0.92, 0.82, fill=False,
+                                       hatch="....", linewidth=0,
+                                       edgecolor=fd.MUTED))
+                continue
             if state is None:
                 continue
             verdict = breaches[(model, item)].get(date)
@@ -55,18 +69,24 @@ def main():
                                    linewidth=0))
             if verdict:
                 ax.text(x + 0.46, y + 0.41, verdict[0], ha="center",
-                        va="center", fontsize=6.5, color="white",
+                        va="center", fontsize=10.5, color="white",
                         fontweight="bold")
+            for old in base_rec.get("superseded", []):
+                nxt = (dt.date.fromisoformat(old["valid_through"])
+                       + dt.timedelta(days=1)).isoformat()
+                if date == nxt:
+                    ax.plot([x, x], [y - 0.05, y + 0.87], color=fd.INK,
+                            linewidth=1.6, solid_capstyle="butt")
 
     ax.set_xlim(-0.1, len(dates))
     ax.set_ylim(len(threads), -0.2)
     ax.set_xticks([i + 0.46 for i in range(len(dates))])
     ax.set_xticklabels([d[5:].replace("-", "/") for d in dates],
-                       fontsize=6, rotation=90, color=fd.INK_2)
+                       fontsize=10.5, rotation=90, color=fd.INK_2)
     ax.set_yticks([i + 0.41 for i in range(len(threads))])
     ax.set_yticklabels(["%s  %s" % (fd.SHORT[m], fd.item_short(i))
                         for m, i in threads],
-                       fontsize=7, color=fd.INK)
+                       fontsize=10.8, color=fd.INK)
     for side in ax.spines.values():
         side.set_visible(False)
     ax.tick_params(length=0)
@@ -78,14 +98,18 @@ def main():
               label="breach (E event, T transient, U unstable)"),
         Patch(facecolor="white", edgecolor=fd.GRID, hatch="////",
               label="no probe recorded (error or pending)"),
+        Patch(facecolor="white", edgecolor=fd.MUTED, hatch="....",
+              label="arm halted by the echo tripwire (ECHO_CHANGE)"),
+        Line2D([], [], color=fd.INK, linewidth=1.6,
+               label="alarm reference re-baselined from this day"),
     ]
     ax.legend(handles=legend, loc="upper center",
-              bbox_to_anchor=(0.5, -0.30), ncol=2, frameon=False,
-              fontsize=6.5, labelcolor=fd.INK_2, handlelength=1.4)
+              bbox_to_anchor=(0.5, -0.19), ncol=2, frameon=False,
+              fontsize=10.5, labelcolor=fd.INK_2, handlelength=1.4)
     ax.set_title("Focal threads by probe day: state and verdict",
-                 fontsize=9, color=fd.INK, loc="left", pad=8)
+                 fontsize=14, color=fd.INK, loc="left", pad=8)
     ax.text(1.0, 1.02, fd.datestamp(verdicts), transform=ax.transAxes,
-            ha="right", fontsize=6, color=fd.MUTED)
+            ha="right", fontsize=10.5, color=fd.MUTED)
 
     fd.savefig(fig, "f1_regime_map")
 

@@ -54,9 +54,9 @@ def main():
     ax.axvspan(*DECLINED_K30, color=fd.CAT["D"], alpha=0.18, linewidth=0)
     ax.axvspan(dep_lo, dep_hi, color=fd.GRID, alpha=0.55, linewidth=0)
     ax.text(sum(DECLINED_K30) / 2, 0.55, "declined\nK=30 bands",
-            ha="center", fontsize=6.5, color=fd.INK_2)
+            ha="center", fontsize=8.8, color=fd.INK_2)
     ax.text((dep_lo + dep_hi) / 2, 0.55, "deployed\nbands",
-            ha="center", fontsize=6.5, color=fd.INK_2)
+            ha="center", fontsize=8.8, color=fd.INK_2)
 
     colors = {"decisive": fd.CAT["A"], "equipoise": fd.CAT["B"]}
     floor = 1e-4
@@ -68,23 +68,23 @@ def main():
                 marker="o", markersize=3)
         ax.annotate("%s (%d slot-days)" % (cls, len(tvds[cls])),
                     (xs[5], ys[5]), textcoords="offset points",
-                    xytext=(8, 6), fontsize=7, color=colors[cls],
+                    xytext=(8, 6), fontsize=9.5, color=colors[cls],
                     fontweight="bold")
 
     ax.set_yscale("log")
     ax.set_ylim(floor, 1.5)
     ax.set_yticks((1, 1e-1, 1e-2, 1e-3, 1e-4))
-    ax.set_yticklabels(("1", ".1", ".01", ".001", "0 obs."), fontsize=7)
+    ax.set_yticklabels(("1", ".1", ".01", ".001", "0 obs."), fontsize=9.5)
     ax.set_xlim(0, 0.7)
     ax.set_xlabel("band width (TVD threshold, breach if strictly above)",
-                  fontsize=7.5, color=fd.INK_2)
+                  fontsize=10.1, color=fd.INK_2)
     ax.set_ylabel("fraction of quiet slot-days exceeding",
-                  fontsize=7.5, color=fd.INK_2)
-    ax.tick_params(labelsize=7)
+                  fontsize=10.1, color=fd.INK_2)
+    ax.tick_params(labelsize=8)
     ax.set_title("Quiet-slot exceedance by class",
-                 fontsize=9, color=fd.INK, loc="left", pad=8)
-    ax.text(1.0, 1.03, fd.datestamp(verdicts), transform=ax.transAxes,
-            ha="right", fontsize=6, color=fd.MUTED)
+                 fontsize=12.2, color=fd.INK, loc="left", pad=8)
+    ax.text(1.0, 1.12, fd.datestamp(verdicts), transform=ax.transAxes,
+            ha="right", fontsize=8.1, color=fd.MUTED)
 
     fd.savefig(fig, "f3_false_alarm_curve")
 

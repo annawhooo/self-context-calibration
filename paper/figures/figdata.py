@@ -34,8 +34,8 @@ MODELS = ("claude-haiku-4-5-20251001", "claude-sonnet-4-6",
           "gpt-5.6-terra", "gemini-3.6-flash", "deepseek-v4-flash")
 SHORT = {"claude-haiku-4-5-20251001": "haiku",
          "claude-sonnet-4-6": "sonnet",
-         "gpt-5.6-terra": "gpt-terra",
-         "gemini-3.6-flash": "gemini-flash",
+         "gpt-5.6-terra": "gpt",
+         "gemini-3.6-flash": "gemini",
          "deepseek-v4-flash": "deepseek"}
 
 # Validated reference palette, light mode.
@@ -57,8 +57,25 @@ def _lines(path):
                 yield json.loads(line)
 
 
+# Optional data cap for the freeze re-render: when PAPER_DATA_THROUGH
+# is set (ISO date), every loader drops rows after that date, so the
+# scripts draw the frozen window even after the record grows past it.
+DATA_THROUGH = os.environ.get("PAPER_DATA_THROUGH", "9999-12-31")
+
+# Optional blind render for the INTERCEPT submission: when PAPER_BLIND
+# is set, model labels become arm numbers in roster order (arm 1 to
+# arm 5) and the PDFs are written to paper/intercept/figures instead
+# of out/, PDF only. The public figures in out/ are untouched. Decided
+# 2026-09-29 (paper/intercept/SUBMISSION_FORM.md, decision 2).
+BLIND = bool(os.environ.get("PAPER_BLIND"))
+if BLIND:
+    SHORT = {m: "arm %d" % (k + 1) for k, m in enumerate(MODELS)}
+    OUT = os.path.join(REPO, "paper", "intercept", "figures")
+
+
 def load_verdicts():
-    return list(_lines(os.path.join(MONITOR, "verdicts.jsonl")))
+    return [v for v in _lines(os.path.join(MONITOR, "verdicts.jsonl"))
+            if v["date"] <= DATA_THROUGH]
 
 
 def load_daily(phase="monitor_probe"):
@@ -66,7 +83,7 @@ def load_daily(phase="monitor_probe"):
     rows = {}
     path = os.path.join(MONITOR, "derived", "daily_counts.jsonl")
     for r in _lines(path):
-        if r["phase"] == phase:
+        if r["phase"] == phase and r["date"] <= DATA_THROUGH:
             rows[(r["date"], r["model"], r["item_id"])] = r["counts"]
     return rows
 
@@ -263,11 +280,18 @@ def style(ax):
 
 
 def savefig(fig, name):
+    """Embed TrueType (Type 42) fonts, which IEEE PDF eXpress accepts;
+    matplotlib's default Type 3 fonts are rejected at camera-ready."""
+    import matplotlib
+    matplotlib.rcParams["pdf.fonttype"] = 42
+    matplotlib.rcParams["ps.fonttype"] = 42
     os.makedirs(OUT, exist_ok=True)
-    for ext in ("pdf", "png"):
+    exts = ("pdf",) if BLIND else ("pdf", "png")
+    for ext in exts:
         fig.savefig(os.path.join(OUT, "%s.%s" % (name, ext)),
                     dpi=200, bbox_inches="tight", facecolor="white")
-    print("wrote %s.{pdf,png} in %s" % (name, os.path.relpath(OUT, REPO)))
+    print("wrote %s.{%s} in %s" % (name, ",".join(exts),
+                                   os.path.relpath(OUT, REPO)))
 
 
 def datestamp(verdicts):
