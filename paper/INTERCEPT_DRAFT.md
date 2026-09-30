@@ -33,11 +33,11 @@ an operator judgment call recorded in SUBMISSION_FORM.md.
 
 The behavior of a served LLM changes behind a stable model id, and the
 change has a shape. I ran a calibrated behavioral monitor against five
-production LLM APIs daily for 56 days: a fixed 68-item security
-judgment bank, K=10 samples per item against a frozen baseline,
-simulation-calibrated alarm bands, and a same-day rerun on every
-breach. Three findings. First, judgment behavior oscillates rather
-than drifts: models revisit exact prior answer distributions on
+production LLM APIs daily for 56 days. The monitor is a fixed 68-item
+security judgment bank, K=10 samples per item against a frozen
+baseline, simulation-calibrated alarm bands, and a same-day rerun on
+every breach. Three findings. First, judgment behavior oscillates
+rather than drifts: models revisit exact prior answer distributions on
 contested items, one item returning to the identical unanimous vector
 on four of its five breach days. Second, the movement concentrates
 where judgment is contested. All 75 breach entries landed only on the
