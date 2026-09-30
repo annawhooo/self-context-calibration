@@ -67,17 +67,23 @@ probe/CORRECTIONS_2026-09-06.md.
   2026-09-30 after a trim silently undid five approved abstract
   edits.
 - Any prose drafted for the operator (paper text, dated notes,
-  cover emails, abstracts, form answers) passes this checklist
-  before it is shown to her, and the draft says what the checklist
-  changed: no garden-path openers; no term of art before the
-  reader has its definition; no elided object ("produced none");
-  every verb carries its complement ("held constant"); a contrast
-  takes its conjunction; one thought is one sentence, joined with
-  "and", a colon, or "so", not chopped into staccato pieces; a
-  negation may stand alone before its payoff; every claim scoped
-  to the check actually run; the number the reader will ask about
-  is in the sentence, with its unit; formal salutation on a first
-  professional send; contractions kept mid-sentence, expanded at a
-  sentence start. Added 2026-09-30 after the operator had to catch
-  the same patterns in a cover email that she had already caught
-  in the paper.
+  cover emails, abstracts, form answers) is run through
+  paper/scripts/prose_check.py before it is shown to her, with the
+  draft saved to a file, the command and its output in the session,
+  and every finding resolved or named as deliberate in the message
+  that presents the draft. The script enumerates pronouns and
+  demonstratives with their nearest noun, elided objects, bare
+  verbs, staccato runs, sentence-initial contractions, em dashes,
+  and numbers absent from the paper. Reading a draft is not
+  checking it. "Checked" or "verified" in a message to her means a
+  command ran or an agent's structured output was counted, and the
+  message says which; anything only read is reported as only read.
+  Style rules the script cannot test (no term of art before its
+  definition, a contrast takes its conjunction, one thought is one
+  sentence, a negation may stand alone before its payoff, every
+  claim scoped to the check run, the number the reader will ask
+  about is in the sentence with its unit, formal salutation on a
+  first professional send) are listed in the presenting message as
+  applied. Added 2026-09-30 after the operator caught, in a cover
+  email, the same patterns she had already caught in the paper, and
+  after four claims of "checked" turned out to be reads.
