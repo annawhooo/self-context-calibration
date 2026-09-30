@@ -170,20 +170,25 @@ baseline's modal answer, and away otherwise. Dwell is a run of
 consecutive observed days in one state.
 
 A day's probe compares each slot's observed distribution to its
-baseline. A breach (strict inequality above band) fires a same-day
-rerun of the breached items only, and the rerun disambiguates: a rerun
-matching the probe and not the baseline is an EVENT, matching the
-baseline back is TRANSIENT, matching neither is UNSTABLE. Every
-response row records the echoed model id; a divergent echo halts
-collection for that model at the first call (ECHO_CHANGE, exercised
-from day 40 of the record onward; section 3.4). One verdict line per
-model per day, appended to a committed log. Each line carries the day
-verdict and, per breached item, the observed TVD, the band, the
-rerun's TVD to the probe and to the baseline, and the item verdict.
-The verdict grammar is CLEAN, EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE,
-ERROR, and I declared the reporting commitment before the first
-scheduled observation: quiet windows get published with the same care
-as event windows.
+baseline. TVD is half the sum of absolute differences in option share;
+the halving is because share that leaves one option arrives at
+another, so the raw sum counts every move twice. Against the
+fraud-scoring baseline 8/12/0/0 (shares 0.4, 0.6, 0, 0), the Aug 3
+probe of 10/0/0/0 (shares 1, 0, 0, 0) gives 0.5(0.6 + 0.6) = 0.6: six
+of ten answers moved, above that slot's 0.40 band, a breach. A breach
+(strict inequality above band) fires a same-day rerun of the breached
+items only, and the rerun disambiguates: a rerun matching the probe
+and not the baseline is an EVENT, matching the baseline back is
+TRANSIENT, matching neither is UNSTABLE. Every response row records
+the echoed model id; a divergent echo halts collection for that model
+at the first call (ECHO_CHANGE, exercised from day 40 of the record
+onward; section 3.4). One verdict line per model per day, appended to
+a committed log. Each line carries the day verdict and, per breached
+item, the observed TVD, the band, the rerun's TVD to the probe and to
+the baseline, and the item verdict. The verdict grammar is CLEAN,
+EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR, and I declared the
+reporting commitment before the first scheduled observation: quiet
+windows get published with the same care as event windows.
 
 The false-alarm rate is not assumed from the band percentile. It is
 computed by exact enumeration over all 286 compositions of ten
