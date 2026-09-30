@@ -32,32 +32,33 @@
 \begin{abstract}
 The behavior of a served LLM changes behind a stable model id, and the
 change has a shape. I ran a calibrated behavioral monitor against five
-production LLM APIs daily for 56 days. The monitor is a fixed 68-item
-security judgment bank, $K{=}10$ samples per item against a frozen
-baseline, simulation-calibrated alarm bands, and a same-day rerun on
-every breach. Three findings. First, judgment behavior oscillates
-rather than drifts: models revisit exact prior answer distributions on
-contested items, one item returning to the identical unanimous vector
-on four of its five breach days. Second, the movement concentrates
-where judgment is contested. All 75 breach entries landed only on the
-23 items authored so that practitioners split; the 45 items with a
-derivable riskiest option produced no breach in 11,057
+production LLM APIs daily for 56 days. The monitor combines a fixed
+68-item security judgment bank, $K{=}10$ samples per item against a
+frozen baseline, simulation-calibrated alarm bands, and a same-day
+rerun on every breach. Three findings. First, judgment behavior
+oscillates rather than drifts: models revisit exact prior answer
+distributions on contested items, one item returning to the identical
+unanimous vector on four of its five breach days. Second, the movement
+concentrates where judgment is contested. All 75 breach entries landed
+on the 23 items authored so that practitioners split; the 45 items
+with a derivable riskiest option produced no breach in 11,057
 model-item-days. The breach count alone is not the evidence: the null
 expects 92 breaches in 56 days and the record holds 75. The structure
 is the evidence. Chance breaches would scatter across items and push
-in no particular direction. Yet these pile onto thirteen items where
-the null expects one, and on ten of those thirteen every breach moved
-toward the same option, where the null expects 1.6. That is not noise
-crossing a threshold. It is the same items switching, repeatedly,
-between the same two answer states. Third, every serving covariate
-visible from outside held constant while behavior moved, except the
-identity string itself: one vendor aliased the pinned id mid-study
-with no signal at the API surface, and only the response-side echo
-caught it. Even that was a detection, not an explanation. From outside
-the API, a customer can detect that a served model changed, but they
-cannot say why. A snapshot evaluation certifies the day it ran, not
-the period it is cited for. The monitor bills about 20 USD per month.
-The instrument, the record, the analysis, and every correction are
+in no particular direction. Yet the observed 75 pile onto thirteen
+items where the null expects one, and on ten of those thirteen every
+breach moved toward the same option, where the null expects 1.6. That
+is not noise crossing a threshold. It is the same items switching,
+repeatedly, between the same two answer states. Third, every serving
+covariate visible from outside stayed constant while behavior moved,
+except the identity string itself: one vendor aliased the pinned id
+mid-study with no signal at the API surface, and only the
+response-side echo (the model id each reply reports) caught it. Even
+that was a detection, not an explanation. From outside the API, a
+customer can detect that a served model changed, but they cannot say
+why. A snapshot evaluation certifies the day it ran, not the period it
+is cited for. The monitor bills about 20 USD per month. The
+instrument, the record, the analysis, and every correction are
 reproducible from a public artifact, apart from the row-level figures
 marked in the text.
 \end{abstract}
@@ -76,43 +77,44 @@ model ids, and the response schema carries no version for any of it.
 So a control validated last quarter is not validated today, and no
 signal reports the expiration.
 
-The gap is not hypothetical: one vendor's published postmortem
-describes three overlapping serving-stack bugs, one of them sticky
-across follow-up requests, all three missed by the vendor's own
+Such silent change is not hypothetical: one vendor's published
+postmortem describes three overlapping serving-stack bugs, one of them
+sticky across follow-up requests, all three missed by the vendor's own
 evaluations, and two of them resolved by
 rollback~\cite{vendor-postmortem}. That is the view from inside, and
 this paper measures the view from outside.
 
 Here is what measuring from outside looks like. On August 2, 2026, I
 baselined five production APIs on a 68-item judgment bank, twenty
-samples per slot, and probed the full bank at ten samples hours later:
-340 model-item slots, zero breaches, every model clean. The next
-scheduled probe, one day later, found one model in a different regime,
-and a second model with a single-item EVENT the same day, a breach
-that held on its rerun. On the first model, two items flipped to a
-joint state they had occupied four days before, in the pre-baseline
-collection runs. The flip carries probabilities on the order of
-$10^{-5}$ to $10^{-13}$ under the smoothed no-drift null of
+samples per model-item slot, and hours later probed the full bank at
+ten samples: 340 model-item slots, zero breaches, every model clean.
+The next scheduled probe, one day later, found one model in a
+different regime, and a second model with a single-item EVENT the same
+day, a breach that held on its rerun. On the first model, two items
+flipped to a joint state they had occupied four days before, in the
+pre-baseline collection runs. The flip carries probabilities on the
+order of $10^{-5}$ to $10^{-13}$ under the smoothed no-drift null of
 Section~\ref{sec:inst} on the fresh baseline. The state held for the
 same-day rerun, came apart over the next two days, and was back in
 full on the third. This is not an outage and it is not noise. It is a
 served model revisiting a prior behavioral state, on a pinned id, with
-no changelog entry. At the close of the 56-day record it holds 75
-breach entries on 17 slots, and not one on a decisive item.
+no changelog entry. At its close, the 56-day record holds 75 breach
+entries (one entry is one breach of one slot on one day) on 17 slots,
+and not one on a decisive item (one with a derivable riskiest option).
 
 This paper contributes:
 \begin{enumerate}
 \item[(a)] the first documentation, to my knowledge, of exact
   recurrence of prior answer distributions on pinned model ids in
   judgment behavior: reversible, day-scale, and week-scale on one
-  thread (a slot with repeated breaches); \item[(b)] a drift
-  instrument built from a stratified judgment bank, items authored to
-  sit at a decision boundary (designed-equipoise) alongside items with
-  a derivable answer (decisive), with zero breaches in 11,057
-  slot-days on the decisive class; \item[(c)]
-  detection-without-attribution, measured on the same record: behavior
-  moved while every observable covariate held constant, and the one
-  covariate that moved carried no explanation either;
+  thread (a slot with repeated breaches);
+\item[(b)] a drift instrument built from a stratified judgment bank,
+  items authored to sit at a decision boundary (designed-equipoise)
+  alongside items with a derivable answer (decisive), with zero
+  breaches in 11,057 slot-days on the decisive class;
+\item[(c)] detection-without-attribution, measured on the same record:
+  behavior moved while every observable covariate stayed constant, and
+  the one covariate that moved carried no explanation either;
 \item[(d)] per-model temporal phenotypes on two axes, per-call
   commitment and drift morphology. Slots that never breached move
   within 0.011 mean total variation distance (TVD) of what sampling
@@ -170,25 +172,25 @@ same-day $K{=}10$ runs on 2026-08-02) and a per-item alarm band: the
 p99 of TVD-to-baseline under a Laplace-smoothed multinomial
 simulation, seeds deterministic and recorded. Bands across the 340
 slots: 0.40 on 311 slots, 0.45 on 28, 0.50 on 1 (Table~\ref{tab:t2}).
-One slot in full: the fraud-scoring item of Section~\ref{sec:osc}
-carries the frozen baseline 8/12/0/0 over options A to D. One slot's
-alarm reference was re-baselined on 2026-08-23 from two pooled
+One slot in full: the fraud-scoring item of Section~\ref{sec:osc} on
+arm 2 carries the frozen baseline 8/12/0/0 over options A to D. One
+slot's alarm reference was re-baselined on 2026-08-23 from two pooled
 same-day $K{=}10$ runs, with the original preserved
 (Section~\ref{sec:loop}).
 
-Five terms recur.
+Six terms recur.
 \begin{description}\itemsep0pt
 \item[slot] one model-item pair.
 \item[entry] one breach of one slot on one day.
 \item[thread] a slot with repeated entries.
-\item[home, away] a slot-day inside band with the baseline's modal
-  answer, or not.
+\item[home] a slot-day inside band with the baseline's modal answer.
+\item[away] any other slot-day.
 \item[dwell] a run of consecutive observed days in one state.
 \end{description}
 
 A day's probe compares each slot's observed distribution to its
 baseline. TVD is half the sum of absolute differences in option share;
-the halving is because share that leaves one option arrives at
+the halving is because the share that leaves one option arrives at
 another, so the raw sum counts every move twice. Against the
 fraud-scoring baseline 8/12/0/0 (shares 0.4, 0.6, 0, 0), the Aug 3
 probe of 10/0/0/0 (shares 1, 0, 0, 0) gives $0.5(0.6 + 0.6) = 0.6$:
@@ -224,9 +226,9 @@ behavioral observation: one vendor arm lost three days to account
 credit exhaustion (HTTP 429), the two arms on a second vendor lost two
 days to a credential rotation on my side (HTTP 401), a third vendor's
 arm returned HTTP 503 ``high demand'' on nine days, seven of them in
-the eight ending at the freeze, and one day failed on all five arms
-from a local network outage. A fifth arm halted itself on day 40 by
-its own tripwire and stayed halted, but that is not an availability
+the eight days ending at the freeze, and one day failed on all five
+arms from a local network outage. A fifth arm halted itself on day 40
+by its own tripwire and stayed halted, but that is not an availability
 gap (Section~\ref{sec:attr}).
 
 Everything above is regenerable from the committed repository:
@@ -363,23 +365,23 @@ on post-rebaseline day 10. On 2026-09-02, after sixteen consecutive
 observed away days spanning the re-baseline, the item revisited the
 original reference: inside the superseded band, modal restored, on a
 vector identical to two of its early home-dwell days four weeks prior.
-The pre-registered branch executed as a dated commit the same day, and
-was merged the following morning before the next probe day landed. I
-revised the classification to slow alternation with week-scale dwell.
-The candidacy stands as a correctly fired rule; the revision changes
-the classification, not the firing. I re-examined the re-baseline as
-pre-committed and kept it: the item rests in the new state and visits
-the old one, and the preserved original is what made the return
-visible at all. From the return day on, the item sat at the original
-reference on seven days through Sep 18 (Sep 2, 6, 9, 10, 13, 16, 18)
-and then sat away for the seven observed days ending at the freeze.
-Against the frozen reference it was home on 16 of 53 observed days.
-This was not a step change. It is the longest-dwell alternation in the
-record. Every step of the loop (rule, candidacy, re-baseline, return
-criterion, revision) ran on machinery pinned before its deciding data
-was read. The first rule was committed with three unread probe days
-already on disk, as its note records, and every later step's data
-postdates its pin.
+The pre-registered decision branch executed as a dated commit the same
+day, and was merged the following morning before the next probe day
+landed. I revised the classification to slow alternation with
+week-scale dwell. The candidacy stands as a correctly fired rule; the
+revision changes the classification, not the firing. I re-examined the
+re-baseline as pre-committed and kept it: the item rests in the new
+state and visits the old one, and the preserved original is what made
+the return visible at all. From the return day on, the item sat at the
+original reference on seven days through Sep 18 (Sep 2, 6, 9, 10, 13,
+16, 18) and then sat away for the seven observed days ending at the
+freeze. Against the frozen reference it was home on 16 of 53 observed
+days. This was not a step change. It is the longest-dwell alternation
+in the record. Every step of the loop (rule, candidacy, re-baseline,
+return criterion, revision) ran on machinery pinned before its
+deciding data was read. The first rule was committed with three unread
+probe days already on disk, as its note records, and every later
+step's data postdates its pin.
 
 I pinned four more rules on arm 3 threads, three after a held EVENT on
 the thread and one pinned while its thread was home, ahead of any away
@@ -546,8 +548,8 @@ string that dropped the version segment of the pinned id. The tripwire
 halted collection at one call; the single reply under the ambiguous
 identity was logged and no distribution was sampled under it. On every
 day since then on which a call returned, the first contact recorded
-the same divergent echo: 16 halted days at the freeze. The vendor
-surface, checked two days later with the response bodies committed
+the same divergent echo: 16 halted days at the freeze. The vendor's
+model list, checked two days later with the response bodies committed
 verbatim, shows an alias that is silent at the API surface (no vendor
 notice was checked). The pinned id is gone from the model list, yet a
 request for it is still served, answered under the new name, with the
@@ -649,11 +651,12 @@ same thing.
   narrows the bands from 0.40 to 0.267 on most slots and to at most
   0.317 (recomputed from the committed baselines under the stored
   seeds). The between-day variance the bands never modeled sits at p99
-  0.30 on quiet equipoise slots at the freeze, inside that range and
-  above its floor (it was 0.35 on the first twelve days). At $K{=}10$
-  exceedance rates, an upper bound on what those bands would have
-  manufactured is 0.7 to 1.5 false alarms per full probe day from the
-  98 quiet equipoise slots alone. The reason is measured, not assumed:
+  0.30 on quiet equipoise slots at the freeze, inside the $K{=}30$
+  band range of 0.267 to 0.317 and above its floor (it was 0.35 on the
+  first twelve days). Taking the $K{=}10$ exceedance rates as an upper
+  bound, the $K{=}30$ bands would have manufactured up to 0.7 to 1.5
+  false alarms per full probe day from the 98 quiet equipoise slots
+  alone. The reason the decline was right is measured, not assumed:
   the mean daily TVD over the 98 quiet equipoise slots decomposes into
   a sampling term (0.0205) and a between-day excess (0.0096). A
   $K{=}30$ projection shrinks the mean to 0.71 of its $K{=}10$ value,

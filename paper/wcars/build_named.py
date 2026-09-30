@@ -58,6 +58,13 @@ SUBS = [
      "the other, gemini\nat 0.99, sat near-frozen."),
     ("When arm 5's model tier changed the name it answered under",
      "When the deepseek flash tier changed the name it answered under"),
+    ("fraud-scoring item of Section~\\ref{sec:osc} on arm 2 carries",
+     "fraud-scoring item of Section~\\ref{sec:osc} on the sonnet arm carries"),
+    ("The bank runs against five production models, one pinned arm each,",
+     "The bank runs against five production models, one pinned arm each\n"
+     "(claude-haiku-4-5-20251001, claude-sonnet-4-6, gpt-5.6-terra,\n"
+     "gemini-3.6-flash, deepseek-v4-flash; haiku, sonnet, gpt, gemini,\n"
+     "and deepseek below),"),
     # venue: the INTERCEPT CFP asked for honest failure; WCARS did not
     ("The CFP asks for honest failure. Seven items, each a dated commit\n"
      "in the public record, each load-bearing for someone building the\n"
