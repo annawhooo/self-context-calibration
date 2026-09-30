@@ -40,19 +40,19 @@ alarm bands, and a same-day disambiguation rerun on every breach.
 Three findings. First, judgment behavior oscillates rather than
 drifts: models revisit exact prior answer distributions on contested
 items, one item returning to the identical unanimous vector on four of
-its five breach days, with a state held from a single daily
-observation up to sixteen consecutive observed days. Second, the
-movement concentrates where judgment is contested. All 75 breach
-entries landed only on the 23 items authored so that practitioners
-split (the equipoise class); the 45 items with a derivable riskiest
-option produced no breach in 11,057 model-item-days; and on the
-equipoise items that never breached, mean daily movement from baseline
-exceeded what sampling noise alone predicts by at most 0.011 TVD on
-any model. The breach count alone is not the evidence: the null
-expects 92 breaches in 56 days and the record holds 75. The structure
-is the evidence. Chance breaches would scatter across items and push
-in no particular direction. Yet these pile onto thirteen items where
-the null expects one, and on ten of those thirteen every breach moved
+its five breach days. States held from a single daily observation up
+to sixteen consecutive observed days. Second, the movement
+concentrates where judgment is contested. All 75 breach entries landed
+only on the 23 items authored so that practitioners split (the
+equipoise class); the 45 items with a derivable riskiest option
+produced no breach in 11,057 model-item-days; and on the equipoise
+items that never breached, mean daily movement from baseline exceeded
+what sampling noise alone predicts by at most 0.011 TVD on any model.
+The breach count alone is not the evidence: the null expects 92
+breaches in 56 days and the record holds 75. The structure is the
+evidence. Chance breaches would scatter across items and push in no
+particular direction. Yet these pile onto thirteen items where the
+null expects one, and on ten of those thirteen every breach moved
 toward the same option, where the null expects 1.6. That is not noise
 crossing a threshold. It is the same items switching, repeatedly,
 between the same two answer states, one of which the baseline happened
@@ -66,7 +66,7 @@ movement on the other arms came with no covariate change at all. From
 outside the API, a customer can detect that a served model changed,
 but they cannot say why. A snapshot evaluation certifies the day it
 ran, not the period it is cited for. The monitor bills about 20 USD
-per month, and the instrument, the record, the analysis, and every
+per month. The instrument, the record, the analysis, and every
 correction are reproducible from a public artifact, apart from the
 row-level figures marked in the text.
 
@@ -92,14 +92,14 @@ model clean. The next scheduled probe, one day later, found one model
 in a different regime, and a second model with a single-item EVENT the
 same day, a breach that held on its rerun. On the first model, two
 items flipped to a joint state they had occupied four days before, in
-the pre-baseline collection runs, a flip with probabilities on the
-order of 1e-5 to 1e-13 under the smoothed null on the fresh baseline.
-The state held for the same-day rerun, came apart over the next two
-days, and was back in full on the third. This is not an outage and it
-is not noise. It is a served model revisiting a prior behavioral
-state, on a pinned id, with no changelog entry. At the close of the
-56-day record it holds 75 breach entries on 17 slots, and not one on a
-decisive item.
+the pre-baseline collection runs. The flip carries probabilities on
+the order of 1e-5 to 1e-13 under the smoothed null on the fresh
+baseline. The state held for the same-day rerun, came apart over the
+next two days, and was back in full on the third. This is not an
+outage and it is not noise. It is a served model revisiting a prior
+behavioral state, on a pinned id, with no changelog entry. At the
+close of the 56-day record it holds 75 breach entries on 17 slots, and
+not one on a decisive item.
 
 This paper contributes:
 
@@ -113,11 +113,11 @@ This paper contributes:
     while every observable covariate held, and the one covariate
     that moved carried no explanation either;
 (d) per-model temporal phenotypes on two axes, per-call commitment
-    and drift morphology. Quiet slots move within 0.011 mean TVD
-    of what sampling arithmetic predicts on all five models. Where
-    drift occurs it is discrete unidirectional oscillation on three
-    models (two vendors), mixed with wander on a fourth model, and
-    absent on the fifth, which sat near-frozen;
+    and drift morphology. Quiet slots move within 0.011 mean TVD of
+    what sampling arithmetic predicts on all five models. Where drift
+    occurs, it is discrete unidirectional oscillation on three models
+    (two vendors), mixed with wander on a fourth, and absent on the
+    fifth, which sat near-frozen;
 (e) the instrument itself: reproducible, vendor-agnostic, about 20
     USD per month in vendor billing, with a 56-day record carrying
     pre-registered decision rules, corrections, and one full
@@ -177,16 +177,16 @@ fraud-scoring baseline 8/12/0/0 (shares 0.4, 0.6, 0, 0), the Aug 3
 probe of 10/0/0/0 (shares 1, 0, 0, 0) gives 0.5(0.6 + 0.6) = 0.6: six
 of ten answers moved, above that slot's 0.40 band, a breach. A breach
 (strict inequality above band) fires a same-day rerun of the breached
-items only, and the rerun disambiguates: a rerun matching the probe
-and not the baseline is an EVENT, matching the baseline back is
-TRANSIENT, matching neither is UNSTABLE. Every response row records
-the echoed model id; a divergent echo halts collection for that model
-at the first call (ECHO_CHANGE, exercised from day 40 of the record
-onward; section 3.4). One verdict line per model per day, appended to
-a committed log. Each line carries the day verdict and, per breached
+items only, and the rerun disambiguates: matching the probe and not
+the baseline is an EVENT, matching the baseline back is TRANSIENT,
+matching neither is UNSTABLE. Every response row records the echoed
+model id; a divergent echo halts collection for that model at the
+first call (ECHO_CHANGE, exercised from day 40 of the record onward;
+section 3.4). One verdict line per model per day, appended to a
+committed log. Each line carries the day verdict and, per breached
 item, the observed TVD, the band, the rerun's TVD to the probe and to
 the baseline, and the item verdict. The verdict grammar is CLEAN,
-EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR, and I declared the
+EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR. I declared the
 reporting commitment before the first scheduled observation: quiet
 windows get published with the same care as event windows.
 
@@ -248,7 +248,7 @@ vector on the same slot, and the tail probabilities of section 3.3,
 which are computed over all 340 slots. Against each item's own pooled
 record rather than the frozen baseline, the fraud-scoring recurrence
 stays out of reach of any single multinomial: P(at least four pure-A
-days in 53) = 2.3e-13 against the pooled 187 A to 343 B, which gives a
+days in 53) = 2.3e-13 under the pooled 187 A to 343 B, which gives a
 pure-A day probability of 3.0e-5. The offboarding 8/0/2/0 (P = 0.009
 for at least five of 52) and the spend-anomaly 0/6/0/4 (P = 0.09 for
 at least eleven of 53) are within reach of one broad stationary
@@ -260,7 +260,7 @@ exchangeability (runs test on the home/away sequence: |z| < 1.6 on
 eleven of thirteen threads, z = -0.11 on the fraud-scoring item); two
 threads cluster (z = -2.3). Week-scale dwell in a breaching state was
 demonstrated under a pre-committed rule on the haiku thread alone
-(section 3.1.1), which also holds the record's longest away run,
+(section 3.1.1). That thread also holds the record's longest away run,
 sixteen observed days against the frozen reference; four other threads
 carry away runs of 8 to 12 observed days that breached on at most two
 days each. Short dwell is the norm: the gpt disclosure-timing item,
@@ -277,9 +277,9 @@ The rule, committed 2026-08-16 blind to the deciding data, resolved
 the first episode on the haiku spend-anomaly item as alternation on
 its first evaluated day (a home visit on Aug 14). A second away run
 began Aug 15 and crossed the pre-committed threshold on 2026-08-23:
-seven consecutive observed away days, and the rule designated the item
-a step-change candidate with no judgment in the loop. I responded with
-a dual-reference re-baseline: the alarm reference moved to the new
+seven consecutive observed away days. The rule designated the item a
+step-change candidate with no judgment in the loop. I responded with a
+dual-reference re-baseline: the alarm reference moved to the new
 state, the frozen original stayed preserved in the same record, and a
 return criterion against the original was pre-registered before any
 new-regime data accrued. The criterion fired on post-rebaseline day
@@ -287,7 +287,7 @@ new-regime data accrued. The criterion fired on post-rebaseline day
 spanning the re-baseline, the item revisited the original reference:
 inside the superseded band, modal restored, on a vector identical to
 two of its early home-dwell days four weeks prior. The pre-registered
-branch executed as a dated commit the same day, merged the next
+branch executed as a dated commit the same day, merged the following
 morning before the next probe day landed. I revised the classification
 to slow alternation with week-scale dwell. The candidacy stands as a
 correctly fired rule; the revision changes the classification, not the
@@ -335,22 +335,22 @@ all, the share is 0.968 and the same probability is 0.087. The
 concentration is a description of where this instrument can see
 movement, not a significance claim.
 
-The claim needs its ceiling stated. At K=10 the bands sit near TVD
-0.4 regardless of item distribution. A breach therefore needs five
-of ten samples to change category on 339 of the 340 slots under the
-written strict-inequality rule (the one slot with a 0.50 band needs
-six); the float path breaches at a lower lattice TVD on 24
-mixed-baseline slots (section 4, item f). All but four of the 225
-decisive slots sit unanimous at baseline (the four are one vendor's
-16-of-20 and 19-of-20 splits); registering movement there requires
-close to an outright answer flip. Decisive silence is an instrument
-ceiling, not demonstrated stability. What the decisive record does
-show is how little they move at all. The maximum decisive slot-day
-TVD in 11,057 was 0.30, reached twice, and no other slot-day
-exceeded 0.20 in exact arithmetic; 28 sat exactly at 0.20, five of
-which the float path reads as above. The defensible claim is that
-detectable movement lives on contested judgment, and clear-cut
-behavior stayed frozen at the resolution this instrument has.
+The claim needs its ceiling stated. At K=10 the bands sit near TVD 0.4
+regardless of item distribution. A breach therefore needs five of ten
+samples to change category on 339 of the 340 slots under the written
+strict-inequality rule (the one slot with a 0.50 band needs six); the
+float path breaches at a lower lattice TVD on 24 mixed-baseline slots
+(section 4, item f). All but four of the 225 decisive slots sit
+unanimous at baseline (the four are one vendor's 16-of-20 and 19-of-20
+splits); registering movement there requires close to an outright
+answer flip. Decisive silence is an instrument ceiling, not
+demonstrated stability. What the decisive record does show is how
+little those slots move. The maximum decisive slot-day TVD in 11,057
+was 0.30, reached twice, and no other slot-day exceeded 0.20 in exact
+arithmetic; 28 sat exactly at 0.20, five of which the float path reads
+as above. The defensible claim is that detectable movement lives on
+contested judgment, and clear-cut behavior stayed frozen at the
+resolution this instrument has.
 
 #### 3.3 Structure against the honest null
 
@@ -405,13 +405,13 @@ to 10.15, median 1.86 [rows]), not the twenty the early record
 estimated. The persistence evidence is not the rerun. It is cross-day
 recurrence of exact states.
 
-Then the one covariate that had held moved, and it was the identity
+Then the one covariate that had held did move, and it was the identity
 itself. On 2026-09-10 the deepseek arm's first call echoed
 deepseek-flash against the pinned deepseek-v4-flash. The tripwire
 halted collection at one call; the single reply under the ambiguous
 identity was logged and no distribution was sampled under it. On every
 day since then on which a call returned, the first contact recorded
-the same divergent echo, 16 halted days at the freeze. The vendor
+the same divergent echo: 16 halted days at the freeze. The vendor
 surface, checked two days later with the response bodies committed
 verbatim, shows an alias that is silent at the API surface (no vendor
 notice was checked). The pinned id is gone from the model list, yet a
@@ -424,8 +424,8 @@ attribution: the arm's data-loss item ran nine breach days from Aug
 17, five of them being held EVENTs, its excursions deepest in the four
 days before the name moved. Then the behavioral record ends at
 2026-09-09 with a pinned step-change counter suspended at two of five.
-Whether that escalation was a staged rollout is what outside
-observation cannot say.
+Outside observation cannot say whether that escalation was a staged
+rollout.
 
 The asymmetry is the operational point. A customer-side monitor
 can say "this model is not behaving as it did when qualified," with
@@ -451,8 +451,8 @@ model answers (per-call commitment) and how it moves when it moves
 (thread morphology). The two Claude models and gpt are
 commit-and-flip: near-deterministic per call (modal share 0.97 to
 0.99), threads that are discrete oscillations with exact state
-recurrence, every one of their eight threads with three or more
-entries unidirectional. The haiku thread is commit-and-flip at week
+recurrence, and every one of their eight threads with three or more
+entries is unidirectional. The haiku thread is commit-and-flip at week
 scale: a seven-observed-day rest, a sixteen-observed-day away dwell,
 and a return to a vector it had produced four weeks earlier. Deepseek
 is sampling noise with wander. It has the widest per-call spread in
@@ -486,12 +486,12 @@ The CFP asks for honest failure. Seven items, each a dated commit
 in the public record, each load-bearing for someone building the
 same thing.
 
-(a) The false-alarm arithmetic was wrong first. I first estimated
-    3.4 chance breaches per day by treating p99 as an exact
-    exceedance rate; on a discrete statistic at K=10 it is not.
-    Exact enumeration corrected it to 1.64 (smoothed truth) and
-    0.05 (empirical truth); the correction is the citable number,
-    and it moved to 1.65 when one slot was re-baselined.
+(a) The false-alarm arithmetic was wrong first. I estimated 3.4 chance
+    breaches per day by treating p99 as an exact exceedance rate; on a
+    discrete statistic at K=10 it is not. Exact enumeration corrected
+    it to 1.64 (smoothed truth) and 0.05 (empirical truth); the
+    correction is the citable number, and it moved to 1.65 when one
+    slot was re-baselined.
 (b) I approved a sensitivity upgrade on 2026-08-06, scored it
     against the committed baselines, and did not land it before the
     next scheduled run; the decline was recorded on 2026-08-13.
@@ -574,21 +574,21 @@ not shrink with K (item b), so they stay at 0.40 or above and their
 alarms are read as regime signals, not degradation.
 
 Treat snapshot evaluation as day-certification. A passed eval
-certifies the day it ran. Period assurance requires a monitor in
-the loop, and the monitor defines the compensating control. When a
-slot flags, five actions follow. Re-run the acceptance tests of
-every pipeline that depends on that model. Gate or freeze automated
+certifies the day it ran. Period assurance requires a monitor in the
+loop, and the monitor defines the compensating control. When a slot
+flags, five actions follow. Re-run the acceptance tests of every
+pipeline that depends on that model. Gate or freeze automated
 decisions qualified against prior behavior. Fail over to a pinned
-alternative where one exists. Open a vendor ticket with dated
-evidence rather than a hunch. Record a control-effectiveness event.
-Write the observable into vendor contracts (distribution stability
-on a pinned bank, for example no decisive-class breach at a 0.30
-band over a rolling 30 days), not the cause, which no customer can
-observe. The alarm load at K=10 and the deployed bands was 1.4
-breached items per probe day across five arms, 24 percent of probed
-model-days non-CLEAN, and 3.7 EVENT model-days per seven probe
-days. Every entry landed on one of 17 slots, 14 of which repeated,
-so triage cost is dominated by known threads, not new ones.
+alternative where one exists. Open a vendor ticket with dated evidence
+rather than a hunch. Record a control-effectiveness event. Write the
+observable into vendor contracts, not the cause, which no customer can
+observe. The observable is distribution stability on a pinned bank,
+for example no decisive-class breach at a 0.30 band over a rolling 30
+days. The alarm load at K=10 and the deployed bands was 1.4 breached
+items per probe day across five arms, 24 percent of probed model-days
+non-CLEAN, and 3.7 EVENT model-days per seven probe days. Every entry
+landed on one of 17 slots, 14 of which repeated, so triage cost is
+dominated by known threads, not new ones.
 
 Re-baseline without discarding. When a monitored slot settles into
 a new state and the alarm channel turns into a daily repeat of the
@@ -618,7 +618,7 @@ halt as an event: that converted a silent alias into a dated detection
 at first contact. On divergence, re-qualify the new identity as a new
 arm with its own baseline and bands, never as a continuation, and
 re-verify every pinned request flag (reasoning mode, temperature)
-against the new name; a rename can carry a configuration change the
+against the new name. A rename can carry a configuration change the
 request no longer binds. I left the arm halted through the freeze to
 keep the instrument byte-constant for this paper.
 
@@ -642,22 +642,23 @@ probabilities, a grey-box observable this instrument does not use. Its
 token-efficient successor [chauvin-b] filters in-vivo changes with a
 four-day persistence rule, and a state that reverts within days never
 survives that filter. The oscillation class documented here needed an
-instrument that keeps it; the instruments are complementary. Daily and
-weekly periodicity in LLM performance [tschisgale] is the continuous
-cousin of the discrete recurrence here. Longitudinal behavioral change
-on major APIs is established at month scale [chen]; this work moves
-the resolution to days and adds exact state recurrence. The
-attribution ceiling is structural, not a limitation of effort:
-black-box access does not support causal attribution of serving-stack
-change [casper], and black-box audits of model substitution can be
-evaded, which points toward hardware attestation rather than more
-observation [cai]. Boundary-item drift sensing predates LLMs:
-margin-density drift detection placed its sensors at the decision
-boundary [md3], the same design choice the equipoise class makes here.
-A published postmortem [anthropic-postmortem] supplies vendor-side
-ground truth that serving changes ship, can stick across follow-up
-requests, and evade vendor evals; the numerics mechanism for silent
-behavioral variation is documented in [thinking-machines].
+instrument that keeps such states; the instruments are complementary.
+Daily and weekly periodicity in LLM performance [tschisgale] is the
+continuous cousin of the discrete recurrence here. Longitudinal
+behavioral change on major APIs is established at month scale [chen];
+this work moves the resolution to days and adds exact state
+recurrence. The attribution ceiling is structural, not a limitation of
+effort: black-box access does not support causal attribution of
+serving-stack change [casper], and black-box audits of model
+substitution can be evaded, which points toward hardware attestation
+rather than more observation [cai]. Boundary-item drift sensing
+predates LLMs: margin-density drift detection placed its sensors at
+the decision boundary [md3], the same design choice the equipoise
+class makes here. A published postmortem [anthropic-postmortem]
+supplies vendor-side ground truth that serving changes ship, can stick
+across follow-up requests, and evade vendor evals; the numerics
+mechanism for silent behavioral variation is documented in
+[thinking-machines].
 
 ### 7. Limitations and reproducibility
 
@@ -670,28 +671,29 @@ movement is invisible and decisive-class stability is bounded, not
 proven. The baseline is one day. A multi-day baseline would have
 characterized two-state items before the bands were pinned; the
 pooled-record tails in section 3.1 are the check that the finding does
-not depend on which state that day caught. The instrument reports
-change, not degradation: 82 of 115 equipoise slots were unanimous at
-baseline, so the frozen reference may itself be the excursion (section
-4, item c). The strict inequality at the band is load-bearing, and its
-float implementation decided ten at-band entries (item f); the entry,
-slot, thread, and direction counts carry their exact-arithmetic
-companions from the committed census, and the null tails are reported
-under the as-recorded semantics only. The null is a choice, not a
-fact: the smoothed and empirical baselines put the same concentration
-at 5.1e-32 and 0.087, and the direction rows condition on the observed
-threads (section 3.3, T1). One arm's behavioral record ends on day 39
-by its own tripwire, and another arm's availability failed for the
-last eight days of the window; the per-model probe-day counts are 53,
-53, 52, 46, and 39. The per-call rows that carry response text are
-retained but not published, and therefore so are the rerun-gap,
-format, and covariate constancy numbers marked [rows]; everything else
-is published. Cost and cadence are modest by design; the instrument
-trades sensitivity for a false-alarm budget one person can staff. Of
-the six pre-registered rules one fired, four never did, and one is
-suspended; two pins carry a registration caveat (section 3.1.1).
-Covariate constancy is claimed over the recorded fields only: echoed
-id and reasoning flag on every arm, host and sent temperature on one.
+not depend on which state the baseline day caught. The instrument
+reports change, not degradation: 82 of 115 equipoise slots were
+unanimous at baseline, so the frozen reference may itself be the
+excursion (section 4, item c). The strict inequality at the band is
+load-bearing, and its float implementation decided ten at-band entries
+(item f); the entry, slot, thread, and direction counts carry their
+exact-arithmetic companions from the committed census, and the null
+tails are reported under the as-recorded semantics only. The null is a
+choice, not a fact: the smoothed and empirical baselines put the same
+concentration at 5.1e-32 and 0.087, and the direction rows condition
+on the observed threads (section 3.3, T1). One arm's behavioral record
+ends on day 39 by its own tripwire, and another arm's availability
+failed for the last eight days of the window; the per-model probe-day
+counts are 53, 53, 52, 46, and 39. The per-call rows that carry
+response text are retained but not published, and therefore so are the
+rerun-gap, format, and covariate constancy numbers marked [rows];
+everything else is published. Cost and cadence are modest by design;
+the instrument trades sensitivity for a false-alarm budget one person
+can staff. Of the six pre-registered rules one fired, four never did,
+and one is suspended; two pins carry a registration caveat (section
+3.1.1). Covariate constancy is claimed over the recorded fields only:
+echoed id and reasoning flag on every arm, host and sent temperature
+on one.
 
 The full instrument is reproducible: item bank, baselines, bands,
 seeds, verdict log, derived daily counts, analysis scripts, and
