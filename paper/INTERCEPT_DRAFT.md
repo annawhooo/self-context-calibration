@@ -64,12 +64,12 @@ marked in the text.
 
 ### 1. Introduction
 
-An agent pipeline is qualified against the model serving it.
-Nothing announces when that stops being true. Vendors change
-weights, quantization, serving configuration, and safety layers
-behind stable model ids; the response schema carries no version for
-any of it. A control validated last quarter is not validated today,
-and no signal reports the expiration.
+An agent pipeline is qualified against the model serving it, and
+nothing announces when that stops being true. Vendors change weights,
+quantization, serving configuration, and safety layers behind stable
+model ids, and the response schema carries no version for any of it.
+So a control validated last quarter is not validated today, and no
+signal reports the expiration.
 
 The gap is not hypothetical. One vendor's published postmortem
 describes three overlapping serving-stack bugs, one of them sticky
