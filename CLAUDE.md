@@ -58,3 +58,11 @@ probe/CORRECTIONS_2026-09-06.md.
   any change under probe/scripts/ or probe/monitor/.
 - Claude sessions never merge PRs in this repo unless the operator
   explicitly asks in the session, and never force-push.
+- Wording, sentences, and decisions the operator chose in a session
+  are not removed, reworded, or reverted by a later edit (a trim, a
+  fluency pass, a rewrite) without telling her first, in the same
+  message, before the change is made. Before proposing any edit to
+  text she has already reviewed, diff the proposal against the
+  record of her choices and list every one it would touch. Added
+  2026-09-30 after a trim silently undid five approved abstract
+  edits.
