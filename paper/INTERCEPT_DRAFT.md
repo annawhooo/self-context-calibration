@@ -71,11 +71,12 @@ model ids, and the response schema carries no version for any of it.
 So a control validated last quarter is not validated today, and no
 signal reports the expiration.
 
-The gap is not hypothetical. One vendor's published postmortem
+The gap is not hypothetical: one vendor's published postmortem
 describes three overlapping serving-stack bugs, one of them sticky
 across follow-up requests, all three missed by the vendor's own
-evaluations, two of them resolved by rollback [anthropic-postmortem].
-This paper measures from outside.
+evaluations, and two of them resolved by rollback
+[anthropic-postmortem]. That is the view from inside, and this paper
+measures the view from outside.
 
 Here is what measuring from outside looks like. On August 2, 2026, I
 baselined five production APIs on a 68-item judgment bank and probed
