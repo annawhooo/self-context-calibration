@@ -50,14 +50,21 @@ SUBS = [
      "The two Claude models and gpt are\ncommit-and-flip:"),
     ("The arm 1 thread is commit-and-flip at week",
      "The haiku thread is commit-and-flip at week"),
-    ("Arm 5 is sampling noise with wander:",
-     "Deepseek is sampling noise with wander:"),
+    ("Arm 5 shows sampling noise with wander:",
+     "Deepseek shows sampling noise with wander:"),
     ("Arm 4 sat near-frozen through its 46",
      "Gemini sat near-frozen through its 46"),
     ("the other, arm 4\nat 0.99, sat near-frozen.",
      "the other, gemini\nat 0.99, sat near-frozen."),
-    ("the name that arm 5's model tier answered under",
-     "the name that the deepseek flash tier answered under"),
+    ("When arm 5's model tier changed the name it answered under",
+     "When the deepseek flash tier changed the name it answered under"),
+    # venue: the INTERCEPT CFP asked for honest failure; WCARS did not
+    ("The CFP asks for honest failure. Seven items, each a dated commit\n"
+     "in the public record, each load-bearing for someone building the\n"
+     "same thing.",
+     "Seven items follow, each a failure of the instrument or of my\n"
+     "handling of it, each a dated commit in the public record, each\n"
+     "load-bearing for someone building the same thing."),
     # blind-review apparatus
     ("The artifact is public, but the link is withheld from this\n"
      "submission for blind review and supplied on acceptance.",
