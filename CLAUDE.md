@@ -66,3 +66,18 @@ probe/CORRECTIONS_2026-09-06.md.
   record of her choices and list every one it would touch. Added
   2026-09-30 after a trim silently undid five approved abstract
   edits.
+- Any prose drafted for the operator (paper text, dated notes,
+  cover emails, abstracts, form answers) passes this checklist
+  before it is shown to her, and the draft says what the checklist
+  changed: no garden-path openers; no term of art before the
+  reader has its definition; no elided object ("produced none");
+  every verb carries its complement ("held constant"); a contrast
+  takes its conjunction; one thought is one sentence, joined with
+  "and", a colon, or "so", not chopped into staccato pieces; a
+  negation may stand alone before its payoff; every claim scoped
+  to the check actually run; the number the reader will ask about
+  is in the sentence, with its unit; formal salutation on a first
+  professional send; contractions kept mid-sentence, expanded at a
+  sentence start. Added 2026-09-30 after the operator had to catch
+  the same patterns in a cover email that she had already caught
+  in the paper.
