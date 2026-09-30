@@ -214,15 +214,16 @@ reports what that decided.
 
 The record at the freeze is 56 calendar days, 2026-08-02 to
 2026-09-26, with 166,006 calls in the verdict log and at least one
-probe on 55 of the days. Availability gaps, all recorded in the log
-and none a behavioral observation: one vendor arm lost three days
-to account credit exhaustion (HTTP 429). The two arms on a second
-vendor lost two days to a credential rotation on my side (HTTP
-401). A third vendor's arm returned HTTP 503 ``high demand'' on
-nine days, seven of them in the eight ending at the freeze. One day
-failed on all five arms from a local network outage. Separately,
-and not an availability gap: a fifth arm halted itself on day 40 by
-its own tripwire and stayed halted (Section~\ref{sec:attr}).
+probe on 55 of the days. The availability gaps are all recorded in the
+log, and none is a behavioral observation: one vendor arm lost three
+days to account credit exhaustion (HTTP 429), the two arms on a second
+vendor lost two days to a credential rotation on my side (HTTP 401), a
+third vendor's arm returned HTTP 503 ``high demand'' on nine days,
+seven of them in the eight ending at the freeze, and one day failed on
+all five arms from a local network outage. A fifth arm halted itself
+on day 40 by its own tripwire and stayed halted, but that is not an
+availability gap (Section~\ref{sec:attr}).
+
 Everything above is regenerable from the committed repository:
 baselines, bands, seeds, verdict log, derived daily counts, and
 every analysis script behind a number in this paper. Numbers marked
