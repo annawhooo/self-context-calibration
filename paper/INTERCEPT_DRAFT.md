@@ -87,18 +87,19 @@ This paper measures from outside.
 
 Here is what measuring from outside looks like. On August 2, 2026, I
 baselined five production APIs on a 68-item judgment bank and probed
-the full bank hours later: 340 slots, zero breaches, every model
-clean. The next scheduled probe, one day later, found one model in a
-different regime, and a second model with a single-item EVENT the same
-day. On the first, two items flipped to a joint state they had
-occupied four days before, in the pre-baseline collection runs, a flip
-with probabilities on the order of 1e-5 to 1e-13 under the smoothed
-null on the fresh baseline. The state held for the same-day rerun,
-came apart over the next two days, and was back in full on the third.
-This is not an outage and it is not noise. It is a served model
-revisiting a prior behavioral state, on a pinned id, with no changelog
-entry. At the close of the 56-day record it holds 75 breach entries on
-17 slots, and not one on a decisive item.
+the full bank hours later: 340 model-item slots, zero breaches, every
+model clean. The next scheduled probe, one day later, found one model
+in a different regime, and a second model with a single-item EVENT the
+same day, a breach that held on its rerun. On the first model, two
+items flipped to a joint state they had occupied four days before, in
+the pre-baseline collection runs, a flip with probabilities on the
+order of 1e-5 to 1e-13 under the smoothed null on the fresh baseline.
+The state held for the same-day rerun, came apart over the next two
+days, and was back in full on the third. This is not an outage and it
+is not noise. It is a served model revisiting a prior behavioral
+state, on a pinned id, with no changelog entry. At the close of the
+56-day record it holds 75 breach entries on 17 slots, and not one on a
+decisive item.
 
 This paper contributes:
 
@@ -151,15 +152,16 @@ The first has one option a practitioner can derive as the riskiest.
 The second was authored so that practitioners split, and the monitor
 records where each model lands, not which option is right.
 
-Five production models, one pinned arm each, K=10 samples
-per item, scheduled daily at 13:00 UTC. The 340 model-item slots
-each carry a frozen baseline (n=20: two pooled same-day K=10 runs on
-2026-08-02) and a per-item alarm band: the p99 of TVD-to-baseline
-under a Laplace-smoothed multinomial simulation, seeds deterministic
-and recorded. Bands across the 340 slots: 0.40 x311, 0.45 x28,
-0.50 x1. One slot's alarm reference was re-baselined on 2026-08-23
-from two pooled same-day K=10 runs, with the original preserved
-(section 3.1.1).
+Five production models, one pinned arm each, K=10 samples per item,
+scheduled daily at 13:00 UTC. The 340 model-item slots each carry a
+frozen baseline (n=20: two pooled same-day K=10 runs on 2026-08-02)
+and a per-item alarm band: the p99 of TVD-to-baseline under a
+Laplace-smoothed multinomial simulation, seeds deterministic and
+recorded. Bands across the 340 slots: 0.40 x311, 0.45 x28, 0.50 x1.
+One slot in full: the fraud-scoring item of section 3.1 carries the
+frozen baseline 8/12/0/0 over options A to D. One slot's alarm
+reference was re-baselined on 2026-08-23 from two pooled same-day K=10
+runs, with the original preserved (section 3.1.1).
 
 Vocabulary, used throughout. A slot is one model-item pair. An
 entry is one breach of one slot on one day. A thread is a slot with
@@ -169,17 +171,19 @@ consecutive observed days in one state.
 
 A day's probe compares each slot's observed distribution to its
 baseline. A breach (strict inequality above band) fires a same-day
-rerun of the breached items only, and the rerun disambiguates: a
-rerun matching the probe and not the baseline is an EVENT, matching
-the baseline back is TRANSIENT, matching neither is UNSTABLE. Every
+rerun of the breached items only, and the rerun disambiguates: a rerun
+matching the probe and not the baseline is an EVENT, matching the
+baseline back is TRANSIENT, matching neither is UNSTABLE. Every
 response row records the echoed model id; a divergent echo halts
 collection for that model at the first call (ECHO_CHANGE, exercised
-from day 40 of the record onward; section 3.4). One verdict line
-per model per day, appended to a committed log. The verdict grammar
-is CLEAN, EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR, and I
-declared the reporting commitment before the first scheduled
-observation: quiet windows get published with the same care as
-event windows.
+from day 40 of the record onward; section 3.4). One verdict line per
+model per day, appended to a committed log. Each line carries the day
+verdict and, per breached item, the observed TVD, the band, the
+rerun's TVD to the probe and to the baseline, and the item verdict.
+The verdict grammar is CLEAN, EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE,
+ERROR, and I declared the reporting commitment before the first
+scheduled observation: quiet windows get published with the same care
+as event windows.
 
 The false-alarm rate is not assumed from the band percentile. It is
 computed by exact enumeration over all 286 compositions of ten
@@ -215,21 +219,22 @@ The headline behavior is not drift in the gradual sense. It is
 discrete states, revisited exactly.
 
 One model held a two-item joint state (terse 9 or 10 of 10 A on a
-fraud-scoring item; verbose 8 to 10 of 10 D on a
-vulnerability-gating item), left it, and re-entered it three days
-later. Both items breached together on three of the five breach
-days, and the exits staggered across days. The fraud-scoring item
-produced the identical pure-A vector, 10/0/0/0, on four of its five
-breach days (Aug 3, 4, 6, 10). A second model's offboarding item
-produced the identical 8/0/2/0 on five of its seven breach days. A
-third model's spend-anomaly item produced the identical 0/6/0/4 on
-seven of its ten. These are the vectors on which the alarms fired;
-the same items also sat away from baseline inside band on many more
-days, at vectors that recur too (the offboarding item at 6/0/4/0 and
-7/0/3/0 five days each).
+fraud-scoring item; verbose 8 to 10 of 10 D on a vulnerability-gating
+item), left it, and re-entered it three days later. Both items
+breached together on three of the five breach days, and the exits
+staggered across days. The fraud-scoring item produced the identical
+pure-A vector, 10/0/0/0, on four of its five breach days (Aug 3, 4, 6,
+10). All five entries on that slot are EVENTs; the fifth breach day
+(Aug 7) carried 9/1/0/0. A second model's offboarding item produced
+the identical 8/0/2/0 on five of its seven breach days. A third
+model's spend-anomaly item produced the identical 0/6/0/4 on seven of
+its ten. These are the vectors on which the alarms fired; the same
+items also sat away from baseline inside band on many more days, at
+vectors that recur too (the offboarding item at 6/0/4/0 and 7/0/3/0
+five days each).
 
 Under the frozen baselines these are not plausible draws. The
-recurring pure-A state has per-run probability 1.0e-4 under the
+recurring pure-A state has per-day probability 1.0e-4 under the
 empirical baseline and 5.5e-5 under the smoothed one; the 0/0/0/10
 verbose state on the vulnerability item, 1.6e-14 smoothed and zero
 empirical; the 0/6/0/4 state, 1.7e-6 empirical. Point probabilities
@@ -237,7 +242,7 @@ are quoted for scale; the evidence is the recurrence of the same
 vector on the same slot, and the tail probabilities of section 3.3,
 which are computed over all 340 slots. Against each item's own pooled
 record rather than the frozen baseline, the fraud-scoring recurrence
-stays impossible for any single multinomial: P(at least four pure-A
+stays out of reach of any single multinomial: P(at least four pure-A
 days in 53) = 2.3e-13 against the pooled 187 A to 343 B, which gives a
 pure-A day probability of 3.0e-5. The offboarding 8/0/2/0 (P = 0.009
 for at least five of 52) and the spend-anomaly 0/6/0/4 (P = 0.09 for
@@ -280,22 +285,22 @@ two of its early home-dwell days four weeks prior. The pre-registered
 branch executed as a dated commit the same day, merged the next
 morning before the next probe day landed. I revised the classification
 to slow alternation with week-scale dwell. The candidacy stands as a
-correctly fired rule. I re-examined the re-baseline as pre-committed
-and kept it: the item rests in the new state and visits the old one,
-and the preserved original is what made the return visible at all.
-From the return day on, the item sat at the original reference on
-seven days through Sep 18 (Sep 2, 6, 9, 10, 13, 16, 18) and then sat
-away for the seven observed days ending at the freeze. Against the
-frozen reference it was home on 16 of 53 observed days. This was not a
-step change. It is the longest-dwell alternation in the record. Every
-step of the loop (rule, candidacy, re-baseline, return criterion,
-revision) ran on machinery pinned before its deciding data was read.
-The first rule was committed with three unread probe days already on
-disk, as its note records, and every later step's data postdates its
-pin.
+correctly fired rule; the revision changes the classification, not the
+firing. I re-examined the re-baseline as pre-committed and kept it:
+the item rests in the new state and visits the old one, and the
+preserved original is what made the return visible at all. From the
+return day on, the item sat at the original reference on seven days
+through Sep 18 (Sep 2, 6, 9, 10, 13, 16, 18) and then sat away for the
+seven observed days ending at the freeze. Against the frozen reference
+it was home on 16 of 53 observed days. This was not a step change. It
+is the longest-dwell alternation in the record. Every step of the loop
+(rule, candidacy, re-baseline, return criterion, revision) ran on
+machinery pinned before its deciding data was read. The first rule was
+committed with three unread probe days already on disk, as its note
+records, and every later step's data postdates its pin.
 
 I pinned four more rules on gpt threads, three after a held EVENT on
-the thread and one from home ahead of any live run. Their thresholds
+the thread and one from home ahead of any away run. Their thresholds
 were 12, 8, 3, and 4 consecutive observed away days, each the thread's
 own longest returned-from dwell plus two days of clearance. None
 fired. The longest count any reached was 4 of 12. A fifth rule, on the
@@ -361,38 +366,38 @@ distinct slots. The observed 75 entries pile onto 17. Thirteen slots
 carry three or more entries each, against 1.04 expected slots at that
 depth (P = 6.7e-11); seven carry five or more, against 0.0063 (P =
 4.4e-20). Direction is structured too. Given the thirteen threads and
-their entry counts, the null expects 1.6 of them to move toward the
-same option at every breach; ten do (P = 6.8e-10), and five of the
-seven deepest do against 0.7 expected (P = 3.3e-7). The three threads
-that are not direction-stable all belong to one vendor, and section
-3.5 returns to them. Two caveats travel with every number here. Slots
-within a model-day share a scaffold and are not independent; the
-recurrence statistics are computed per-slot across days, where the
-sharing argument does not apply. And the null charges every arm for
-all 56 days, including the 37 model-days whose run did not complete
-and were never gated, which inflates its expectations and makes each
-upper tail conservative; the one lower tail, P(zero) on decisive
-slots, moves the other way (3.7e-22 under probed days only). Under
-exact rather than floating-point arithmetic (section 4, item f) the
-record reads 65 entries on 16 slots, still all equipoise, ten threads
-at three or more entries (eight unidirectional) and five at five or
-more (four unidirectional). The concentration and direction findings
-survive in kind; the tail probabilities above are computed under the
-as-recorded semantics only.
+their entry counts, the smoothed null expects 1.6 of them to move
+toward the same option at every breach; ten do (P = 6.8e-10), and five
+of the seven deepest do against 0.7 expected (P = 3.3e-7). The three
+threads that are not direction-stable all belong to one vendor, and
+section 3.5 returns to them. Two caveats travel with every number
+here. Slots within a model-day share a scaffold and are not
+independent; the recurrence statistics are computed per-slot across
+days, where the sharing argument does not apply. And the smoothed null
+charges every arm for all 56 days, including the 37 model-days whose
+run did not complete and were never gated, which inflates its
+expectations and makes each upper tail conservative; the one lower
+tail, P(zero) on decisive slots, moves the other way (3.7e-22 under
+probed days only). Under exact rather than floating-point arithmetic
+(section 4, item f) the record reads 65 entries on 16 slots, still all
+equipoise, ten threads at three or more entries (eight unidirectional)
+and five at five or more (four unidirectional). The concentration and
+direction findings survive in kind; the tail probabilities above are
+computed under the as-recorded semantics only.
 
 #### 3.4 Detection without attribution
 
-Behavior moved. Nothing else did. The rows carry the echoed model id
-and the reasoning flag on every arm, and the host field and the sent
-temperature on the one arm whose SDK exposes them. Across 174,033 rows
-[rows], each recorded covariate took one value per model on every row
-that entered a behavioral verdict. No covariate co-varied with any
-breach, because none took a second value while behavior was being
-measured. The EVENT label itself is weaker than designed, and I demote
-it: the same-day rerun certifies persistence over minutes (0.34 to
-10.15, median 1.86 [rows]), not the twenty the early record estimated.
-The persistence evidence is not the rerun. It is cross-day recurrence
-of exact states.
+Behavior moved. No recorded covariate did. The rows carry the echoed
+model id and the reasoning flag on every arm, and the host field and
+the sent temperature on the one arm whose SDK exposes them. Across
+174,033 rows [rows], each recorded covariate took one value per model
+on every row that entered a behavioral verdict. No covariate co-varied
+with any breach, because none took a second value while behavior was
+being measured. The EVENT label itself is weaker than designed, and I
+demote it: the same-day rerun certifies persistence over minutes (0.34
+to 10.15, median 1.86 [rows]), not the twenty the early record
+estimated. The persistence evidence is not the rerun. It is cross-day
+recurrence of exact states.
 
 Then the one covariate that had held moved, and it was the identity
 itself. On 2026-09-10 the deepseek arm's first call echoed
@@ -424,16 +429,16 @@ product is a dated evidence trail, not a diagnosis.
 
 #### 3.5 Temporal phenotypes
 
-Outside the focal threads, no model moves. On quiet equipoise
-slots, mean observed TVD sits within +0.011 of the exact expectation
-under a stationary baseline on all five models, once the
-expectation charges for probe sampling and baseline estimation
-noise together. Per model: haiku +0.000, sonnet +0.005, gpt +0.006,
-gemini +0.009, deepseek +0.011. On the breached threads the same
-excess runs +0.086 to +0.137. That holds while per-call spread
-varies widely: mean modal share runs 0.91 to 0.99 across vendors.
-Ambient drift is zero at this instrument's resolution; every
-detected movement belongs to a named, recurring thread.
+Outside the focal threads, no model moves. On quiet equipoise slots,
+mean observed TVD sits within +0.011 of the exact expectation under a
+stationary baseline on all five models, once the expectation charges
+for probe sampling and baseline estimation noise together. Per model:
+haiku +0.000, sonnet +0.005, gpt +0.006, gemini +0.009, deepseek
++0.011. On the breached threads the same excess runs +0.086 to +0.137.
+That holds while per-call spread varies: mean modal share runs 0.91 to
+0.99 across vendors. Ambient drift is zero at this instrument's
+resolution; every detected movement belongs to a named, recurring
+thread.
 
 The phenotypes are two axes that do not reduce to each other: how a
 model answers (per-call commitment) and how it moves when it moves
@@ -528,8 +533,9 @@ same thing.
     headline claim survives both semantics in kind (65 entries on 16
     slots, all equipoise; ten threads at three or more entries, eight
     unidirectional), and the false-breach null moves in step (1.65 to
-    1.55). The instrument moves to exact integer comparison after
-    submission, no earlier than a pre-registered date.
+    1.55 expected false breaches per day, smoothed truth). The
+    instrument moves to exact integer comparison after submission, no
+    earlier than a pre-registered date.
 (g) The monitor had gaps of its own. Twenty-one model-days in 56
     failed on availability: three to exhausted API credit, four to
     a credential rotation (two arms, two days), nine to one
@@ -552,7 +558,7 @@ near-noiseless: in 11,057 slot-days the maximum TVD was 0.30, seen
 twice, and nothing else exceeded 0.20 in exact arithmetic. A decisive
 band of 0.25 would have fired twice in 56 days under either
 arithmetic; 0.30 would never have fired under exact comparison and
-twice under the monitor's float path (item f). Either is a large gain
+twice under the monitor's float path (item f). Either band is a gain
 over the deployed 0.40 to 0.45, and monitoring there is free
 sensitivity, provided a pre-registered rollback rides along (the
 drafted, not yet adopted, recalibration policy reverts if the
@@ -602,10 +608,10 @@ flash tier answered under changed mid-study, the pinned id kept
 serving as a silent alias, and only the response-side echo
 distinguished the qualified model from whatever now answered to its
 name. Record the echo on every row, halt on divergence, and treat the
-halt as an event: that converted an invisible reroute into a dated
-detection at first contact. On divergence, re-qualify the new identity
-as a new arm with its own baseline and bands, never as a continuation,
-and re-verify every pinned request flag (reasoning mode, temperature)
+halt as an event: that converted a silent alias into a dated detection
+at first contact. On divergence, re-qualify the new identity as a new
+arm with its own baseline and bands, never as a continuation, and
+re-verify every pinned request flag (reasoning mode, temperature)
 against the new name; a rename can carry a configuration change the
 request no longer binds. I left the arm halted through the freeze to
 keep the instrument byte-constant for this paper.
@@ -658,19 +664,28 @@ movement is invisible and decisive-class stability is bounded, not
 proven. The baseline is one day. A multi-day baseline would have
 characterized two-state items before the bands were pinned; the
 pooled-record tails in section 3.1 are the check that the finding does
-not depend on which state that day caught. The strict inequality at
-the band is load-bearing, and its float implementation decided ten
-at-band entries (item f); the entry, slot, thread, and direction
-counts carry their exact-arithmetic companions from the committed
-census, and the null tails are reported under the as-recorded
-semantics only. One arm's behavioral record ends on day 39 by its own
-tripwire, and another arm's availability failed for the last eight
-days of the window; the per-model probe-day counts are 53, 53, 52, 46,
-and 39. The per-call rows that carry response text are retained but
-not published, and therefore so are the rerun-gap, format, and
-covariate constancy numbers marked [rows]; everything else is. Cost
-and cadence are modest by design; the instrument trades sensitivity
-for a false-alarm budget one person can staff.
+not depend on which state that day caught. The instrument reports
+change, not degradation: 82 of 115 equipoise slots were unanimous at
+baseline, so the frozen reference may itself be the excursion (section
+4, item c). The strict inequality at the band is load-bearing, and its
+float implementation decided ten at-band entries (item f); the entry,
+slot, thread, and direction counts carry their exact-arithmetic
+companions from the committed census, and the null tails are reported
+under the as-recorded semantics only. The null is a choice, not a
+fact: the smoothed and empirical baselines put the same concentration
+at 5.1e-32 and 0.087, and the direction rows condition on the observed
+threads (section 3.3, T1). One arm's behavioral record ends on day 39
+by its own tripwire, and another arm's availability failed for the
+last eight days of the window; the per-model probe-day counts are 53,
+53, 52, 46, and 39. The per-call rows that carry response text are
+retained but not published, and therefore so are the rerun-gap,
+format, and covariate constancy numbers marked [rows]; everything else
+is published. Cost and cadence are modest by design; the instrument
+trades sensitivity for a false-alarm budget one person can staff. Of
+the six pre-registered rules one fired, four never did, and one is
+suspended; two pins carry a registration caveat (section 3.1.1).
+Covariate constancy is claimed over the recorded fields only: echoed
+id and reasoning flag on every arm, host and sent temperature on one.
 
 The full instrument is reproducible: item bank, baselines, bands,
 seeds, verdict log, derived daily counts, analysis scripts, and
