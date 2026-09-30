@@ -79,20 +79,20 @@ evaluations, and two of them resolved by rollback
 measures the view from outside.
 
 Here is what measuring from outside looks like. On August 2, 2026, I
-baselined five production APIs on a 68-item judgment bank and probed
-the full bank hours later: 340 model-item slots, zero breaches, every
-model clean. The next scheduled probe, one day later, found one model
-in a different regime, and a second model with a single-item EVENT the
-same day, a breach that held on its rerun. On the first model, two
-items flipped to a joint state they had occupied four days before, in
-the pre-baseline collection runs. The flip carries probabilities on
-the order of 1e-5 to 1e-13 under the smoothed null on the fresh
-baseline. The state held for the same-day rerun, came apart over the
-next two days, and was back in full on the third. This is not an
-outage and it is not noise. It is a served model revisiting a prior
-behavioral state, on a pinned id, with no changelog entry. At the
-close of the 56-day record it holds 75 breach entries on 17 slots, and
-not one on a decisive item.
+baselined five production APIs on a 68-item judgment bank, twenty
+samples per slot, and probed the full bank at ten samples hours later:
+340 model-item slots, zero breaches, every model clean. The next
+scheduled probe, one day later, found one model in a different regime,
+and a second model with a single-item EVENT the same day, a breach
+that held on its rerun. On the first model, two items flipped to a
+joint state they had occupied four days before, in the pre-baseline
+collection runs. The flip carries probabilities on the order of 1e-5
+to 1e-13 under the smoothed null on the fresh baseline. The state held
+for the same-day rerun, came apart over the next two days, and was
+back in full on the third. This is not an outage and it is not noise.
+It is a served model revisiting a prior behavioral state, on a pinned
+id, with no changelog entry. At the close of the 56-day record it
+holds 75 breach entries on 17 slots, and not one on a decisive item.
 
 This paper contributes:
 
