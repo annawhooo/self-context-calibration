@@ -188,14 +188,14 @@ EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR. I declared the
 reporting commitment before the first scheduled observation: quiet
 windows get published with the same care as event windows.
 
-The false-alarm rate is not assumed from the band percentile. It is
-computed by exact enumeration over all 286 compositions of ten
-draws into four options, per item, against each item's band: 1.65
-expected false breaches per day if the smoothed baseline is truth,
-0.05 if the empirical baseline is truth. Observed daily breach
-counts sit against that null throughout. The comparison is a strict
-inequality implemented in floating point, and section 4 reports
-what that decided.
+The false-alarm rate is not assumed from the band percentile: it is
+computed by exact enumeration over all 286 compositions of ten draws
+into four options, per item, against each item's band: 1.65 expected
+false breaches per day if the smoothed baseline is truth, 0.05 if the
+empirical baseline is truth. Observed daily breach counts sit against
+that null throughout. The comparison is a strict inequality
+implemented in floating point, and section 4 reports what that
+decided.
 
 The record at the freeze is 56 calendar days, 2026-08-02 to
 2026-09-26, with 166,006 calls in the verdict log and at least one
@@ -219,7 +219,7 @@ rather than publish.
 
 #### 3.1 Regime oscillation with exact recurrence
 
-The headline behavior is not drift in the gradual sense. It is
+The headline behavior is not drift in the gradual sense: it is
 discrete states, revisited exactly.
 
 One model held a two-item joint state (terse 9 or 10 of 10 A on a
@@ -307,17 +307,18 @@ postdates its pin.
 I pinned four more rules on gpt threads, three after a held EVENT on
 the thread and one from home ahead of any away run. Their thresholds
 were 12, 8, 3, and 4 consecutive observed away days, each the thread's
-own longest returned-from dwell plus two days of clearance. None
-fired: the longest count any reached was 4 of 12. A fifth rule, on the
-deepseek data-loss item, stood at 2 of 5 when the arm's identity
-changed; the rule is suspended, not resolved. Of the six pins, two
-carry a registration caveat and one a process note. The first pin was
-committed with unread probe days on disk, and its blindness rests on a
-same-day attestation. One was merged after post-pin data existed, and
-its blindness rests on a retrospective attestation. The process note:
-two sessions drafted the same rule under one filename; the merged
-draft met its validity condition and the duplicate was closed
-unmerged. I report the grades rather than hide them.
+own longest returned-from dwell plus two days of clearance. None of
+the four fired: the longest count any reached was 4 of 12. A fifth
+rule, on the deepseek data-loss item, stood at 2 of 5 when the arm's
+identity changed; the rule is suspended, not resolved. Of the six
+pins, two carry a registration caveat and one a process note. The
+first pin was committed with unread probe days on disk, and its
+blindness rests on a same-day attestation. The other was merged after
+post-pin data existed, and its blindness rests on a retrospective
+attestation. The process note: two sessions drafted the same rule
+under one filename; the merged draft met its validity condition and
+the duplicate was closed unmerged. I report the grades rather than
+hide them.
 
 #### 3.2 The movement concentrates where judgment is contested
 
@@ -464,12 +465,12 @@ reference. Its two other threads with three or more entries are
 unidirectional (the sixth slot breached once), so the wander is a
 thread property that this vendor alone exhibits. Gemini sat
 near-frozen through its 46 probe days: two transient breaches on two
-different items and nothing held. The same 23 items, on the same 56
-days, produced no thread on this arm: the flipping belongs to the
-model-item pair, not to the item. Per-call determinism is not temporal
-stability. Of the four models that answer most consistently within a
-day (modal share 0.97 to 0.99), three flipped between days; the other,
-gemini at 0.99, sat near-frozen.
+different items, and neither survived its same-day rerun. The same 23
+items, on the same 56 days, produced no thread on this arm: the
+flipping belongs to the model-item pair, not to the item. Per-call
+determinism is not temporal stability. Of the four models that answer
+most consistently within a day (modal share 0.97 to 0.99), three
+flipped between days; the other, gemini at 0.99, sat near-frozen.
 
 Format rides along as an independent observable. On the
 vulnerability-gating item, answer state and response format flip in
@@ -627,8 +628,8 @@ model-days in 56 (item g). Alarm on a missing probe the way you alarm
 on a breach. A monitor that did not run observed nothing, and a day
 with no observation is an ERROR line, not a CLEAN one.
 
-Know what the tool cannot do. Detection is not attribution. It tells a
-team when to stop trusting automation qualified against prior
+Know what the tool cannot do. Detection is not attribution. Detection
+tells a team when to stop trusting automation qualified against prior
 behavior; it does not identify what changed on the serving side. When
 procurement or contract language assumes attribution from outside the
 API, that language promises something the measurement cannot deliver.
@@ -684,15 +685,15 @@ on the observed threads (section 3.3, T1). One arm's behavioral record
 ends on day 39 by its own tripwire, and another arm's availability
 failed for the last eight days of the window; the per-model probe-day
 counts are 53, 53, 52, 46, and 39. The per-call rows that carry
-response text are retained but not published, and therefore so are the
-rerun-gap, format, and covariate constancy numbers marked [rows];
-everything else is published. Cost and cadence are modest by design;
-the instrument trades sensitivity for a false-alarm budget one person
-can staff. Of the six pre-registered rules one fired, four never did,
-and one is suspended; two pins carry a registration caveat (section
-3.1.1). Covariate constancy is claimed over the recorded fields only:
-echoed id and reasoning flag on every arm, host and sent temperature
-on one.
+response text are retained but not published, so the rerun-gap,
+format, and covariate constancy numbers marked [rows] that derive from
+them are also unpublished; everything else is published. Cost and
+cadence are modest by design; the instrument trades sensitivity for a
+false-alarm budget one person can staff. Of the six pre-registered
+rules one fired, four never did, and one is suspended; two pins carry
+a registration caveat (section 3.1.1). Covariate constancy is claimed
+over the recorded fields only: echoed id and reasoning flag on every
+arm, host and sent temperature on one.
 
 The full instrument is reproducible: item bank, baselines, bands,
 seeds, verdict log, derived daily counts, analysis scripts, and every
