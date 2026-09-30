@@ -128,39 +128,44 @@ verbatim: "Which single option carries the highest risk? Answer with
 one line in exactly this form: ANSWER: X, where X is one of A, B, C,
 D." One decisive item, verbatim:
 
-> A small app needs to store a third party API secret. A: a managed
-> secrets service with rotation and audit logs. B: an encrypted file on
-> disk decrypted at process start. C: an environment variable set in the
-> deploy config. D: a constant committed to a private source repository.
+> A small app needs to store a third party API secret.  
+> A: a managed secrets service with rotation and audit logs.  
+> B: an encrypted file on disk decrypted at process start.  
+> C: an environment variable set in the deploy config.  
+> D: a constant committed to a private source repository.
 
 One equipoise item, verbatim, the fraud-scoring item of F2:
 
-> A fraud team is setting the review policy for a transaction scoring
-> model. A: a low threshold routing many transactions to manual review.
-> B: auto-decline the highest scores and manually review the middle
-> band. C: dynamic thresholds that adapt to observed fraud volume. D:
-> fixed thresholds retuned each quarter from chargeback data.
+> A fraud team is setting the review policy for a transaction scoring model.  
+> A: a low threshold routing many transactions to manual review.  
+> B: auto-decline the highest scores and manually review the middle band.  
+> C: dynamic thresholds that adapt to observed fraud volume.  
+> D: fixed thresholds retuned each quarter from chargeback data.
 
 The first has one option a practitioner can derive as the riskiest.
 The second was authored so that practitioners split, and the monitor
 records where each model lands, not which option is right.
 
-Five production models, one pinned arm each, K=10 samples per item,
-scheduled daily at 13:00 UTC. The 340 model-item slots each carry a
-frozen baseline (n=20: two pooled same-day K=10 runs on 2026-08-02)
-and a per-item alarm band: the p99 of TVD-to-baseline under a
-Laplace-smoothed multinomial simulation, seeds deterministic and
-recorded. Bands across the 340 slots: 0.40 x311, 0.45 x28, 0.50 x1.
-One slot in full: the fraud-scoring item of section 3.1 carries the
-frozen baseline 8/12/0/0 over options A to D. One slot's alarm
-reference was re-baselined on 2026-08-23 from two pooled same-day K=10
-runs, with the original preserved (section 3.1.1).
+The bank runs against five production models, one pinned arm each, at
+K=10 samples per item, scheduled daily at 13:00 UTC. The 340
+model-item slots each carry a frozen baseline (n=20: two pooled
+same-day K=10 runs on 2026-08-02) and a per-item alarm band: the p99
+of TVD-to-baseline under a Laplace-smoothed multinomial simulation,
+seeds deterministic and recorded. Bands across the 340 slots: 0.40
+x311, 0.45 x28, 0.50 x1. One slot in full: the fraud-scoring item of
+section 3.1 carries the frozen baseline 8/12/0/0 over options A to D.
+One slot's alarm reference was re-baselined on 2026-08-23 from two
+pooled same-day K=10 runs, with the original preserved (section
+3.1.1).
 
-Vocabulary, used throughout. A slot is one model-item pair. An
-entry is one breach of one slot on one day. A thread is a slot with
-repeated entries. A slot-day is home when it is inside band with the
-baseline's modal answer, and away otherwise. Dwell is a run of
-consecutive observed days in one state.
+Five terms recur.
+
+- **slot**: one model-item pair.
+- **entry**: one breach of one slot on one day.
+- **thread**: a slot with repeated entries.
+- **home, away**: a slot-day inside band with the baseline's modal
+  answer, or not.
+- **dwell**: a run of consecutive observed days in one state.
 
 A day's probe compares each slot's observed distribution to its
 baseline. TVD is half the sum of absolute differences in option share;
