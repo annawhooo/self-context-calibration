@@ -392,8 +392,17 @@ def analyze(start, end):
     sum_p = sum(s["p"] for s in slots)
     figs["sum_p_per_day"] = sum_p
     figs["e_total_entries"] = sum(s["days"] * s["p"] for s in slots)
-    figs["e_distinct_slots"] = sum(
-        1 - (1 - s["p"]) ** s["days"] for s in slots)
+    q_any = [1 - (1 - s["p"]) ** s["days"] for s in slots]
+    figs["e_distinct_slots"] = sum(q_any)
+    # lower tail for the distinct-slot row of the paper's structure
+    # table (17 observed against 80.3 expected is a lower-tail event),
+    # and the expected number of distinct breached eq_ slots, added
+    # 2026-10-01 to fill the table's blank cells
+    dist_any = bernoulli_sum_dist(q_any, len(slots))
+    figs["p_distinct_le_obs"] = sum(
+        dist_any[:figs["obs_distinct_slots"] + 1])
+    figs["e_distinct_eq_slots"] = sum(
+        q for q, s in zip(q_any, slots) if s["eq"])
     figs["eq_share"] = sum(s["p"] for s in slots if s["eq"]) / sum_p
     figs["p_all_entries_eq"] = (
         figs["eq_share"] ** figs["obs_entries"])
@@ -490,8 +499,11 @@ def report(figs):
     print("  E[breach entries]            %.3f   P(>= %d) = %.4g"
           % (figs["e_total_entries"], figs["obs_entries"],
              figs["p_total_ge_obs"]))
-    print("  E[distinct breached slots]   %.2f"
-          % figs["e_distinct_slots"])
+    print("  E[distinct breached slots]   %.2f   P(<= %d) = %.4g"
+          % (figs["e_distinct_slots"], figs["obs_distinct_slots"],
+             figs["p_distinct_le_obs"]))
+    print("  E[distinct eq_ slots]        %.2f"
+          % figs["e_distinct_eq_slots"])
     print("  E[slots >=2 / >=3 / >=5]     %.4f / %.6f / %.4g"
           % (figs["e_slots_ge2"], figs["e_slots_ge3"],
              figs["e_slots_ge5"]))
@@ -522,6 +534,8 @@ def report(figs):
           % (figs["e_slots_ge3_same_dir"],
              figs["obs_threads_ge3_same_dir"],
              figs["p_nslots_ge3_same_tail"]))
+    print("  E[slots >=5 same dir]        %.6f"
+          % figs["e_slots_ge5_same_dir"])
     print("  P(any slot >=5 same dir)     %.4g   tail at %d: %.4g"
           % (figs["p_any_slot_ge5_same_dir"],
              figs["obs_threads_ge5_same_dir"],

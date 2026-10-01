@@ -65,6 +65,13 @@ SUBS = [
      "(claude-haiku-4-5-20251001, claude-sonnet-4-6, gpt-5.6-terra,\n"
      "gemini-3.6-flash, deepseek-v4-flash; haiku, sonnet, gpt, gemini,\n"
      "and deepseek below),"),
+    ("arm 3 lost three model-days to account credit",
+     "the gpt arm lost three model-days to account credit"),
+    ("arms 1 and 2 lost two model-days each",
+     "the haiku and sonnet arms lost two model-days each"),
+    ("arm 4 returned HTTP 503", "the gemini arm returned HTTP 503"),
+    ("Arm 5 halted itself on 2026-09-10,",
+     "The deepseek arm halted itself on 2026-09-10,"),
     # venue: the INTERCEPT CFP asked for honest failure; WCARS did not
     ("The CFP asks for honest failure. Seven items, each a dated commit\n"
      "in the public record, each load-bearing for someone building the\n"
