@@ -73,9 +73,9 @@ SUBS = [
     ("Arm 5 halted itself on 2026-09-10,",
      "The deepseek arm halted itself on 2026-09-10,"),
     # venue: the INTERCEPT CFP asked for honest failure; WCARS did not
-    ("The CFP asks for honest failure. Seven items, each a dated commit\n"
-     "in the public record, each load-bearing for someone building the\n"
-     "same thing.",
+    ("The CFP asks for honest failure, so here are seven items, each a\n"
+     "dated commit in the public record and each load-bearing for\n"
+     "someone building the same thing.",
      "Seven items follow, each a failure of the instrument or of my\n"
      "handling of it, each a dated commit in the public record, each\n"
      "load-bearing for someone building the same thing."),

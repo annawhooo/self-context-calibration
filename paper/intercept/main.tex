@@ -461,12 +461,12 @@ Equipoise slot-days exceed the declined bands at 0.7 to 1.5 percent.}
 \subsection{Testing the concentration against the null}
 \label{sec:null}
 
-The breach count is not evidence. I say so before leaning on anything
-else. The pooled comparison with the null hides a cancellation: the
-null puts most of its mass on decisive slots that produced none and
-the rest on equipoise slots that produced all 75 (Table~\ref{tab:t1}).
-Neither null is the truth, so I report the split and lean on
-structure.
+The breach count is not evidence, and I say so before leaning on
+anything else. The pooled comparison with the null hides a
+cancellation: the null puts most of its mass on decisive slots that
+produced none and the rest on equipoise slots that produced all 75
+(Table~\ref{tab:t1}). Neither null is the truth, so I report the split
+and lean on structure.
 
 What neither null can produce is the concentration and the direction.
 Chance breaches spread; the observed 75 pile onto 17 slots, thirteen
@@ -528,17 +528,17 @@ threads and their entry counts as given.}
 \subsection{Detection without attribution}
 \label{sec:attr}
 
-Behavior moved. No recorded covariate did. The rows carry the echoed
-model id and the reasoning flag on every arm, and the host field and
-the sent temperature on the one arm whose SDK exposes them. Across
-174,033 rows\rows, each recorded covariate took one value per model on
-every row that entered a behavioral verdict. No covariate co-varied
-with any breach, because none took a second value while behavior was
-being measured. The EVENT label itself is weaker than designed, and I
-demote it: the same-day rerun certifies persistence over minutes (0.34
-to 10.15, median 1.86\rows), not the twenty the early record
-estimated. The persistence evidence is not the rerun. It is cross-day
-recurrence of exact states.
+Behavior moved, and no recorded covariate did. The rows carry the
+echoed model id and the reasoning flag on every arm, and the host
+field and the sent temperature on the one arm whose SDK exposes them.
+Across 174,033 rows\rows, each recorded covariate took one value per
+model on every row that entered a behavioral verdict. No covariate
+co-varied with any breach, because none took a second value while
+behavior was being measured. The EVENT label itself is weaker than
+designed, and I demote it: the same-day rerun certifies persistence
+over minutes (0.34 to 10.15, median 1.86\rows), not the twenty the
+early record estimated. The persistence evidence is not the rerun: it
+is cross-day recurrence of exact states.
 
 Then the one covariate that had held constant did move, and it was the
 identity itself. On 2026-09-10 arm 5's first call echoed an identity
@@ -553,9 +553,9 @@ with the response bodies committed verbatim, shows an alias that is
 silent at the API surface (no vendor notice was checked). The pinned
 id is gone from the model list, yet a request for it is still served,
 answered under the new name, with the same system fingerprint behind
-both names. No request for the pinned id was refused. This is not an
-outage, and it did not present as a deprecation; a customer pinning by
-request string would have seen nothing at all. The sequence on the
+both names. No request for the pinned id was refused, so this is not
+an outage, and it did not present as a deprecation; a customer pinning
+by request string would have seen nothing at all. The sequence on the
 record, stated without attribution: the arm's data-loss item ran nine
 breach days from Aug 17, five of them being held EVENTs, its
 excursions deepest in the four days before the name moved. Then the
@@ -563,7 +563,7 @@ behavioral record ends at 2026-09-09 with a pinned step-change counter
 suspended at two of five. Outside observation cannot say whether the
 deepening excursions before the rename were a staged rollout.
 
-The asymmetry is the operational point. A customer-side monitor can
+The asymmetry is the operational point: a customer-side monitor can
 say ``this model is not behaving as it did when qualified,'' with
 dated, reproducible evidence, but it cannot say why, and no amount of
 black-box observation fixes that~\cite{casper,cai}. The monitor's
@@ -572,7 +572,7 @@ product is a dated evidence trail, not a diagnosis.
 \subsection{Temporal phenotypes}
 \label{sec:pheno}
 
-Outside the focal threads, no model moves. On quiet equipoise slots,
+Outside the focal threads, no model moves: on quiet equipoise slots,
 mean observed TVD sits within $+0.011$ of the exact expectation under
 a stationary baseline on all five models, once the expectation charges
 for probe sampling and baseline estimation noise together. Per model:
@@ -617,11 +617,11 @@ through its 46 probe days: two transient breaches on two different
 items, and neither survived its same-day rerun. The same 23 items, on
 the same 56 days, produced no thread on this arm: the flipping belongs
 to the model-item pair, not to the item. Per-call determinism is not
-temporal stability. Of the four models that answer most consistently
+temporal stability: of the four models that answer most consistently
 within a day (modal share 0.97 to 0.99), three flipped between days;
 the other, arm 4 at 0.99, sat near-frozen.
 
-Format rides along as an independent observable. On the
+Format rides along as an independent observable: on the
 vulnerability-gating item, answer state and response format flip in
 lockstep: 567 of 580 rows are either a terse 9-character A or a
 687-to-1,421-character reasoned D\rows. The fraud-scoring item flips
@@ -633,12 +633,12 @@ reported descriptively.
 \section{What the instrument got wrong}
 \label{sec:wrong}
 
-The CFP asks for honest failure. Seven items, each a dated commit
-in the public record, each load-bearing for someone building the
-same thing.
+The CFP asks for honest failure, so here are seven items, each a dated
+commit in the public record and each load-bearing for someone building
+the same thing.
 
 \begin{enumerate}
-\item[(a)] The false-alarm arithmetic was wrong first. I estimated 3.4
+\item[(a)] The false-alarm arithmetic was wrong first: I estimated 3.4
   chance breaches per day by treating p99 as an exact exceedance rate;
   on a discrete statistic at $K{=}10$ it is not. Exact enumeration
   corrected it to 1.64 (smoothed truth) and 0.05 (empirical truth);
@@ -683,25 +683,25 @@ same thing.
   quantities that are exact rationals, and the summation path decided
   real verdicts. A bit-faithful census (committed script) finds 10 of
   the 75 entries fired on exact at-band equalities the float path read
-  as strictly above, from both sides of the comparison. Zero breaches
-  were missed. One item verdict flipped at the rerun gate, an EVENT
-  that is a TRANSIENT under exact arithmetic. Six of the day verdicts
-  change: five TRANSIENT to CLEAN and the record's only UNSTABLE to
-  CLEAN. The verdict log stands as recorded. Every headline claim
-  survives both semantics in kind, and the false-breach null moves in
-  step (Table~\ref{tab:t3}). The instrument moves to exact integer
-  comparison after submission, no earlier than a pre-registered date.
-\item[(g)] The monitor had gaps of its own. Twenty-one model-days
-  in 56 failed on availability: three to exhausted API credit, four to
-  a credential rotation (two arms, two days), nine to one vendor's
-  HTTP 503 responses, five to a local network outage on a single day.
-  After the first two losses I added a pre-probe live-request check
-  (one call per vendor at 06:00, hours before the probe); it tests
-  keys by calling and would have caught both. It did not catch the
-  vendor 503s, because the bank ran four attempts at the scheduled
-  13:00 UTC hour and then nothing until the next day; a monitor that
-  matters should retry at a second scheduled hour, and this one did
-  not.
+  as strictly above, from both sides of the comparison, and zero
+  breaches were missed. One item verdict flipped at the rerun gate, an
+  EVENT that is a TRANSIENT under exact arithmetic. Six of the day
+  verdicts change: five TRANSIENT to CLEAN and the record's only
+  UNSTABLE to CLEAN. The verdict log stands as recorded, every
+  headline claim survives both semantics in kind, and the false-breach
+  null moves in step (Table~\ref{tab:t3}). The instrument moves to
+  exact integer comparison after submission, no earlier than a
+  pre-registered date. \item[(g)] The monitor had gaps of its own:
+  twenty-one model-days in 56 failed on availability, three to
+  exhausted API credit, four to a credential rotation (two arms, two
+  days), nine to one vendor's HTTP 503 responses, five to a local
+  network outage on a single day. After the first two losses I added a
+  pre-probe live-request check (one call per vendor at 06:00, hours
+  before the probe); it tests keys by calling and would have caught
+  both. It did not catch the vendor 503s, because the bank ran four
+  attempts at the scheduled 13:00 UTC hour and then nothing until the
+  next day; a monitor that matters should retry at a second scheduled
+  hour, and this one did not.
 \end{enumerate}
 
 \begin{table}[t]
