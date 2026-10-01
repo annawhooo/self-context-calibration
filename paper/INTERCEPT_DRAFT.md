@@ -577,8 +577,9 @@ not shrink with K (item b), so they stay at 0.40 or above and their
 alarms are read as regime signals, not degradation.
 
 Treat snapshot evaluation as day-certification. A passed eval
-certifies the day it ran. Period assurance requires a monitor in the
-loop, and the monitor defines the compensating control. When a slot flags, five actions follow.
+certifies the day it ran, so period assurance requires a monitor in
+the loop, and the monitor defines the compensating control. When a
+slot flags, five actions follow:
 
 1. Re-run the acceptance tests of every pipeline that depends on
    that model.
@@ -597,22 +598,21 @@ probed model-days non-CLEAN, and 3.7 EVENT model-days per seven probe
 days. Every entry landed on one of 17 slots, 14 of which repeated, so
 triage cost is dominated by known threads, not new ones.
 
-Re-baseline without discarding. When a monitored slot settles into
-a new state and the alarm channel turns into a daily repeat of the
-same event, do not choose between the old reference and the new
-one; keep both. Move the alarm to the new reference, preserve the
-original in the same record, and pre-register the return criterion
-before any new-regime data accrues. Mechanically: two same-day K
-samples of the one item (20 calls), accepted only if the run pair
-sits inside its own band and the new reference sits outside the old
-one; the old reference governs through the re-baseline day, the new
-one from the next. The first use of this pattern ran its full loop
-inside the record: rule fired, re-baseline the same day, return
-detected on post-rebaseline day 10, pre-registered revision
-committed the same day as detection, six more return days after
-that (3.1.1). A bare re-baseline would have converted a slow
-alternator into a permanent misclassification. The preserved
-reference is what caught the return.
+Re-baseline without discarding. When a monitored slot settles into a
+new state and the alarm channel turns into a daily repeat of the same
+event, do not choose between the old reference and the new one; keep
+both. Move the alarm to the new reference, preserve the original in
+the same record, and pre-register the return criterion before any
+new-regime data accrues. Mechanically: two same-day K samples of the
+one item (20 calls), accepted only if the run pair sits inside its own
+band and the new reference sits outside the old one; the old reference
+governs through the re-baseline day, the new one from the next. The
+first use of this pattern ran its full loop inside the record: rule
+fired, re-baseline the same day, return detected on post-rebaseline
+day 10, pre-registered revision committed the same day as detection,
+six more return days after that (3.1.1). A bare re-baseline would have
+converted a slow alternator into a permanent misclassification, and
+the preserved reference is what caught the return.
 
 Pin by served identity, not by request string. The request id is an
 input; the identity that answers is an observation, and they can
@@ -625,14 +625,15 @@ halt as an event: that converted a silent alias into a dated detection
 at first contact. On divergence, re-qualify the new identity as a new
 arm with its own baseline and bands, never as a continuation, and
 re-verify every pinned request flag (reasoning mode, temperature)
-against the new name. A rename can carry a configuration change the
-request no longer binds. I left the arm halted through the freeze, 16
-halted days, to keep the instrument byte-constant for this paper.
+against the new name, because a rename can carry a configuration
+change the request no longer binds. I left the arm halted through the
+freeze, 16 halted days, to keep the instrument byte-constant for this
+paper.
 
 Budget for the monitor's own gaps. Credit, credentials, vendor
 availability, and my own network each took days out of this record, 21
 model-days in 56 (item g). Alarm on a missing probe the way you alarm
-on a breach. A monitor that did not run observed nothing, and a day
+on a breach: a monitor that did not run observed nothing, and a day
 with no observation is an ERROR line, not a CLEAN one.
 
 Know what the tool cannot do. Detection is not attribution. Detection
@@ -669,36 +670,37 @@ mechanism for silent behavioral variation is documented in
 
 ### 7. Limitations and reproducibility
 
-One bank, five models, one scaffold, 56 days. The phenotypes are
-observed styles, not vendor properties. Slots within a model-day share
-a scaffold, so day-level counts are overdispersed and the per-slot
-recurrence statistics carry the independence caveat stated in 3.3. The
-detection floor at K=10 is a five-of-ten answer shift, so sub-floor
-movement is invisible and decisive-class stability is bounded, not
-proven. The baseline is one day, and a multi-day baseline would have
-characterized two-state items before the bands were pinned; the
-pooled-record tails in section 3.1 are the check that the finding does
-not depend on which state the baseline day caught. The instrument
-reports change, not degradation: 82 of 115 equipoise slots were
-unanimous at baseline, so the frozen reference may itself be the
-excursion (section 4, item c). The strict inequality at the band is
-load-bearing, and its float implementation decided ten at-band entries
-(item f, T3); the null tails are reported under the as-recorded
-semantics only. The null is a choice, not a fact: the smoothed and
-empirical baselines put the same concentration at 5.1e-32 and 0.087,
-and the direction rows condition on the observed threads (section 3.3,
-T1). One arm's behavioral record ends on day 39 by its own tripwire,
-and another arm's availability failed for the last eight days of the
-window; the per-model probe-day counts are 53, 53, 52, 46, and 39. The
-per-call rows that carry response text are retained but not published,
-so the rerun-gap, format, and covariate constancy numbers marked
-[rows] that derive from them are also unpublished; everything else is
-published. Cost and cadence are modest by design; the instrument
-trades sensitivity for a false-alarm budget one person can staff. Of
-the six pre-registered rules one fired, four never did, and one is
-suspended; two pins carry a registration caveat (section 3.1.1).
-Covariate constancy is claimed over the recorded fields only: echoed
-id and reasoning flag on every arm, host and sent temperature on one.
+The record is one bank, five models, one scaffold, and 56 days, so the
+phenotypes are observed styles, not vendor properties. Slots within a
+model-day share a scaffold, so day-level counts are overdispersed and
+the per-slot recurrence statistics carry the independence caveat
+stated in 3.3. The detection floor at K=10 is a five-of-ten answer
+shift, so sub-floor movement is invisible and decisive-class stability
+is bounded, not proven. The baseline is one day, and a multi-day
+baseline would have characterized two-state items before the bands
+were pinned; the pooled-record tails in section 3.1 are the check that
+the finding does not depend on which state the baseline day caught.
+The instrument reports change, not degradation: 82 of 115 equipoise
+slots were unanimous at baseline, so the frozen reference may itself
+be the excursion (section 4, item c). The strict inequality at the
+band is load-bearing, and its float implementation decided ten at-band
+entries (item f, T3); the null tails are reported under the
+as-recorded semantics only. The null is a choice, not a fact: the
+smoothed and empirical baselines put the same concentration at 5.1e-32
+and 0.087, and the direction rows condition on the observed threads
+(section 3.3, T1). One arm's behavioral record ends on day 39 by its
+own tripwire, and another arm's availability failed for the last eight
+days of the window; the per-model probe-day counts are 53, 53, 52, 46,
+and 39. The per-call rows that carry response text are retained but
+not published, so the rerun-gap, format, and covariate constancy
+numbers marked [rows] that derive from them are also unpublished;
+everything else is published. Cost and cadence are modest by design;
+the instrument trades sensitivity for a false-alarm budget one person
+can staff. Of the six pre-registered rules one fired, four never did,
+and one is suspended; two pins carry a registration caveat (section
+3.1.1). Covariate constancy is claimed over the recorded fields only:
+echoed id and reasoning flag on every arm, host and sent temperature
+on one.
 
 The full instrument is reproducible: item bank, baselines, bands,
 seeds, verdict log, derived daily counts, analysis scripts, and every
