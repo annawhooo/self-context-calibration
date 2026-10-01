@@ -176,9 +176,9 @@ Six terms recur.
 - **dwell**: a run of consecutive observed days in one state.
 
 A day's probe compares each slot's observed distribution to its
-baseline. TVD is half the sum of absolute differences in option share;
-the halving is because the share that leaves one option arrives at
-another, so the raw sum counts every move twice. Against the
+baseline, and TVD is half the sum of absolute differences in option
+share; the halving is because the share that leaves one option arrives
+at another, so the raw sum counts every move twice. Against the
 fraud-scoring baseline 8/12/0/0 (shares 0.4, 0.6, 0, 0), the Aug 3
 probe of 10/0/0/0 (shares 1, 0, 0, 0) gives 0.5(0.6 + 0.6) = 0.6: six
 of ten answers moved, above that slot's 0.40 band, a breach. A breach
@@ -188,8 +188,8 @@ the baseline is an EVENT, matching the baseline back is TRANSIENT,
 matching neither is UNSTABLE. Every response row records the echoed
 model id; a divergent echo halts collection for that model at the
 first call (ECHO_CHANGE, exercised from day 40 of the record onward;
-section 3.4). One verdict line per model per day, appended to a
-committed log. Each line carries the day verdict and, per breached
+section 3.4). One verdict line per model per day is appended to a
+committed log, and each line carries the day verdict and, per breached
 item, the observed TVD, the band, the rerun's TVD to the probe and to
 the baseline, and the item verdict. The verdict grammar is CLEAN,
 EVENT, TRANSIENT, UNSTABLE, ECHO_CHANGE, ERROR. I declared the
@@ -276,7 +276,7 @@ carry away runs of 8 to 12 observed days that breached on at most two
 days each. Short dwell is the norm: the gpt disclosure-timing item,
 unanimous at baseline, never held an excursion past a single day in 52
 observed, and its unanimous patch-timing sibling never past two. The
-same-day rerun gives a lower bound on within-state persistence. Across
+same-day rerun gives a lower bound on within-state persistence: across
 the record the gap from the last probe sample of a breached item to
 its first rerun sample is 0.34 to 10.15 minutes, median 1.86 [rows].
 The rerun reproduced the probe vector exactly on 8 of the 75 entries.
@@ -349,25 +349,25 @@ description of where this instrument can see movement, not a
 significance claim.
 
 This claim has a ceiling, and the ceiling is the instrument's
-resolution. At K=10 the bands sit near TVD 0.4 regardless of item
-distribution. A breach therefore needs five of ten samples to change
-category on 339 of the 340 slots under the written strict-inequality
-rule (the one slot with a 0.50 band needs six); the monitor's float
-path breaches at a lower lattice TVD on 24 mixed-baseline slots
-(section 4, item f). All but four of the 225 decisive slots sit
-unanimous at baseline (the four are one vendor's 16-of-20 and 19-of-20
-splits); registering movement there requires close to an outright
-answer flip. Decisive silence is an instrument ceiling, not
-demonstrated stability. What the decisive record does show is how
-little those slots move. The maximum decisive slot-day TVD in 11,057
-slot-days was 0.30, reached twice, and no other slot-day exceeded 0.20
-in exact arithmetic; 28 sat exactly at 0.20, five of which the float
-path reads as above 0.20. The nonzero decisive value at band 0.30 in
-F3 counts those two slot-days, which the float path reads as above
-0.30 (section 4, item f); in exact arithmetic no decisive slot-day
-exceeds 0.30. The defensible claim is that detectable movement lives
-on contested judgment, and clear-cut behavior stayed frozen at the
-resolution this instrument has.
+resolution: at K=10 the bands sit near TVD 0.4 regardless of item
+distribution, so a breach needs five of ten samples to change category
+on 339 of the 340 slots under the written strict-inequality rule (the
+one slot with a 0.50 band needs six); the monitor's float path
+breaches at a lower lattice TVD on 24 mixed-baseline slots (section 4,
+item f). All but four of the 225 decisive slots sit unanimous at
+baseline (the four are one vendor's 16-of-20 and 19-of-20 splits);
+registering movement there requires close to an outright answer flip.
+Decisive silence is an instrument ceiling, not demonstrated stability,
+and what the decisive record does show is how little those slots move.
+The maximum decisive slot-day TVD in 11,057 slot-days was 0.30,
+reached twice, and no other slot-day exceeded 0.20 in exact
+arithmetic; 28 sat exactly at 0.20, five of which the float path reads
+as above 0.20. The nonzero decisive value at band 0.30 in F3 counts
+those two slot-days, which the float path reads as above 0.30 (section
+4, item f); in exact arithmetic no decisive slot-day exceeds 0.30. The
+defensible claim is that detectable movement lives on contested
+judgment, and clear-cut behavior stayed frozen at the resolution this
+instrument has.
 
 #### 3.3 Testing the concentration against the null
 
