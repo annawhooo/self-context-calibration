@@ -87,3 +87,12 @@ probe/CORRECTIONS_2026-09-06.md.
   applied. Added 2026-09-30 after the operator caught, in a cover
   email, the same patterns she had already caught in the paper, and
   after four claims of "checked" turned out to be reads.
+- Any style rule the operator states qualitatively (staccato,
+  awkward, too long) is operationalized only with a number she
+  chose. The first time a rule is tested, the message proposes the
+  threshold and waits; every later report names the threshold next
+  to the result ("no runs of three sentences under 12 words")
+  rather than restating her rule as met. Added 2026-10-01 after the
+  staccato check was pinned at three-in-a-row, reported as "no
+  staccato" across four passes, and the operator found the pairs
+  on four compiled pages herself.
