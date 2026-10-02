@@ -1,0 +1,3 @@
+# Raw watch rows embed full model replies, and the task log lands here
+# too. The committed record is daily_counts.jsonl (counts only).
+rows/
