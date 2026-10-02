@@ -58,3 +58,41 @@ probe/CORRECTIONS_2026-09-06.md.
   any change under probe/scripts/ or probe/monitor/.
 - Claude sessions never merge PRs in this repo unless the operator
   explicitly asks in the session, and never force-push.
+- Wording, sentences, and decisions the operator chose in a session
+  are not removed, reworded, or reverted by a later edit (a trim, a
+  fluency pass, a rewrite) without telling her first, in the same
+  message, before the change is made. Before proposing any edit to
+  text she has already reviewed, diff the proposal against the
+  record of her choices and list every one it would touch. Added
+  2026-09-30 after a trim silently undid five approved abstract
+  edits.
+- Any prose drafted for the operator (paper text, dated notes,
+  cover emails, abstracts, form answers) is run through
+  paper/scripts/prose_check.py before it is shown to her, with the
+  draft saved to a file, the command and its output in the session,
+  and every finding resolved or named as deliberate in the message
+  that presents the draft. The script enumerates pronouns and
+  demonstratives with their nearest noun, elided objects, bare
+  verbs, staccato runs, sentence-initial contractions, em dashes,
+  and numbers absent from the paper. Reading a draft is not
+  checking it. "Checked" or "verified" in a message to her means a
+  command ran or an agent's structured output was counted, and the
+  message says which; anything only read is reported as only read.
+  Style rules the script cannot test (no term of art before its
+  definition, a contrast takes its conjunction, one thought is one
+  sentence, a negation may stand alone before its payoff, every
+  claim scoped to the check run, the number the reader will ask
+  about is in the sentence with its unit, formal salutation on a
+  first professional send) are listed in the presenting message as
+  applied. Added 2026-09-30 after the operator caught, in a cover
+  email, the same patterns she had already caught in the paper, and
+  after four claims of "checked" turned out to be reads.
+- Any style rule the operator states qualitatively (staccato,
+  awkward, too long) is operationalized only with a number she
+  chose. The first time a rule is tested, the message proposes the
+  threshold and waits; every later report names the threshold next
+  to the result ("no runs of three sentences under 12 words")
+  rather than restating her rule as met. Added 2026-10-01 after the
+  staccato check was pinned at three-in-a-row, reported as "no
+  staccato" across four passes, and the operator found the pairs
+  on four compiled pages herself.

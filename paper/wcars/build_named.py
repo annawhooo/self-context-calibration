@@ -1,0 +1,118 @@
+"""Build the named (non-blind) WCARS submission from the INTERCEPT
+source. Reads paper/intercept/main.tex, reverses the blind-review
+fallback of 2026-09-29 (paper/intercept/SUBMISSION_FORM.md, decision
+2), swaps in the author block and the artifact sentence, and writes
+paper/wcars/main.tex. Copies the public figures from paper/figures/out.
+The named refs.bib in this directory is committed, not generated. Run:
+
+  python paper/wcars/build_named.py
+
+Edits flow one way: INTERCEPT source to WCARS build, never back.
+"""
+import os
+import re
+import shutil
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.normpath(os.path.join(HERE, os.pardir, os.pardir))
+SRC = os.path.join(REPO, "paper", "intercept", "main.tex")
+OUT = os.path.join(HERE, "main.tex")
+
+AUTHOR = ("\\author{\\IEEEauthorblockN{Anna Hix}\n"
+          "\\IEEEauthorblockA{Independent researcher\\\\hix.anna@gmail.com}}")
+
+# Reverse of the 2026-09-29 fallback, in roster order: arm 1 haiku,
+# arm 2 sonnet, arm 3 gpt, arm 4 gemini, arm 5 deepseek. Each pair
+# must match exactly once.
+SUBS = [
+    ("on the arm 1 thread alone", "on the haiku thread alone"),
+    ("Short dwell is the norm: the arm 3\ndisclosure-timing item",
+     "Short dwell is the norm: the gpt\ndisclosure-timing item"),
+    ("fraud-scoring item on arm 2, with the frozen pooled",
+     "fraud-scoring item on the sonnet arm, with the frozen pooled"),
+    ("the arm 1 spend-anomaly item as alternation on",
+     "the haiku spend-anomaly item as alternation on"),
+    ("I pinned four more rules on arm 3 threads",
+     "I pinned four more rules on gpt threads"),
+    ("A fifth rule, on the arm 5 data-loss item",
+     "A fifth rule, on the deepseek data-loss item"),
+    ("On 2026-09-10 arm 5's first call echoed an identity\n"
+     "string that dropped the version segment of the pinned id. The\n"
+     "tripwire halted collection at one",
+     "On 2026-09-10 the deepseek arm's first call echoed\n"
+     "\\texttt{deepseek-flash} against the pinned\n"
+     "\\texttt{deepseek-v4-flash}. The tripwire halted collection at one"),
+    ("Per model: arm 1 $+0.000$, arm 2 $+0.005$, arm 3\n"
+     "$+0.006$, arm 4 $+0.009$, arm 5 $+0.011$.",
+     "Per model: haiku $+0.000$, sonnet $+0.005$, gpt\n"
+     "$+0.006$, gemini $+0.009$, deepseek $+0.011$."),
+    ("Arms 1, 2, and 3 are\ncommit-and-flip:",
+     "The two Claude models and gpt are\ncommit-and-flip:"),
+    ("The arm 1 thread is commit-and-flip at week",
+     "The haiku thread is commit-and-flip at week"),
+    ("Arm 5 shows sampling noise with wander:",
+     "Deepseek shows sampling noise with wander:"),
+    ("Arm 4 sat near-frozen through its 46",
+     "Gemini sat near-frozen through its 46"),
+    ("the other, arm 4\nat 0.99, sat near-frozen.",
+     "the other, gemini\nat 0.99, sat near-frozen."),
+    ("When arm 5's model tier changed the name it answered under",
+     "When the deepseek flash tier changed the name it answered under"),
+    ("fraud-scoring item of Section~\\ref{sec:osc} on arm 2 carries",
+     "fraud-scoring item of Section~\\ref{sec:osc} on the sonnet arm carries"),
+    ("The bank runs against five production models, one pinned arm each,",
+     "The bank runs against five production models, one pinned arm each\n"
+     "(claude-haiku-4-5-20251001, claude-sonnet-4-6, gpt-5.6-terra,\n"
+     "gemini-3.6-flash, deepseek-v4-flash; haiku, sonnet, gpt, gemini,\n"
+     "and deepseek below),"),
+    ("arm 3 lost three model-days to account credit",
+     "the gpt arm lost three model-days to account credit"),
+    ("arms 1 and 2 lost two model-days each",
+     "the haiku and sonnet arms lost two model-days each"),
+    ("arm 4 returned HTTP 503", "the gemini arm returned HTTP 503"),
+    ("Arm 5 halted itself on 2026-09-10,",
+     "The deepseek arm halted itself on 2026-09-10,"),
+    # venue: the INTERCEPT CFP asked for honest failure; WCARS did not
+    ("The CFP asks for honest failure, so here are seven items, each a\n"
+     "dated commit in the public record and each load-bearing for\n"
+     "someone building the same thing.",
+     "Seven items follow, each a failure of the instrument or of my\n"
+     "handling of it, each a dated commit in the public record, each\n"
+     "load-bearing for someone building the same thing."),
+    # blind-review apparatus
+    ("The artifact is public, but the link is withheld from this\n"
+     "submission for blind review and supplied on acceptance.",
+     "The artifact is available on request until 2026-10-31, and\n"
+     "public after."),
+]
+
+
+def main():
+    s = open(SRC, encoding="utf-8").read()
+    # normalize the wrapped source so the multi-line pairs above match
+    # regardless of where the 70-column wrap fell
+    def flex(t):
+        return r"\s+".join(re.escape(w) for w in t.split())
+    for old, new in SUBS:
+        m = list(re.finditer(flex(old), s))
+        assert len(m) == 1, (len(m), old[:60])
+        s = s[:m[0].start()] + new + s[m[0].end():]
+    # author block
+    m = re.search(r"\\author\{.*?\}\}", s, flags=re.S)
+    assert m and "Blind submission" in m.group(0)
+    s = s[:m.start()] + AUTHOR + s[m.end():]
+    # header comment
+    s = re.sub(r"^% review: no author name.*$",
+               "% named build for WCARS, generated by paper/wcars/build_named.py",
+               s, count=1, flags=re.M)
+    assert not re.search(r"\b[Aa]rms? [1-5]\b", s), "arm label survived"
+    open(OUT, "w", encoding="utf-8").write(s)
+    for f in ("f1_regime_map", "f2_recurrence_strip",
+              "f3_false_alarm_curve", "f4_phenotype_grid"):
+        shutil.copyfile(os.path.join(REPO, "paper", "figures", "out", f + ".pdf"),
+                        os.path.join(HERE, "figures", f + ".pdf"))
+    print("wrote paper/wcars/main.tex and four figures")
+
+
+if __name__ == "__main__":
+    main()

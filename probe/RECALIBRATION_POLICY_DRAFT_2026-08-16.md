@@ -1,9 +1,9 @@
-# DRAFT: pre-registered recalibration policy (DESIGN_LIMITATIONS fix 2)
+# Pre-registered recalibration policy (DESIGN_LIMITATIONS fix 2)
 
-Status: DRAFT, not in force. This policy binds nothing until the
-operator adopts it by commit; adoption before the effective date is
-what makes it a pre-registration. Drafted 2026-08-16 from the
-measured between-day variance of the first twelve probe days
+Status: ADOPTED 2026-10-02 by commit, effective 2026-10-13
+(DECISIONS_2026-10-02.md, sections 1 and 2). Adoption before the
+effective date is what makes it a pre-registration. Drafted 2026-08-16
+from the measured between-day variance of the first twelve probe days
 (2026-08-02 to 2026-08-13), working analysis verified by independent
 recomputation.
 
@@ -33,9 +33,10 @@ Measured on the 327 quiet slots of the twelve-day window:
 
 ## The rule, pinned
 
-1. EFFECTIVE DATE: no earlier than 2026-10-02. The instrument stays
-   byte-constant through the INTERCEPT data freeze (2026-09-26) and
-   submission. The operator picks the exact date at adoption.
+1. EFFECTIVE DATE: 2026-10-13, picked by the operator at adoption
+   on 2026-10-02 (no earlier than 2026-10-02, as drafted). The
+   instrument stayed byte-constant through the INTERCEPT data freeze
+   (2026-09-26) and submission.
 2. DECISIVE BANDS: on the effective date, for every decisive-class
    item record in probe/monitor/baselines/*.json, set
    band.p99 := min(band.p99, 0.25) and record

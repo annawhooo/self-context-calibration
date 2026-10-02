@@ -111,3 +111,14 @@ written.
 3. Artifact link and searchability: the repository is set private
    until the 2026-10-31 notification. No mirror. The link is
    supplied on acceptance, as the last section above already says.
+
+## Submitted 2026-10-01
+
+Submitted by the operator at aarm.dev as Paper #19, status
+PENDING REVIEW, locked for review. Track Defenders, 25 minute case
+study, the three sections above pasted as written, PDF compiled
+from main.tex at commit 2909e27 (blind scrub in session: no
+identity string, empty metadata, 0.39 MB, 9 pages). The WCARS
+named variant was emailed to the program chair on 2026-09-30 from
+commit 957bf27 and the submission confirmed on 2026-10-01. The
+repository is private until the 2026-10-31 notification.
