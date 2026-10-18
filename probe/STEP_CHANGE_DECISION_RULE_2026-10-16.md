@@ -7,9 +7,9 @@ operator or assistant; otherwise it is void and gets redrafted with a
 later start date. Companions: STEP_CHANGE_CANDIDACY_2026-10-16.md
 (which opened the decision this note takes),
 STEP_CHANGE_DECISION_RULE_2026-09-14.md (the definitions reused here),
-REBASELINE_DECISION_2026-08-23.md (the dual-reference mechanism and
-the form of the return criterion), SLOW_ALTERNATION_REVISION_2026-09-02.md
-(the dwell that sets the threshold), DEVIATIONS_2026-10-16.md (D1,
+REBASELINE_DECISION_2026-08-23.md (the dual-reference mechanism),
+SLOW_ALTERNATION_REVISION_2026-09-02.md (the dwell that sets the
+threshold), DEVIATIONS_2026-10-16.md (D1,
 whose recompute also writes baseline files), DESIGN_LIMITATIONS.md
 (Limitation 4), and REPORTING_COMMITMENT.md.
 
@@ -59,9 +59,7 @@ arithmetic is the monitor's as stored on the day.
 3. RESET: a HOME day resets the count to zero and terminates nothing.
    The first HOME day on or after 2026-10-17 also gets a dated note
    reporting the episode's observed dwell.
-4. SUSPENSION: if the monitor's echo tripwire halts this model's arm,
-   the count stops with the arm.
-5. The rule stands until the threshold is reached or a dated note
+4. The rule stands until the threshold is reached or a dated note
    retires the rule.
 
 ## Threshold derivation
@@ -80,16 +78,6 @@ SLOW_ALTERNATION_REVISION_2026-09-02.md records for the same item. The
 next longest are 12 (deepseek-v4-flash eq_alert_spend_anomaly) and 10
 (gpt-5.6-terra eq_alert_fraud_scoring). 16 plus 2 is 18. With no
 missing days, the 18th observed day is 2026-11-03.
-
-## The return criterion, pinned now for the re-baselined state
-
-If rule clause 2 executes, a RETURN day is a probe day after the
-re-baseline with BOTH TVD at or below 0.40 against the superseded
-2026-08-02 reference AND unique modal A, a tie counting as
-not-returned. The criterion mirrors the haiku criterion. probe/scripts/
-return_watch.py is the mechanical check. The consequence of a RETURN
-day is a dated note revising the classification to alternation and a
-re-examination of the re-baseline as a dated operator decision.
 
 ## Interaction with D1
 
