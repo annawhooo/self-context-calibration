@@ -171,6 +171,8 @@ STEP_CHANGE_DECISION_RULE_2026-09-14.md and
 probe/monitor/baselines/gpt-5.6-terra.json. The daily classification
 from 2026-10-17 is the gpt-5.6-terra / eq_disclosure_timing block of
 probe/scripts/step_change_watch.py once that script implements clause
-3 and carries threshold 18 and count_from 2026-10-17. The dwell figures
-and the evaluation come from session computations over the committed
-daily counts through 2026-10-15.
+3 and carries threshold 18 and count_from 2026-10-17. The evaluation is
+reproduced by python probe/scripts/wait_rule_sim.py, which reads the
+committed daily counts through 2026-10-15 only, uses fixed seeds, and
+prints every computed figure in the evaluation section. The dwell figures come
+from a session computation over the same daily counts.
